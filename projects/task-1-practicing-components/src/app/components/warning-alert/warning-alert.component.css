@@ -1,0 +1,7 @@
+p {
+	color: rgb(131, 0, 0);
+	font-weight: bold;
+	padding: 20px;
+	background-color: lightcoral;
+	border: 5px solid rgb(173, 55, 55);
+}
