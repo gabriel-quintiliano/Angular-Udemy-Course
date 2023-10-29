@@ -1,0 +1,14 @@
+<div class="container">
+	<div class="row">
+		<p [ngStyle]="{backgroundColor: 'black'}"> {{ "[ngStyle]=\"{backgroundColor: 'black'}\"" }} </p>
+		<p [ngStyle]="{'background-color': 'green'}"> {{ "[ngStyle]=\"{'background-color': 'green}\"" }} </p>
+		<p [ngStyle]="boolValue ? {'background-color': 'green'} : {'background-color': 'black'}">
+			{{"[ngStyle]=\"boolValue ? {'background-color': 'green'} : {'background-color': 'black'}\"" }} </p>
+		<p [ngStyle]="returnTernary()"> {{ "[ngStyle]=\"returnTernary()\" (returns a ternary just like the one above )"
+			}} </p>
+		<div class="col-3">
+			<button type="button" (click)="boolValue=false">set boolValute to false</button>
+			<button type="button" (click)="boolValue=true">set boolValue to true</button>
+		</div>
+	</div>
+</div>
