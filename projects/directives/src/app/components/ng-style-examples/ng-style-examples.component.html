@@ -1,5 +1,8 @@
 <div class="container">
 	<div class="row">
+		<p [ngStyle]="{'background-color': boolValue ? 'green' : 'black'}">
+			{{"[ngStyle]=\"{'background-color': boolValue ? 'green' : 'black'}\""}} </p>
+		<br>
 		<p [ngStyle]="{backgroundColor: 'black'}"> {{ "[ngStyle]=\"{backgroundColor: 'black'}\"" }} </p>
 		<p [ngStyle]="{'background-color': 'green'}"> {{ "[ngStyle]=\"{'background-color': 'green}\"" }} </p>
 		<p [ngStyle]="boolValue ? {'background-color': 'green'} : {'background-color': 'black'}">
