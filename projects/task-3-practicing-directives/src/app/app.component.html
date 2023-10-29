@@ -1,13 +1,43 @@
 <div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <ol>
-        <li>Add A button which says 'Display Details'</li>
-        <li>Add a paragraph with any content of your choice (e.g. 'Secret Password = tuna')</li>
-        <li>Toggle the displaying of that paragraph with the button created in the first step</li>
-        <li>Log all button clicks in an array and output that array below the secret paragraph (maybe log a timestamp or simply an incrementing number)</li>
-        <li>Starting at the 5th log item, give all future log items a blue background (via ngStyle) and white color (ngClass)</li>
-      </ol>
-    </div>
-  </div>
+	<div class="row">
+		<div class="col-xs-12">
+			<ol>
+				<li>Add A button which says 'Display Details'</li>
+				<li>Add a paragraph with any content of your choice (e.g. 'Secret Password = tuna')</li>
+				<li>Toggle the displaying of that paragraph with the button created in the first step</li>
+				<li>Log all button clicks in an array and output that array below the secret paragraph (maybe log a
+					timestamp or simply an incrementing number)</li>
+				<li>Starting at the 5th log item, give all future log items a blue background (via ngStyle) and white
+					color (ngClass)</li>
+			</ol>
+
+			<br>
+			<hr><br>
+			<button type="button" (click)="onDisplayButtonClick()">Display
+				Details</button>
+			<p *ngIf="showParagraph">'Secret Password = tuna'</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-6">
+			<p style="font-weight: bold;">Approach with ng-template and ngFor directive within (more robust)</p>
+
+			<!-- using ngFor within ng-template it can all organized more efficiently and you can perform expressions
+			using index still on the ngFor before assigning it to an alias to be used in the template -->
+			<ng-template ngFor let-timestamp [ngForOf]="clickTimestamps" let-i="index + 1">
+				<span [ngStyle]="i >= 5 ? {'background-color': 'blue'} : {}" [ngClass]="{whiteColor: i >= 5}">{{i}}.
+					{{timestamp}}</span>
+			</ng-template>
+		</div>
+		<div class="col-6">
+			<p style="font-weight: bold;">Approach with *ngFor directive as elements attribute (cleaner but less robust)</p>
+
+			<!-- using *ngFor directly on the element makes it easier to write and reade the *ngFor expression
+				but you can't perform expressions using index still on the *ngFor before assigning it to an alias -
+				something related to the as keyword - you can only manipulate the index via its alias in the template -->
+			<span [ngStyle]="i >= 4 ? {backgroundColor: 'blue'} : {}" [ngClass]="{whiteColor: i >= 4}" *ngFor="let timestamp of clickTimestamps; index as i">
+				{{i +1}}.{{timestamp}}
+			</span>
+		</div>
+	</div>
 </div>
