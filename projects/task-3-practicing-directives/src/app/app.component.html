@@ -34,7 +34,8 @@
 
 			<!-- using *ngFor directly on the element makes it easier to write and reade the *ngFor expression
 				but you can't perform expressions using index still on the *ngFor before assigning it to an alias -
-				something related to the as keyword - you can only manipulate the index via its alias in the template -->
+				something related to the as keyword, though you can also use let i = index (with this same limitation)
+				- you can only manipulate the index via its alias in the template -->
 			<span [ngStyle]="i >= 4 ? {backgroundColor: 'blue'} : {}" [ngClass]="{whiteColor: i >= 4}" *ngFor="let timestamp of clickTimestamps; index as i">
 				{{i +1}}.{{timestamp}}
 			</span>

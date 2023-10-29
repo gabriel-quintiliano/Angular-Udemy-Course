@@ -10,18 +10,11 @@ export class AppComponent {
 	showParagraph = false;
 	clickTimestamps: string[] = [];
 
-	// For use inside ngStyle
-	spanDisplayType = 'block';
-
-
 	onDisplayButtonClick() {
 
 		this.clickTimestamps.push((new Date()).toString())
 
-		if (this.showParagraph) {
-			this.showParagraph = false;
-		} else {
-			this.showParagraph = true;
-		}
+		// easiest way to toggle a boolean value - the new value is the opposite of the current value
+		this.showParagraph = !this.showParagraph
 	}
 }
