@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Ingredient } from "../../models/ingredient.model";
 
 @Component({
 	selector: 'app-shopping-list',
@@ -7,5 +8,7 @@ import { Component } from "@angular/core";
 })
 
 export class ShoppingListComponent {
-
+	ingredients: Ingredient[] = [
+		new Ingredient('batata', 1, 'un'),
+	];
 }

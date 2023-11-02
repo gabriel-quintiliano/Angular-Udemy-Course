@@ -2,6 +2,12 @@
 	<div class="col-xs-10">
 		<app-shopping-list-edit></app-shopping-list-edit>
 		<hr>
-		<p>The List</p>
+		<ul class="list-group">
+			<ng-template ngFor let-ingredient [ngForOf]="ingredients">
+				<li class="list-group-item" style="cursor: pointer;">
+					{{ingredient.name}} - {{ ingredient.qty }} {{ ingredient.unitOfMeasure }}
+				</li>
+			</ng-template>
+		</ul>
 	</div>
 </div>

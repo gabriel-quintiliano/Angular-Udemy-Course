@@ -1,1 +1,18 @@
-<p>app-shopping-list-edit works</p>
+<div class="row">
+	<div class="col-xs-12">
+		<form>
+			<div class="row">
+				<div class="col-sm-5 form-group">
+					<label for="name">Name</label>
+					<input id="name" type="text">
+					<label for="amount">Amount</label>
+					<input id="amount" type="number">
+					<select name="unitOfMeasure">
+						<option selected disabled>Unit</option>
+						<option *ngFor="let unitOfMeasure of unitsOfMeasure" value=""></option>
+					</select>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

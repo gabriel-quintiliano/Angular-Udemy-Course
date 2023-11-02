@@ -1,4 +1,6 @@
 import { Component } from "@angular/core";
+import { unitsOfMeasure } from "../../models/ingredient.model";
+
 
 @Component({
 	selector: 'app-shopping-list-edit',
@@ -7,5 +9,6 @@ import { Component } from "@angular/core";
 })
 
 export class ShoppingListEditComponent {
+	unitsOfMeasure = unitsOfMeasure;
 
 }
