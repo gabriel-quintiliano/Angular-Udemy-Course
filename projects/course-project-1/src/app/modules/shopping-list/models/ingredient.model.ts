@@ -7,17 +7,16 @@ export class Ingredient {
 }
 
 export const unitsOfMeasure = {
-	un: "unidade(s)",
-	cc: 'colher(es) de chá',
-	ccf: 'colher(es) de café',
-	cs: 'colher de sopa',
-	csb: 'colher(es) de sobremesa',
-	xc: 'xácara(s) de chá',
-	xcf: 'xícara(s) de café',
-	g: 'grama(s)',
-	kg: 'quilo(s)',
-	ml: 'mililitro(s)',
-	l: 'litro(s)'
+	tbsp: 'tablespon(s)',
+	tsp: 'teaspoon(s)',
+	c: 'cup(s)',
+	tc: 'teacup(s)',
+	g: 'gram(s)',
+	kg: 'kilo(s)',
+	ml: 'mililiter(s)',
+	l: 'liter(s)',
+	un: 'unity(ies)',
+	dz: 'dozen(s)'
 } as const;
 
 export type UnitOfMeasureUnion = keyof typeof unitsOfMeasure
