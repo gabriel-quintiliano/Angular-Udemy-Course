@@ -10,13 +10,10 @@ export class CockpitComponent {
 	@Output('bpCreated') blueprintCreated = new EventEmitter<{ serverName: string, serverContent: string }>();
 
 	@ViewChild('contentInput', { static: true }) serverContent!: ElementRef;
+	teste = 'apenas um teste'
 
 	ngOnInit() {
 		console.log("onInit - serverContent = ", this.serverContent)
-	}
-
-	ngOnChanges() {
-		console.log("onChanges - serverContent = ", this.serverContent)
 	}
 
 	ngAfterViewInit() {
