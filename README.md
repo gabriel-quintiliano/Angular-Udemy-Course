@@ -12,6 +12,7 @@ Within the `projects` folder you'll find all the different subjects and course p
 + [task-2-practicing-databinding](https://github.com/gabriel-quintiliano/Angular-Udemy-Course/tree/main/projects/task-2-practicing-databinding) - Components that implement event binding, property binding, string interpolation and two-way binding.
 + [task-3-practicing-directives](https://github.com/gabriel-quintiliano/Angular-Udemy-Course/tree/main/projects/task-3-practicing-directives) - Implementation of structual and attribute directives `ngIf`, `ngFor`, `ngClass` and `ngStyle`.
 + [course-project-1](https://github.com/gabriel-quintiliano/Angular-Udemy-Course/tree/main/projects/course-project-1) - Recipes app integrated with shopping cart feature.
++ [deep-dive-into-components-and-databinding](https://github.com/gabriel-quintiliano/Angular-Udemy-Course/tree/main/projects/deep-dive-into-components-and-databinding) - Project using `@ViewChild`, `@ContentChild`, `<ng-content>`, `life-cycle hooks`...
 + [general-and-testing](https://github.com/gabriel-quintiliano/Angular-Udemy-Course/tree/main/projects/general-and-testing) - Generic project for testing different thing momentarily.
 <br /><br />
 ## General
