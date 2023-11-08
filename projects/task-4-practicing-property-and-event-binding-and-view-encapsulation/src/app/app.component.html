@@ -16,14 +16,14 @@
 	</div>
 	<app-game-control (randomNumberGenerated)="onRandomNumberGenerated($event)" (clearNumbersGenerated)="onClearNumbersRequest()"></app-game-control>
 	<div class="row mt-3">
-		<div class="container col-6 rounded" style="background-color: lightblue;">
+		<div class="container col-6 rounded p-3" style="background-color: lightblue;">
 			<ng-template ngFor let-oddNum [ngForOf]="oddNumbers">
-				<p [ngStyle]="{backgroundColor: pickColorStyle()}">{{ oddNum }}</p>
+				<app-odd [displayNumber]="oddNum"></app-odd>
 			</ng-template>
 		</div>
-		<div class="container col-6 rounded" style="background-color: lightyellow;">
+		<div class="container col-6 rounded p-3" style="background-color: lightyellow;">
 			<ng-template ngFor let-evenNum [ngForOf]="evenNumbers">
-				<p [ngStyle]="{backgroundColor: pickColorStyle()}">{{ evenNum }}</p>
+				<app-even [displayNumber]="evenNum"></app-even>
 			</ng-template>
 		</div>
 	</div>

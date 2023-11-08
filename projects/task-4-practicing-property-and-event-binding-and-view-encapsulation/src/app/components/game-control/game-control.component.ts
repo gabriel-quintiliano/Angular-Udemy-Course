@@ -13,22 +13,22 @@ export class GameControlComponent {
 	isGameStarted: boolean = false;
 
 	startGame(): void {
-		// 		if (this.isGameStarted) {
-		// 			console.log("the game has already been started");
-		// 			window.alert("The game has already been started");
-		// 			return;
-		// 		}
-		// 
-		// 		this.isGameStarted = true;
-		// 		this.setIntervalId = setInterval(() => {
-		// 			let randIncrement = Math.floor(Math.random() * 1001) // random number between 0 and 10.000 (both included)
-		// 			console.log("Evento emitido, nº ", randIncrement)
-		// 			this.sendRandomNumber.emit(randIncrement)
-		// 		}, 1000);
+		if (this.isGameStarted) {
+			console.log("the game has already been started");
+			window.alert("The game has already been started");
+			return;
+		}
 
-		let randIncrement = Math.floor(Math.random() * 1001) // random number between 0 and 10.000 (both included)
-		console.log("Evento emitido, nº ", randIncrement)
-		this.sendRandomNumber.emit(randIncrement)
+		this.isGameStarted = true;
+		this.setIntervalId = setInterval(() => {
+			let randIncrement = Math.floor(Math.random() * 1001) // random number between 0 and 10.000 (both included)
+			console.log("Evento emitido, nº ", randIncrement)
+			this.sendRandomNumber.emit(randIncrement)
+		}, 1000);
+
+		// let randIncrement = Math.floor(Math.random() * 1001) // random number between 0 and 10.000 (both included)
+		// console.log("Evento emitido, nº ", randIncrement)
+		// this.sendRandomNumber.emit(randIncrement)
 	}
 
 	stopGame() {
