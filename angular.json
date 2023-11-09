@@ -487,103 +487,6 @@
 				}
 			}
 		},
-		"course-project-1": {
-			"projectType": "application",
-			"schematics": {},
-			"root": "projects/course-project-1",
-			"sourceRoot": "projects/course-project-1/src",
-			"prefix": "app",
-			"architect": {
-				"build": {
-					"builder": "@angular-devkit/build-angular:browser",
-					"options": {
-						"outputPath": "dist/course-project-1",
-						"index": "projects/course-project-1/src/index.html",
-						"main": "projects/course-project-1/src/main.ts",
-						"polyfills": [
-							"zone.js"
-						],
-						"tsConfig": "projects/course-project-1/tsconfig.app.json",
-						"assets": [
-							"projects/course-project-1/src/favicon.ico",
-							"projects/course-project-1/src/assets"
-						],
-						"styles": [
-							"node_modules/bootstrap/dist/css/bootstrap.min.css",
-							"projects/course-project-1/src/styles.css"
-						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
-					},
-					"configurations": {
-						"production": {
-							"budgets": [
-								{
-									"type": "initial",
-									"maximumWarning": "500kb",
-									"maximumError": "1mb"
-								},
-								{
-									"type": "anyComponentStyle",
-									"maximumWarning": "2kb",
-									"maximumError": "4kb"
-								}
-							],
-							"outputHashing": "all"
-						},
-						"development": {
-							"buildOptimizer": false,
-							"optimization": false,
-							"vendorChunk": true,
-							"extractLicenses": false,
-							"sourceMap": true,
-							"namedChunks": true
-						}
-					},
-					"defaultConfiguration": "production"
-				},
-				"serve": {
-					"builder": "@angular-devkit/build-angular:dev-server",
-					"configurations": {
-						"production": {
-							"browserTarget": "course-project-1:build:production"
-						},
-						"development": {
-							"browserTarget": "course-project-1:build:development"
-						}
-					},
-					"defaultConfiguration": "development"
-				},
-				"extract-i18n": {
-					"builder": "@angular-devkit/build-angular:extract-i18n",
-					"options": {
-						"browserTarget": "course-project-1:build"
-					}
-				},
-				"test": {
-					"builder": "@angular-devkit/build-angular:karma",
-					"options": {
-						"polyfills": [
-							"zone.js",
-							"zone.js/testing"
-						],
-						"tsConfig": "projects/course-project-1/tsconfig.spec.json",
-						"assets": [
-							"projects/course-project-1/src/favicon.ico",
-							"projects/course-project-1/src/assets"
-						],
-						"styles": [
-							"node_modules/bootstrap/dist/css/bootstrap.min.css",
-							"projects/course-project-1/src/styles.css"
-						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
-					}
-				}
-			}
-		},
 		"deep-dive-into-components-and-databinding": {
 			"projectType": "application",
 			"schematics": {},
@@ -770,6 +673,103 @@
 						"styles": [
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"projects/task-4-practicing-property-and-event-binding-and-view-encapsulation/src/styles.css"
+						],
+						"scripts": [
+							"node_modules/bootstrap/dist/js/bootstrap.js"
+						]
+					}
+				}
+			}
+		},
+		"recipe-book-course-project": {
+			"projectType": "application",
+			"schematics": {},
+			"root": "projects/recipe-book-course-project",
+			"sourceRoot": "projects/recipe-book-course-project/src",
+			"prefix": "app",
+			"architect": {
+				"build": {
+					"builder": "@angular-devkit/build-angular:browser",
+					"options": {
+						"outputPath": "dist/recipe-book-course-project",
+						"index": "projects/recipe-book-course-project/src/index.html",
+						"main": "projects/recipe-book-course-project/src/main.ts",
+						"polyfills": [
+							"zone.js"
+						],
+						"tsConfig": "projects/recipe-book-course-project/tsconfig.app.json",
+						"assets": [
+							"projects/recipe-book-course-project/src/favicon.ico",
+							"projects/recipe-book-course-project/src/assets"
+						],
+						"styles": [
+							"node_modules/bootstrap/dist/css/bootstrap.min.css",
+							"projects/recipe-book-course-project/src/styles.css"
+						],
+						"scripts": [
+							"node_modules/bootstrap/dist/js/bootstrap.js"
+						]
+					},
+					"configurations": {
+						"production": {
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "500kb",
+									"maximumError": "1mb"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "2kb",
+									"maximumError": "4kb"
+								}
+							],
+							"outputHashing": "all"
+						},
+						"development": {
+							"buildOptimizer": false,
+							"optimization": false,
+							"vendorChunk": true,
+							"extractLicenses": false,
+							"sourceMap": true,
+							"namedChunks": true
+						}
+					},
+					"defaultConfiguration": "production"
+				},
+				"serve": {
+					"builder": "@angular-devkit/build-angular:dev-server",
+					"configurations": {
+						"production": {
+							"browserTarget": "recipe-book-course-project:build:production"
+						},
+						"development": {
+							"browserTarget": "recipe-book-course-project:build:development"
+						}
+					},
+					"defaultConfiguration": "development"
+				},
+				"extract-i18n": {
+					"builder": "@angular-devkit/build-angular:extract-i18n",
+					"options": {
+						"browserTarget": "recipe-book-course-project:build"
+					}
+				},
+				"test": {
+					"builder": "@angular-devkit/build-angular:karma",
+					"options": {
+						"polyfills": [
+							"zone.js",
+							"zone.js/testing"
+						],
+						"tsConfig": "projects/recipe-book-course-project/tsconfig.spec.json",
+						"assets": [
+							"projects/recipe-book-course-project/src/favicon.ico",
+							"projects/recipe-book-course-project/src/assets"
+						],
+						"styles": [
+							"node_modules/bootstrap/dist/css/bootstrap.min.css",
+							"projects/recipe-book-course-project/src/styles.css"
 						],
 						"scripts": [
 							"node_modules/bootstrap/dist/js/bootstrap.js"
