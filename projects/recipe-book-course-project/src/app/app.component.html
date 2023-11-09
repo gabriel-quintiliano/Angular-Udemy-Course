@@ -3,11 +3,9 @@
 	<div class="row m-3">
 		<div class="col-md-12">
 			<ng-container *ngIf="!loadedFeature">
-				<div class="card" style="background-color: rgb(248, 240, 255);">
-					<div class="card-body">
-						<p>Click one of the menus above to have content delivered to you</p>
-					</div>
-				</div>
+				<app-placeholder fillSpace=false>
+					Click one of the menus above to have content delivered to you
+				</app-placeholder>
 			</ng-container>
 			<ng-container *ngIf="loadedFeature === contentAvailableToBeShown.recipes">
 				<app-recipes></app-recipes>

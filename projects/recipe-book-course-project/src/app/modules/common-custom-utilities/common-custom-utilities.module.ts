@@ -4,13 +4,15 @@ import { CommonModule } from '@angular/common';
 import { ObjectEntriesPipe } from './pipes/object-entries.pipe';
 import { ObjectKeysPipe } from './pipes/object-keys.pipe';
 import { ObjectValuesPipe } from './pipes/object-values.pipe';
+import { PlaceholderComponent } from './placeholder/placeholder.component'
 
 
 @NgModule({
 	declarations: [
 		ObjectEntriesPipe,
 		ObjectKeysPipe,
-		ObjectValuesPipe
+		ObjectValuesPipe,
+		PlaceholderComponent,
 	],
 	imports: [
 		CommonModule
@@ -18,7 +20,8 @@ import { ObjectValuesPipe } from './pipes/object-values.pipe';
 	exports: [
 		ObjectEntriesPipe,
 		ObjectKeysPipe,
-		ObjectValuesPipe
+		ObjectValuesPipe,
+		PlaceholderComponent,
 	]
 })
 export class CommonCustomUtilitiesModule { }
