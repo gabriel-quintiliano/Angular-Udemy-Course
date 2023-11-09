@@ -1,9 +1,20 @@
-<app-header></app-header>
+<app-header (updateContentRequest)="onUpdateContentRequest($event)"></app-header>
 <div class="container">
-	<div class="row">
+	<div class="row m-3">
 		<div class="col-md-12">
-			<app-recipes></app-recipes>
-			<app-shopping-list></app-shopping-list>
+			<ng-container *ngIf="!loadedFeature">
+				<div class="card" style="background-color: rgb(248, 240, 255);">
+					<div class="card-body">
+						<p>Click one of the menus above to have content delivered to you</p>
+					</div>
+				</div>
+			</ng-container>
+			<ng-container *ngIf="loadedFeature===contentAvailableToBeShown.recipes">
+				<app-recipes></app-recipes>
+			</ng-container>
+			<ng-container *ngIf="loadedFeature===contentAvailableToBeShown.shoppingList">
+				<app-shopping-list></app-shopping-list>
+			</ng-container>
 		</div>
 	</div>
 </div>
