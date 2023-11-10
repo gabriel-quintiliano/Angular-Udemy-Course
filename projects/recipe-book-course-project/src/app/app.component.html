@@ -2,17 +2,15 @@
 <div class="container">
 	<div class="row m-3">
 		<div class="col-md-12">
+
 			<ng-container *ngIf="!loadedFeature">
-				<app-placeholder fillSpace=false>
+				<app-placeholder [fillSpace]="false">
 					Click one of the menus above to have content delivered to you
 				</app-placeholder>
 			</ng-container>
-			<ng-container *ngIf="loadedFeature === contentAvailableToBeShown.recipes">
-				<app-recipes></app-recipes>
-			</ng-container>
-			<ng-container *ngIf="loadedFeature === contentAvailableToBeShown.shoppingList">
-				<app-shopping-list></app-shopping-list>
-			</ng-container>
+
+			<app-recipes *ngIf="loadedFeature === contentAvailableToBeShown.recipes"></app-recipes>
+			<app-shopping-list *ngIf="loadedFeature === contentAvailableToBeShown.shoppingList"></app-shopping-list>
 		</div>
 	</div>
 </div>
