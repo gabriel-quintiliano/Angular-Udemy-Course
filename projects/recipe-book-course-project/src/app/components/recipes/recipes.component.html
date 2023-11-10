@@ -3,13 +3,16 @@
 		<app-recipe-list (recipeSelected)="selectedRecipe = $event"></app-recipe-list>
 	</div>
 	<div class="col-md-7">
+
 		<ng-container *ngIf="selectedRecipe; else noRecipePlaceholder">
 			<app-recipe-detail [recipeDetail]="selectedRecipe"></app-recipe-detail>
 		</ng-container>
+
 		<ng-template #noRecipePlaceholder>
 			<app-placeholder>
 				Click on a recipe to have its details displayed here
 			</app-placeholder>
 		</ng-template>
+
 	</div>
 </div>
