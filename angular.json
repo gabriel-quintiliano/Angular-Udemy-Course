@@ -777,6 +777,103 @@
 					}
 				}
 			}
+		},
+		"directives-deep-dive": {
+			"projectType": "application",
+			"schematics": {},
+			"root": "projects/directives-deep-dive",
+			"sourceRoot": "projects/directives-deep-dive/src",
+			"prefix": "app",
+			"architect": {
+				"build": {
+					"builder": "@angular-devkit/build-angular:browser",
+					"options": {
+						"outputPath": "dist/directives-deep-dive",
+						"index": "projects/directives-deep-dive/src/index.html",
+						"main": "projects/directives-deep-dive/src/main.ts",
+						"polyfills": [
+							"zone.js"
+						],
+						"tsConfig": "projects/directives-deep-dive/tsconfig.app.json",
+						"assets": [
+							"projects/directives-deep-dive/src/favicon.ico",
+							"projects/directives-deep-dive/src/assets"
+						],
+						"styles": [
+							"node_modules/bootstrap/dist/css/bootstrap.min.css",
+							"projects/directives-deep-dive/src/styles.css"
+						],
+						"scripts": [
+							"node_modules/bootstrap/dist/js/bootstrap.js"
+						]
+					},
+					"configurations": {
+						"production": {
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "500kb",
+									"maximumError": "1mb"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "2kb",
+									"maximumError": "4kb"
+								}
+							],
+							"outputHashing": "all"
+						},
+						"development": {
+							"buildOptimizer": false,
+							"optimization": false,
+							"vendorChunk": true,
+							"extractLicenses": false,
+							"sourceMap": true,
+							"namedChunks": true
+						}
+					},
+					"defaultConfiguration": "production"
+				},
+				"serve": {
+					"builder": "@angular-devkit/build-angular:dev-server",
+					"configurations": {
+						"production": {
+							"browserTarget": "directives-deep-dive:build:production"
+						},
+						"development": {
+							"browserTarget": "directives-deep-dive:build:development"
+						}
+					},
+					"defaultConfiguration": "development"
+				},
+				"extract-i18n": {
+					"builder": "@angular-devkit/build-angular:extract-i18n",
+					"options": {
+						"browserTarget": "directives-deep-dive:build"
+					}
+				},
+				"test": {
+					"builder": "@angular-devkit/build-angular:karma",
+					"options": {
+						"polyfills": [
+							"zone.js",
+							"zone.js/testing"
+						],
+						"tsConfig": "projects/directives-deep-dive/tsconfig.spec.json",
+						"assets": [
+							"projects/directives-deep-dive/src/favicon.ico",
+							"projects/directives-deep-dive/src/assets"
+						],
+						"styles": [
+							"node_modules/bootstrap/dist/css/bootstrap.min.css",
+							"projects/directives-deep-dive/src/styles.css"
+						],
+						"scripts": [
+							"node_modules/bootstrap/dist/js/bootstrap.js"
+						]
+					}
+				}
+			}
 		}
 	}
 }
