@@ -19,13 +19,11 @@ export class ShoppingListEditComponent {
 
 	onIngredientAdded() {
 
-		const newIngredient: Ingredient = {
-			name: this.nameInputElem.nativeElement.value,
-			amount: Number(this.amountInputElem.nativeElement.value),
-			unitOfMeasure: this.unitOfMeasureSelectElem.nativeElement.selectedOptions[0].textContent! as UnitOfMeasureUnion,
-		};
+		const ingName = this.nameInputElem.nativeElement.value;
+		const ingAmount = Number(this.amountInputElem.nativeElement.value);
+		const ingUnitOfMeasure = this.unitOfMeasureSelectElem.nativeElement.selectedOptions[0].textContent! as UnitOfMeasureUnion;
 
-		this.sendNewIngredientInfo.emit(newIngredient)
+		this.sendNewIngredientInfo.emit(new Ingredient(ingName, ingAmount, ingUnitOfMeasure))
 
 		this.nameInputElem.nativeElement.value = ""; // reset name input
 		this.amountInputElem.nativeElement.value = ""; // reset amount input
