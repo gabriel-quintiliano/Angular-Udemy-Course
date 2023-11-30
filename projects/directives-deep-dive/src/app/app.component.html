@@ -21,7 +21,10 @@
 				<p>Only odd</p>
 			</ng-template>
 			<p appBasicHighlight>This paragraph was styled by a custom directive</p>
-			<p appBetterHighlight>This paragraph was styled by a custom directive</p>
+			<!-- in this case i'm not using [] on the directive/@Input appBetterHighlight and @Input defalutColor
+			because the value that's these should receive is a string, hence, no need for the value within "" to
+			be evaluated as a string (ex: [appBetterHighligh]t="'red'"), it already is a string -->
+			<p appBetterHighlight="red" defaultColor="lightgrey">This paragraph was styled by a custom directive</p>
 		</div>
 	</div>
 </div>
