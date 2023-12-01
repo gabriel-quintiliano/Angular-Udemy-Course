@@ -10,7 +10,8 @@
 					</li>
 				</ul>
 			</div>
-			<div *ngIf="!onlyOdd">
+			<!-- this is a custom structural directive which behaves the opposite of ngIf -->
+			<div *appUnless="onlyOdd">
 				<ul class="list-group">
 					<li class="list-group-item" *ngFor="let even of evenNumbers">
 						{{ even }}
