@@ -27,5 +27,11 @@
 			be evaluated as a string (ex: [appBetterHighligh]t="'red'"), it already is a string -->
 			<p appBetterHighlight="red" defaultColor="lightgrey">This paragraph was styled by a custom directive</p>
 		</div>
+		<div [ngSwitch]="value">
+			<p *ngSwitchCase="5">Case when value = 5</p>
+			<p *ngSwitchCase="10">Case when value = 10</p>
+			<p *ngSwitchCase="15">Case when value = 15</p>
+			<p *ngSwitchDefault>This is the default case</p>
+		</div>
 	</div>
 </div>

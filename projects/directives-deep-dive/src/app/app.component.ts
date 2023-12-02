@@ -11,4 +11,5 @@ export class AppComponent {
 	evenNumbers = [2, 4];
 	palavra = "abacate"
 	onlyOdd = false;
+	value = 'xyz';
 }
