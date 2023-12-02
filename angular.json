@@ -28,9 +28,7 @@
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"projects/task-1-practicing-components/src/styles.css"
 						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
+						"scripts": []
 					},
 					"configurations": {
 						"production": {
@@ -93,9 +91,7 @@
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"projects/task-1-practicing-components/src/styles.css"
 						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
+						"scripts": []
 					}
 				}
 			}
@@ -125,9 +121,7 @@
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"projects/task-2-practicing-databinding/src/styles.css"
 						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
+						"scripts": []
 					},
 					"configurations": {
 						"production": {
@@ -190,9 +184,7 @@
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"projects/task-2-practicing-databinding/src/styles.css"
 						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
+						"scripts": []
 					}
 				}
 			}
@@ -222,9 +214,7 @@
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"projects/general-and-testing/src/styles.css"
 						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
+						"scripts": []
 					},
 					"configurations": {
 						"production": {
@@ -287,9 +277,7 @@
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"projects/general-and-testing/src/styles.css"
 						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
+						"scripts": []
 					}
 				}
 			}
@@ -319,9 +307,7 @@
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"projects/directives/src/styles.css"
 						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
+						"scripts": []
 					},
 					"configurations": {
 						"production": {
@@ -384,9 +370,7 @@
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"projects/directives/src/styles.css"
 						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
+						"scripts": []
 					}
 				}
 			}
@@ -416,9 +400,7 @@
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"projects/task-3-practicing-directives/src/styles.css"
 						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
+						"scripts": []
 					},
 					"configurations": {
 						"production": {
@@ -480,9 +462,7 @@
 						"styles": [
 							"projects/task-3-practicing-directives/src/styles.css"
 						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
+						"scripts": []
 					}
 				}
 			}
@@ -512,9 +492,7 @@
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"projects/deep-dive-into-components-and-databinding/src/styles.css"
 						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
+						"scripts": []
 					},
 					"configurations": {
 						"production": {
@@ -577,9 +555,7 @@
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"projects/deep-dive-into-components-and-databinding/src/styles.css"
 						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
+						"scripts": []
 					}
 				}
 			}
@@ -609,9 +585,7 @@
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"projects/task-4-practicing-property-and-event-binding-and-view-encapsulation/src/styles.css"
 						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
+						"scripts": []
 					},
 					"configurations": {
 						"production": {
@@ -674,9 +648,7 @@
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"projects/task-4-practicing-property-and-event-binding-and-view-encapsulation/src/styles.css"
 						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
+						"scripts": []
 					}
 				}
 			}
@@ -706,9 +678,7 @@
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"projects/recipe-book-course-project/src/styles.css"
 						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
+						"scripts": []
 					},
 					"configurations": {
 						"production": {
@@ -771,9 +741,7 @@
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"projects/recipe-book-course-project/src/styles.css"
 						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
+						"scripts": []
 					}
 				}
 			}
@@ -803,9 +771,7 @@
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"projects/directives-deep-dive/src/styles.css"
 						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
+						"scripts": []
 					},
 					"configurations": {
 						"production": {
@@ -868,9 +834,7 @@
 							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"projects/directives-deep-dive/src/styles.css"
 						],
-						"scripts": [
-							"node_modules/bootstrap/dist/js/bootstrap.js"
-						]
+						"scripts": []
 					}
 				}
 			}
