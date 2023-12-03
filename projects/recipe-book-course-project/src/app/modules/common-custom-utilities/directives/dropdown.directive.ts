@@ -5,7 +5,7 @@ import { Directive, ElementRef, Renderer2, HostListener, HostBinding } from '@an
 })
 export class DropdownDirective {
 
-	isOpened = false;
+	isOpen = false;
 	// in no case this.dropdownMenuContainer will be undefined because if there is no
 	// element to build this property out of, an error will be thrown in ngOnInit()
 	dropdownMenuContainer!: ElementRef;
@@ -23,15 +23,19 @@ export class DropdownDirective {
 		this.dropdownMenuContainer = new ElementRef(dropdownMenuFromDom);
 	}
 
-	@HostListener('click') toggleDropdown() {
+	@HostListener('document:click', ['$event.target']) toggleDropdown(target: HTMLElement) {
 
-		if (!this.isOpened) {
-			this.renderer.addClass(this.dropdownMenuContainer.nativeElement, "show");
-		} else {
+		if (this.isOpen) {
+			// if the dropdown is open, close it no matter where the click was
+			// (including dropdown items)
 			this.renderer.removeClass(this.dropdownMenuContainer.nativeElement, "show");
+			this.isOpen = !this.isOpen;
+		} else if (this.elem.nativeElement.contains(target)) {
+			// if the dropdown is closed and the click was in any element within the dropdown element, open it
+			this.renderer.addClass(this.dropdownMenuContainer.nativeElement, "show");
+			this.isOpen = !this.isOpen;
 		}
 
-		this.isOpened = !this.isOpened;
 	}
 
 }
