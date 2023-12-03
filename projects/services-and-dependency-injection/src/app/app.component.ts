@@ -5,11 +5,11 @@ import { Component } from '@angular/core';
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.css'],
-	providers: [AccountsService]
 })
 export class AppComponent {
 	accounts: { name: string, status: string }[] = [];
 
+	// service provided in AppModule so its available application wide
 	constructor(private accountsService: AccountsService) { }
 
 	ngOnInit() {

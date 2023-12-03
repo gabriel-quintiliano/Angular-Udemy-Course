@@ -6,21 +6,13 @@ import { Component, inject } from '@angular/core';
 	selector: 'app-new-account',
 	templateUrl: './new-account.component.html',
 	styleUrls: ['./new-account.component.css'],
-	// this below tells Angular to handle the instanciation of service LoggingService, and in
-	// this case provide a new instance of the service for every new NewAccountComponent	
-	providers: [LoggingService],
 })
 export class NewAccountComponent {
 
-	constructor(
-		// this tells Angular to inject the instance from LoggingService in this
-		// `loggingService` property of NewAccountComponent
-		private loggingService: LoggingService,
-		// AccountsService is provided in AppComponent
-		private accounstService: AccountsService) { }
+	// AccountsService is provided in AppComponent
+	constructor(private accounstService: AccountsService) { }
 
 	onCreateAccount(accountName: string, accountStatus: string) {
 		this.accounstService.addAccount(accountName, accountStatus)
-		this.loggingService.logStatusChange(accountStatus);
 	}
 }
