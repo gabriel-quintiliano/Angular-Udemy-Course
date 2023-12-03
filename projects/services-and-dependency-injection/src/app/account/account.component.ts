@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { LoggingService } from '../logging/logging.service';
+import { AccountsService } from '../accounts/accounts.service';
 
 @Component({
 	selector: 'app-account',
@@ -12,14 +13,16 @@ import { LoggingService } from '../logging/logging.service';
 export class AccountComponent {
 	@Input({ required: true }) account!: { name: string, status: string };
 	@Input({ required: true }) id!: number;
-	@Output() statusChanged = new EventEmitter<{ id: number, newStatus: string }>();
 
-	// this tells Angular to inject the instance from LoggingService in this
-	// `loggingService` property of AccountComponent
-	constructor(private loggingService: LoggingService) { }
+	constructor(
+		// this tells Angular to inject the instance from LoggingService in this
+		// `loggingService` property of AccountComponent
+		private loggingService: LoggingService,
+		// AccountsService is provided in AppComponent
+		private accountsService: AccountsService) { }
 
 	onSetTo(status: string) {
-		this.statusChanged.emit({ id: this.id, newStatus: status });
-		this.loggingService.logStatusChange(status)
+		this.accountsService.updateStatus(this.id, status);
+		this.loggingService.logStatusChange(status);
 	}
 }

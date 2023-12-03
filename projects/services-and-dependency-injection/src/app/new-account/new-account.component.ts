@@ -1,5 +1,6 @@
+import { AccountsService } from '../accounts/accounts.service';
 import { LoggingService } from '../logging/logging.service';
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 @Component({
 	selector: 'app-new-account',
@@ -10,18 +11,16 @@ import { Component, EventEmitter, Output, inject } from '@angular/core';
 	providers: [LoggingService],
 })
 export class NewAccountComponent {
-	@Output() accountAdded = new EventEmitter<{ name: string, status: string }>();
 
-	// this tells Angular to inject the instance from LoggingService in this
-	// `loggingService` property of NewAccountComponent
-	private loggingService: LoggingService = inject(LoggingService)
+	constructor(
+		// this tells Angular to inject the instance from LoggingService in this
+		// `loggingService` property of NewAccountComponent
+		private loggingService: LoggingService,
+		// AccountsService is provided in AppComponent
+		private accounstService: AccountsService) { }
 
 	onCreateAccount(accountName: string, accountStatus: string) {
-		this.accountAdded.emit({
-			name: accountName,
-			status: accountStatus
-		});
-
+		this.accounstService.addAccount(accountName, accountStatus)
 		this.loggingService.logStatusChange(accountStatus);
 	}
 }
