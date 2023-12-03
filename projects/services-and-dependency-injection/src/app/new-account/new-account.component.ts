@@ -1,5 +1,4 @@
 import { AccountsService } from '../accounts/accounts.service';
-import { LoggingService } from '../logging/logging.service';
 import { Component, inject } from '@angular/core';
 
 @Component({
@@ -10,9 +9,13 @@ import { Component, inject } from '@angular/core';
 export class NewAccountComponent {
 
 	// AccountsService is provided in AppComponent
-	constructor(private accounstService: AccountsService) { }
+	constructor(private accountsService: AccountsService) {
+		accountsService.statusChanged.subscribe(
+			(newStatus: string) => { alert(`Status changed to: ${newStatus}`) }
+		)
+	}
 
 	onCreateAccount(accountName: string, accountStatus: string) {
-		this.accounstService.addAccount(accountName, accountStatus)
+		this.accountsService.addAccount(accountName, accountStatus);
 	}
 }

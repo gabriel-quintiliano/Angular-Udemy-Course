@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { LoggingService } from '../logging/logging.service';
 
 // This decorator is important to mark that this class can be injected into other classes
 // and also receive injections (without it, the injection of LoggingService wouldn't work)
 @Injectable()
 export class AccountsService {
+	statusChanged = new EventEmitter<string>();
 
 	accounts = [
 		{
