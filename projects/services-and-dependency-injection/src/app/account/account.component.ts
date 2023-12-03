@@ -14,7 +14,7 @@ export class AccountComponent {
 	@Input({ required: true }) id!: number;
 	@Output() statusChanged = new EventEmitter<{ id: number, newStatus: string }>();
 
-	// this tell Angular to inject the instance from LoggingService in this
+	// this tells Angular to inject the instance from LoggingService in this
 	// `loggingService` property of AccountComponent
 	constructor(private loggingService: LoggingService) { }
 
