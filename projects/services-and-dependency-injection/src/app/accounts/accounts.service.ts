@@ -3,7 +3,11 @@ import { LoggingService } from '../logging/logging.service';
 
 // This decorator is important to mark that this class can be injected into other classes
 // and also receive injections (without it, the injection of LoggingService wouldn't work)
-@Injectable()
+// and informing property `providedIn: 'root'` is the same as importing this service in AppModule (aka 'root')
+// and declaring it in the providers array, but with this services can be lazy loaded and redundant code cut off
+@Injectable({
+	providedIn: "root"
+})
 export class AccountsService {
 	statusChanged = new EventEmitter<string>();
 
