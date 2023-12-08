@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { CounterService } from './counter.service';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class UsersService {
-	private activeUsers: string[] = []
-	private inactiveUsers: string[] = []
+	activeUsers: string[] = []
+	inactiveUsers: string[] = []
 	get activeUsersNum() {
 		return this.counter.countArrayElements(this.activeUsers);
 	}
@@ -21,11 +21,11 @@ export class UsersService {
 	}
 
 	loadInactiveUsers(users: string[]) {
-		this.activeUsers = users;
+		this.inactiveUsers = users;
 	}
 
 	setUserToInactive(id: number) {
-		this.inactiveUsers.push(this.inactiveUsers[id]);
+		this.inactiveUsers.push(this.activeUsers[id]);
 		this.activeUsers.splice(id, 1);
 	}
 
