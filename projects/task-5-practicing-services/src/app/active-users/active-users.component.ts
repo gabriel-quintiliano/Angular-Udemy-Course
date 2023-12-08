@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { UsersService } from '../services/users.service';
 
 @Component({
 	selector: 'app-active-users',
@@ -6,5 +7,11 @@ import { Component, Input } from '@angular/core';
 	styleUrls: ['./active-users.component.css']
 })
 export class ActiveUsersComponent {
-	@Input() users: string[] = [];
+	users: string[] = [];
+
+	constructor(protected usersService: UsersService) { }
+
+	ngOnInit() {
+		this.users = this.usersService.activeUsers;
+	}
 }
