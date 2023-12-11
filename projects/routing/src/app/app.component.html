@@ -3,30 +3,32 @@
 		<div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
 			<ul class="nav nav-tabs">
 				<li role="presentation" class="nav-item">
-					<a class="nav-link active" href="#">Home</a>
+					<a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
 				</li>
 				<li role="presentation" class="nav-item">
-					<a class="nav-link" href="#">Servers</a>
+					<!-- you can use property bindig to pass to routerLink directive a javascript value -->
+					<!-- this use of paths array will be really useful later on, for example, -->
+					<!--  to divide individual paths -->
+					<a class="nav-link" [routerLink]="['/servers']" [routerLinkActive]="['active']">Servers</a>
 				</li>
 				<li role="presentation" class="nav-item">
-					<a class="nav-link" href="#">Users</a>
+					<!-- about routerLink route path, '', '/', './' or '../' at the beginning of
+					     the path will result in different behaviors when loading the route:
+					     - '/' means it's an absolute path, '/users' will load 'https://your-site/users
+					     - '' means it's an relative path, so the path will be added to the current path
+					                           ex: '/users' will load 'https://your-site/cur/route/users
+					     - './' means it's an relative path i.e. the same as ''
+					                           ex: './users' will load 'https://your-site/cur/route/users
+					     - about relative path, you can use it the same way you navegate directories,
+					     - and end up with something like: './../../some/users' or '../../some/users' -->
+					<a class="nav-link" routerLink="/users" routerLinkActive="active">Users</a>
 				</li>
 			</ul>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-			<app-home></app-home>
-		</div>
-	</div>
-	<div class="row  mb-3">
-		<div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-			<app-users></app-users>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-			<app-servers></app-servers>
+			<router-outlet></router-outlet>
 		</div>
 	</div>
 </div>
