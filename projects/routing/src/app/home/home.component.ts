@@ -1,15 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+	selector: 'app-home',
+	templateUrl: './home.component.html',
+	styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+	constructor(private router: Router) { }
 
-  ngOnInit() {
-  }
+	ngOnInit() {
+	}
 
+	onLoadServers() {
+		this.router.navigate(['/servers'])
+		// When dealing with route paths programatically directly inside the component,
+		// there are some differences compared to doing the same in the html template.
+		// Here, relative paths (ex: 'servers') passed to .navegate method need an extra
+		// parameter as the this just doesn't know which route it currently sits in, thus
+		// by default, when a relative path is used by itself with no further info, .navegate()
+		// takes as reference 'root' i.e. '/'.
+		//
+		// Therefore, when it's needed you can inform .navegate which route this component
+		// this component is currently at via a second param described as an object via the
+		// key 'relativeTo', for example:
+		// 
+		// this.router.navigate(['/servers'], { relativeTo: ActivatedRoute* })
+		//
+		// ActivatedRoute is the type of object this key expects, thus the correct way to
+		// pass it to the object is getting this value from angular itself via dependency
+		// injection, so in the component constructor you should declare:
+		//
+		// constructor(/*other injectables*/, private route: ActivatedRoute ) { }
+		// someMethod() {
+		//     	this.router.navigate(['/servers'], { relativeTo: route })
+		// }
+		//
+		// this way, .navegate() will know which path is the relative path relative to.
+	}
 }
