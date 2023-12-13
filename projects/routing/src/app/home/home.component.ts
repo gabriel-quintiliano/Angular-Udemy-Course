@@ -13,8 +13,8 @@ export class HomeComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	onLoadServers() {
-		this.router.navigate(['/servers'])
+	onLoadServers(id: number) {
+		this.router.navigate(['/servers'], { queryParams: { allowEdit: 1 }, fragment: 'loading' })
 		// When dealing with route paths programatically directly inside the component,
 		// there are some differences compared to doing the same in the html template.
 		// Here, relative paths (ex: 'servers') passed to .navegate method need an extra
