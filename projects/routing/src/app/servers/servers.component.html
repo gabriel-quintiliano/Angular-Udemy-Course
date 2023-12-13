@@ -1,12 +1,23 @@
 <div class="row">
-	<div class="col-xs-12 col-sm-4">
+	<div id="dd"
+		 class="col-xs-12 col-sm-4">
 		<div class="list-group">
-			<!-- each elem of the array passed to [routerLink] is a segment of the url that this will point to -->
-			<!-- the '/' and it's variations should be used only in the very first elem, a '/' will be added -->
-			<!-- automatically in between the other elements the compose the segments of the url -->
-			<a [routerLink]="['/servers', 5, 'edit']" href="#" class="list-group-item" *ngFor="let server of servers">
+			<!-- each elem of the array passed to [routerLink] is a segment of the url that this will point to
+			     the '/' and it's variations should be used only in the very first elem, a '/' will be added
+			     automatically in between the other elements the compose the segments of the url -->
+
+			<!-- queryParams and fragment are @inputs of routerLink directive 
+			     - queryParams adds query params in the end of url ex: ?allowEdit=1
+				 - fragment adds a frangment reference in the end of url ex: #loading (there can only be one fragment)
+				 the final url of this routerLink below will be: .../servers/5/edit?allowEdit=1#loading -->
+			<a [routerLink]="['/servers', 5, 'edit']"
+			   [queryParams]="{allowEdit: 1}"
+			   fragment="loading"
+			   href="#" class="list-group-item"
+			   *ngFor="let server of servers">
 				{{ server.name }}
 			</a>
+
 		</div>
 	</div>
 	<div class="col-xs-12 col-sm-4">
