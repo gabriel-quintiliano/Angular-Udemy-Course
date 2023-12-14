@@ -15,15 +15,20 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
 	// don't use '/' here or your routes won't work
-	{ path: '', component: HomeComponent },
-	{ path: 'users', component: UsersComponent },
-	// ':' tells Angular this is a dynamic segment of the route path
-	// we can later retrieve this dynamic info in the components .ts file
-	// via ActavatedRoute.snapshot.params['id'] and ...params['name']
-	{ path: 'users/:id/:name', component: UserComponent },
-	{ path: 'servers', component: ServersComponent },
-	{ path: 'servers/:id', component: ServerComponent },
-	{ path: 'servers/:id/edit', component: EditServerComponent },
+	{
+		path: '', component: HomeComponent
+	},
+	{
+		path: 'users', component: UsersComponent, children: [
+			{ path: ':id/:name', component: UserComponent },
+		]
+	},
+	{
+		path: 'servers', component: ServersComponent, children: [
+			{ path: ':id', component: ServerComponent },
+			{ path: ':id/edit', component: EditServerComponent },
+		]
+	},
 ];
 @NgModule({
 	declarations: [
