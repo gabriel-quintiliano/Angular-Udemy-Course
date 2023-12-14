@@ -12,6 +12,7 @@ export class EditServerComponent implements OnInit {
 	server!: { id: number, name: string, status: string };
 	serverName!: string;
 	serverStatus!: string;
+	allowEdit = false;
 
 	constructor(
 		private serversService: ServersService,
@@ -28,6 +29,14 @@ export class EditServerComponent implements OnInit {
 				this.server = this.serversService.getServer(id);
 				this.serverName = this.server.name;
 				this.serverStatus = this.server.status;
+			}
+		)
+
+		this.route.queryParams.subscribe(
+			(queryParams: Params) => {
+				// note: the allowEdit queryParam can only be 0 or 1 and it will be
+				// retrieved from ActivatedRoute as a string
+				this.allowEdit = Boolean(Number(queryParams['allowEdit']));
 			}
 		)
 	}
