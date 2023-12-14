@@ -10,7 +10,7 @@
 			     - queryParams adds query params in the end of url ex: ?allowEdit=1
 				 - fragment adds a frangment reference in the end of url ex: #loading (there can only be one fragment)
 				 the final url of this routerLink below will be: .../servers/5/edit?allowEdit=1#loading -->
-			<a [routerLink]="['/servers', 5, 'edit']"
+			<a [routerLink]="['/servers', server.id]"
 			   [queryParams]="{allowEdit: 1}"
 			   fragment="loading"
 			   href="#" class="list-group-item"

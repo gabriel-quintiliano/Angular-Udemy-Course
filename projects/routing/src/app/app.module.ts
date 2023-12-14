@@ -22,6 +22,7 @@ const routes: Routes = [
 	// via ActavatedRoute.snapshot.params['id'] and ...params['name']
 	{ path: 'users/:id/:name', component: UserComponent },
 	{ path: 'servers', component: ServersComponent },
+	{ path: 'servers/:id', component: ServerComponent },
 	{ path: 'servers/:id/edit', component: EditServerComponent },
 ];
 @NgModule({
