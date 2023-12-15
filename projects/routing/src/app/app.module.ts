@@ -10,29 +10,8 @@ import { UserComponent } from './users/user/user.component';
 import { EditServerComponent } from './servers/edit-server/edit-server.component';
 import { ServerComponent } from './servers/server/server.component';
 import { ServersService } from './servers/servers.service';
-import { RouterModule, Routes } from '@angular/router';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { AppRoutingModule } from './app-routing.module';
 
-
-const routes: Routes = [
-	// don't use '/' in path property here or your routes won't work
-	{
-		path: '', component: HomeComponent
-	},
-	{
-		path: 'users', component: UsersComponent, children: [
-			{ path: ':id/:name', component: UserComponent },
-		]
-	},
-	{
-		path: 'servers', component: ServersComponent, children: [
-			{ path: ':id', component: ServerComponent },
-			{ path: ':id/edit', component: EditServerComponent },
-		]
-	},
-	{ path: 'not-found', component: NotFoundComponent },
-	{ path: '**', redirectTo: '/not-found' }
-];
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -44,9 +23,9 @@ const routes: Routes = [
 		ServerComponent
 	],
 	imports: [
-		RouterModule.forRoot(routes),
 		BrowserModule,
-		FormsModule
+		FormsModule,
+		AppRoutingModule
 	],
 	providers: [ServersService],
 	bootstrap: [AppComponent]
