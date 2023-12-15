@@ -11,10 +11,11 @@ import { EditServerComponent } from './servers/edit-server/edit-server.component
 import { ServerComponent } from './servers/server/server.component';
 import { ServersService } from './servers/servers.service';
 import { RouterModule, Routes } from '@angular/router';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 const routes: Routes = [
-	// don't use '/' here or your routes won't work
+	// don't use '/' in path property here or your routes won't work
 	{
 		path: '', component: HomeComponent
 	},
@@ -29,6 +30,8 @@ const routes: Routes = [
 			{ path: ':id/edit', component: EditServerComponent },
 		]
 	},
+	{ path: 'not-found', component: NotFoundComponent },
+	{ path: '**', redirectTo: '/not-found' }
 ];
 @NgModule({
 	declarations: [
