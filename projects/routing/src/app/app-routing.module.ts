@@ -7,22 +7,16 @@ import { ServersComponent } from "./servers/servers.component";
 import { ServerComponent } from "./servers/server/server.component";
 import { EditServerComponent } from "./servers/edit-server/edit-server.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
+import { AuthGuard } from "./auth.guard";
 
 const appRoutes: Routes = [
 	// don't use '/' in path property here or your routes won't work
-	{
-		path: '', component: HomeComponent
-	},
-	{
-		path: 'users', component: UsersComponent, children: [
-			{ path: ':id/:name', component: UserComponent },
-		]
-	},
-	{
-		path: 'servers', component: ServersComponent, children: [
-			{ path: ':id', component: ServerComponent },
-			{ path: ':id/edit', component: EditServerComponent },
-		]
+	{ path: '', component: HomeComponent },
+	{ path: 'users', component: UsersComponent, children: [
+        { path: ':id/:name', component: UserComponent },]},
+	{ path: 'servers', component: ServersComponent, canActivate: [AuthGuard], children: [
+		{ path: ':id', component: ServerComponent },
+		{ path: ':id/edit', component: EditServerComponent },]
 	},
 	{ path: 'not-found', component: NotFoundComponent },
 	// redirectTo follows the rules for usage of '/', '../' and '' related
