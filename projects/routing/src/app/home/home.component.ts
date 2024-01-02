@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
 	selector: 'app-home',
@@ -8,7 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-	constructor(private router: Router) { }
+	constructor(private router: Router,
+                protected authService: AuthService) { }
 
 	ngOnInit() {
 	}
@@ -39,4 +41,12 @@ export class HomeComponent implements OnInit {
 		//
 		// this way, .navegate() will know which path is the relative path relative to.
 	}
+
+    onLogin() {
+        this.authService.login();
+    }
+    
+    onLogout() {
+        this.authService.logout();
+    }
 }
