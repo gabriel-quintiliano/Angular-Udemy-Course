@@ -1,5 +1,5 @@
 import { inject } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot, CanActivateChildFn, CanActivateFn, Router, RouterStateSnapshot } from "@angular/router";
 import { AuthService } from "./auth.service";
 
 export const AuthGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
@@ -17,4 +17,8 @@ export const AuthGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: R
     });
 
     return res;
+}
+
+export const AuthGuardForChild: CanActivateChildFn = (childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+    return AuthGuard(childRoute, state);
 }
