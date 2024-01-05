@@ -12,21 +12,29 @@ export class ServerComponent implements OnInit {
 	server!: { id: number, name: string, status: string };
 
 	constructor(
-		private serversService: ServersService,
+		// private serversService: ServersService,
 		private route: ActivatedRoute,
 		private router: Router,
 	) { }
 
 	ngOnInit() {
-		// Be aware: every element we retrieve from the route is a string (as the url path
-		// is just text), thus if you need data in a format other than a string, you'll
-		// need to parse it, as we're doing bellow for instance.
-		this.route.params.subscribe(
-			(params: Params) => {
-				const id = Number(params['id'])
-				this.server = this.serversService.getServer(id);
-			}
-		)
+        // before defining a resolver to path `/servers/:id` we had to access the ServersService
+        // directly as bellow
+		// this.route.params.subscribe(
+		// 	(params: Params) => {
+		// 		const id = Number(params['id'])
+		// 		this.server = this.serversService.getServer(id);
+		// 	}
+		// )
+
+        // now, after seting up the resolver, the server data is fetched before the component is
+        // loaded and thus we get this server data from the route itself (without reaching to the
+        // ServersService directly)
+        this.route.data.subscribe(
+            (data) => {
+                this.server = data['server'];
+            }
+        )
 	}
 
 	onEdit() {

@@ -10,6 +10,7 @@ import { NotFoundComponent } from "./not-found/not-found.component";
 import { AuthGuard, AuthGuardForChild } from "./auth.guard";
 import { canDeactivateServerEditGuard } from "./can-deactivate-server-edit.guard";
 import { ErrorPageComponent } from "./error-page/error-page.component";
+import { serverResolver } from "./servers/server.resolver"
 
 const appRoutes: Routes = [
 	// don't use '/' in path property here or your routes won't work
@@ -19,7 +20,7 @@ const appRoutes: Routes = [
 	{ path: 'servers', component: ServersComponent,
       // canActivate: [AuthGuard],
       canActivateChild: [AuthGuardForChild], children: [
-		{ path: ':id', component: ServerComponent },
+		{ path: ':id', component: ServerComponent, resolve: {server: serverResolver} },
 		{ path: ':id/edit', component: EditServerComponent, canDeactivate: [canDeactivateServerEditGuard] },]
 	},
 	// { path: 'not-found', component: NotFoundComponent },
