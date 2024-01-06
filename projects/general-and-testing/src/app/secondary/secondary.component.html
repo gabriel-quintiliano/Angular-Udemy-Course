@@ -1,0 +1,8 @@
+<p>this is from route: {{ routeReference }}</p>
+<br>
+<label for="id-input">new id</label>
+<input id="id-input" class="mx-3" type="number" #idInput>
+<button class="btn btn-primary" (click)="goToEnteredId()">check new range</button>
+<br>
+<h3> here is a another component inside the secondary:</h3>
+<router-outlet></router-outlet>
