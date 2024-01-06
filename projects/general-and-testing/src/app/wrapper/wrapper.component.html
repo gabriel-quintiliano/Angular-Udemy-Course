@@ -1,1 +1,13 @@
-<p>wrapper works!</p>
+<p>Resolver ran {{ timesRan }} times - last run in: {{ lastRunTimestamp }}</p>
+<p> Range: {{ range }} --&gt; valid: {{ isValid }} </p>
+<label for="range-input">new range</label>
+<input id="range-input" class="mx-3" type="text" #rangeInput>
+<button class="btn btn-primary" (click)="checkNewRange()">check new range</button>
+<br>
+<br>
+<button class="btn btn-primary" routerLink="./sec-one">load /sec-one</button>
+<button class="btn btn-primary mx-3" routerLink="./sec-two">load /sec-two</button>
+<br>
+<br>
+<h2>here is the secondary component below:</h2>
+<router-outlet></router-outlet>
