@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -7,13 +8,17 @@ import { Injectable } from '@angular/core';
 export class RangeValidatorService {
     timesRan: number = 0;
     lastRunTimestamp!: string;
+    latestPathRun: string = '/';
 
     private RANGE_MIN = 0;
     private RANGE_MAX = 10;
 
     isValid(range: number) {
+
+        console.log("isValid method run, times run is currently: ", this.timesRan)
         this.lastRunTimestamp = curTimestampToDateFormat();
         this.timesRan++;
+        console.log("times run after is: ", this.timesRan)
 
         if (typeof range == "number" && range > this.RANGE_MIN && range < this.RANGE_MAX) {
             return true;

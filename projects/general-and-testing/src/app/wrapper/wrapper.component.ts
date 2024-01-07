@@ -1,5 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute, Data, Router } from '@angular/router';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Data, Router, RouterState } from '@angular/router';
 import { RangeData } from '../range-data.model';
 
 @Component({
@@ -10,14 +10,18 @@ import { RangeData } from '../range-data.model';
 export class WrapperComponent implements OnInit {
     @ViewChild("rangeInput") rangeInputRef!: ElementRef<HTMLInputElement>;
 
+    curRoute!: string;
+
     isValid!: boolean;
     timesRan!: number;
     lastRunTimestamp!: string;
     range!: number;
 
-    constructor( private route: ActivatedRoute, private router: Router ) {}
+    constructor( private route: ActivatedRoute,
+                 private router: Router ) {}
 
     ngOnInit() {
+
         this.route.data.subscribe( (data: Data) => {
             const rangeData = data['rangeData'] as RangeData;
             this.isValid = rangeData.isValid;
@@ -32,6 +36,6 @@ export class WrapperComponent implements OnInit {
 
         if (!inputVal) return
 
-        this.router.navigate(['/', inputVal])
+        this.router.navigate(['../', inputVal], {relativeTo: this.route})
     }
 }
