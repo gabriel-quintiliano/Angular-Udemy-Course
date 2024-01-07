@@ -34,7 +34,16 @@ const appRoutes: Routes = [
 ]
 
 @NgModule({
-	imports: [RouterModule.forRoot(appRoutes)],
+	imports: [
+        RouterModule.forRoot(appRoutes)
+        // For running your Angular app in really old browser which doesn't support client-side
+        // parsing of paths (as angular does) or for deployment servers in which you can't add
+        // a config to serve index.html or the server itself isn't capable of this behavior, you
+        // can use the config bellow which will add a `#` after domain to tell the browser to only
+        // care about the domain part and forget about the rest.
+        //
+        // RouterModule.forRoot(appRoutes, {useHash: true})
+    ],
 	exports: [RouterModule]
 })
 export class AppRoutingModule { }
