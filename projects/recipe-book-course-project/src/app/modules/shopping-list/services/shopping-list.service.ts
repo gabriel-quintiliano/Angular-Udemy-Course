@@ -17,10 +17,31 @@ export class ShoppingListService {
 		return this.ingredients.slice();
 	}
 
+    private _addIngredient(ingredient: Ingredient) {
+        const ingIndexInIgredientsArray = this.ingredients.findIndex( ing => ingredient.name === ing.name)
+
+        if (ingIndexInIgredientsArray != -1) {
+            // if the ingredient to be added is already in the ingredients arrays, just update amount
+            this.ingredients[ingIndexInIgredientsArray].amount += ingredient.amount;
+        } else {
+            // if its not, then add it
+            this.ingredients.push(ingredient);
+        }
+    }
+
 	addIngredient(ingredient: Ingredient) {
-		this.ingredients.push(ingredient);
+        this._addIngredient(ingredient);
+
 		this.ingredientsChanged.emit(this.ingredients);
 	}
+    
+    addIngredients(ingredients: Ingredient[]) {
+        for (let ingredient of ingredients) {
+            this._addIngredient(ingredient);
+        }
+        
+        this.ingredientsChanged.emit(this.ingredients);
+    }
 
 	removeIngredient(ingredient: Ingredient) {
 		const ingredientIndex = this.ingredients.indexOf(ingredient)
