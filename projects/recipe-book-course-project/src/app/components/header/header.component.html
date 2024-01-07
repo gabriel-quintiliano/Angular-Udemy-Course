@@ -1,27 +1,27 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<div class="container">
-		<a class="navbar-brand" href="#">Recipe Book</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" href="#" (click)="onContentAnchorClick(contentAvailableToBeShown.recipes)">Recipes</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#" (click)="onContentAnchorClick(contentAvailableToBeShown.shoppingList)">Shopping List</a>
-				</li>
-			</ul>
-			<ul class="navbar-nav ms-auto">
-				<li appDropdown class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">Manage</a>
-					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="#">Save Data</a></li>
-						<li><a class="dropdown-item" href="#">Fetch Data</a></li>
-					</ul>
-				</li>
-			</ul>
-		</div>
-	</div>
+    <div class="container">
+        <a class="navbar-brand" href="#">Recipe Book</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/recipes" routerLinkActive="active">Recipes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/shoppingList" routerLinkActive="active">Shopping List</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li appDropdown class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">Manage</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Save Data</a></li>
+                        <li><a class="dropdown-item" href="#">Fetch Data</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>
