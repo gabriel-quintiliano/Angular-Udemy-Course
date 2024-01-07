@@ -3,24 +3,21 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
-import { rangeResolver } from './range.resolver';
 import { SecondaryComponent } from './secondary/secondary.component';
 import { IdShowerComponent } from './id-shower/id-shower.component';
 import { WrapperComponent } from './wrapper/wrapper.component';
 
+'always'
+'pathParamsOrQueryParamsChange'
+'pathParamsChange'
+
 const routes: Routes = [
-    { path: ":range",
-      component: WrapperComponent,
-      resolve: {rangeData: rangeResolver},
-      runGuardsAndResolvers: 'paramsChange',
-      children: [
-        { path: "sec-one", data: {reference: "sec-one route"}, component: SecondaryComponent, children: [
-            { path: ":id", component: IdShowerComponent}
-        ]},
-        { path: "sec-two", data: {reference: "sec-two route"}, component: SecondaryComponent, children: [
-            { path: ":id", component: IdShowerComponent}
-        ]}
-    ]}
+    { path: 'always', loadChildren: () => import('./modules/always-routing.module').then((x) => x.AlwaysRoutingModule)},
+    { path: 'paramsChange', loadChildren: () => import('./modules/params-change-routing.module').then((x) => x.ParamsChangeRoutingModule)},
+    { path: 'ParamsOrQueryParamsChange', loadChildren: () => import('./modules/params-or-query-params-change-routing.module').then((x) => x.ParamsOrQueryParamsChangeRoutingModule)},
+    { path: 'pathParamsChange', loadChildren: () => import('./modules/path-params-change-routing.module').then((x) => x.PathParamsChangeRoutingModule)},
+    { path: 'pathParamsOrQueryParamsChange', loadChildren: () => import('./modules/path-params-or-query-params-change-routing.module').then((x) => x.PathParamsOrQueryParamsChangeRoutingModule)},
+    { path: "**", redirectTo: 'paramsChange' }
 ]
 
 @NgModule({
