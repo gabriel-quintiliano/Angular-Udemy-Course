@@ -1,12 +1,15 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Recipe } from '../models/recipe.model';
 import { Ingredient } from '../../shopping-list/models/ingredient.model';
+import { ShoppingListService } from '../../shopping-list/services/shopping-list.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class RecipeService {
 	recipeSelected = new EventEmitter<Recipe>();
+
+    constructor(private shoppingListService: ShoppingListService) {}
 
 	private recipes: Recipe[] = [
 		new Recipe(
@@ -53,4 +56,8 @@ export class RecipeService {
 		// same objects, so altering these in the copy will reflect on recipes because it's the same object)
 		return this.recipes.slice();
 	}
+
+    addToShoppingList(ingredients: Ingredient[]) {
+        this.shoppingListService.addIngredients(ingredients);
+    }
 }
