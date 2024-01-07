@@ -21,6 +21,10 @@ export class RangeValidatorService {
 
         return false;
     }
+
+    resetStats() {
+        this.timesRan = 0;
+    }
 }
 
 function curTimestampToDateFormat() {
