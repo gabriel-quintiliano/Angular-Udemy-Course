@@ -15,7 +15,6 @@ export class RecipesComponent {
 	ngOnInit() {
 		// sets the recipe which was selected in recipe-list component from recipe-book module
 		this.recipeService.recipeSelected.subscribe((recipe) => {
-			console.log("uma nova recita foi selecionada: ", recipe.name)
 			this.selectedRecipe = recipe;
 		})
 	}

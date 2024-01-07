@@ -9,7 +9,8 @@ const routes: Routes = [
     { path: '', redirectTo: '/recipes', pathMatch: 'full' },
     { path: 'recipes', component: RecipesComponent, children: [
         { path: '', component: PlaceholderComponent, 
-          data: { message: "Click on a recipe to have its details displayed here" }
+          data: { message: "Click on a recipe to have its details displayed here" },
+          pathMatch: 'full'
         },
         { path: ':recipe-id', component: RecipeDetailComponent }] },
     { path: 'shoppingList', component: ShoppingListComponent }
