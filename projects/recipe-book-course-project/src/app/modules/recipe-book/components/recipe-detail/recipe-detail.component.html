@@ -17,7 +17,7 @@
                 <div appDropdown class="dropdown">
                     <button type="button" class="btn btn-primary dropdown-toggle">Menage Recipe</button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item c-pointer">Add to Shopping List</a></li>
+                        <li><a class="dropdown-item c-pointer" (click)="onAddToShoppingList()">Add to Shopping List</a></li>
                         <li><a class="dropdown-item c-pointer">Edit Recipe</a></li>
                         <li><a class="dropdown-item c-pointer">Delete Recipe</a></li>
                     </ul>
@@ -32,7 +32,11 @@
     </div>
     <div class="row my-1">
         <div class="col-xs-12">
-            Ingredients
+            <ul class="list-group">
+                <ng-template ngFor let-ingredient [ngForOf]="recipe.ingredients">
+                    <li class="list-group-item">{{ ingredient.name }} - {{ ingredient.amount }} {{ ingredient.unitOfMeasure }}</li>
+                </ng-template>
+            </ul>
         </div>
     </div>
 </div>
