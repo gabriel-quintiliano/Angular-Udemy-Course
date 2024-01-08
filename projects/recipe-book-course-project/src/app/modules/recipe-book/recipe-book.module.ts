@@ -6,12 +6,14 @@ import { RecipeListComponent } from './components/recipe-list/recipe-list.compon
 import { RecipeItemComponent } from './components/recipe-item/recipe-item.component';
 import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
 import { RouterModule } from '@angular/router';
+import { RecipeEditComponent } from './components/recipe-edit/recipe-edit.component';
 
 @NgModule({
 	declarations: [
 		RecipeListComponent,
 		RecipeItemComponent,
-		RecipeDetailComponent
+		RecipeDetailComponent,
+  RecipeEditComponent
 	],
 	imports: [
 		CommonModule,
