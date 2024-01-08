@@ -9,7 +9,6 @@ import { ActivatedRoute, Params } from '@angular/router';
 	styleUrls: ['./recipe-detail.component.css']
 })
 export class RecipeDetailComponent {
-	// @Input({ alias: 'recipeDetail', required: true }) recipe!: Recipe;
     recipe!: Recipe;
     recipes!: Recipe[];
     recipeId!: number;
