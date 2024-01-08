@@ -10,17 +10,18 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class RecipeDetailComponent {
     recipe!: Recipe;
-    recipes!: Recipe[];
     recipeId!: number;
 
     constructor( private recipeService: RecipeService,
                  private route: ActivatedRoute ) {}
 
     ngOnInit() {
-        this.recipes = this.recipeService.getRecipes();
+        // Meanwhile it's this component is being loaded by a route with no guards,
+        // thus the user could really pass an id that doesn't exist, but later it
+        // will be properly fixed
         this.route.params.subscribe( (params: Params) => {
             this.recipeId = Number(params['recipe-id']);
-            this.recipe = this.recipes[this.recipeId];
+            this.recipe = this.recipeService.getRecipe(this.recipeId);
         })
     }
 
