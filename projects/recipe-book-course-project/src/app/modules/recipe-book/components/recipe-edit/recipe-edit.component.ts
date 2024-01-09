@@ -13,7 +13,6 @@ export class RecipeEditComponent implements OnInit {
     constructor(private route: ActivatedRoute) {}
 
     ngOnInit(): void {
-        console.log('ngOnInit ran at ', Date.now())
         this.route.params.subscribe((params: Params) => {
             // yes, there should be a futher verification here if when recipeId is
             // not undefined, it's really a number or NaN; or run a guard before
