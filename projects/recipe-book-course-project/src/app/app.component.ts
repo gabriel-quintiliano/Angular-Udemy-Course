@@ -6,12 +6,4 @@ import { ContentAvailableToBeShownType, contentAvailableToBeShown } from './mode
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-	loadedFeature!: ContentAvailableToBeShownType;
-	contentAvailableToBeShown = contentAvailableToBeShown; // necessary as I want to use this enum like object in template
-
-
-	onUpdateContentRequest(contentName: ContentAvailableToBeShownType) {
-		this.loadedFeature = contentName;
-	}
-}
+export class AppComponent { }
