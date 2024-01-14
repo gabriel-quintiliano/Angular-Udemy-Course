@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription, count, interval } from 'rxjs';
+import { Observable, Subscription, interval } from 'rxjs';
 
 @Component({
     selector: 'app-home',
@@ -26,16 +26,34 @@ export class HomeComponent implements OnInit, OnDestroy {
          * the code above uses a rxjs utility function that returns an observable.
          * In the code bellow, we try to recreate that:
          */
-        const customIntervalObservable = new Observable<number>((subscriber) => {
+        const customIntervalObservable = new Observable<number>((observer) => {
             let count = 0;
-                setInterval(() => {
-                    subscriber.next(count)
-                    count++;
-                }, 1000)
-            })
+            setInterval(() => {
+                observer.next(count)
+                if (count === 2) {
+                    // after completions all observers/subscribers are automatically unsubscribed
+                    observer.complete();
+                }
+                if (count > 3) {
+                    // after that the observable is "cancelled" and all observers/subscribers are
+                    // automatically unsubscribed
+                    observer.error(new Error('Count is greater than 3!'));
+                }
+                count++;
+            }, 1000)
+        })
 
-        this.firstObsSubscription = customIntervalObservable.subscribe((count) => {
-            console.log(count)
+        this.firstObsSubscription = customIntervalObservable.subscribe({
+            next: (count) => {
+                console.log(count);
+            }, 
+            error: (err) => {
+                console.log(err);
+                alert(err);
+            },
+            complete: () => {
+                console.log('Observable has completed')
+            }
         })
     }
   
