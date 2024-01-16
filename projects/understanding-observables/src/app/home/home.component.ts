@@ -26,9 +26,10 @@ export class HomeComponent implements OnInit, OnDestroy {
          * the code above uses a rxjs utility function that returns an observable.
          * In the code bellow, we try to recreate that:
          */
+        let intervalId: ReturnType<typeof setInterval>;
         const customIntervalObservable = new Observable<number>((observer) => {
             let count = 0;
-            setInterval(() => {
+            intervalId = setInterval(() => {
                 observer.next(count)
                 if (count === 10) {
                     // after completions all observers/subscribers are automatically unsubscribed
@@ -62,9 +63,28 @@ export class HomeComponent implements OnInit, OnDestroy {
                 console.log('Observable has completed')
             }
         })
+
+        /* the .add() method of a Subscription allows you to add a type TeardownLogic element,
+         * thus a Subscription | Unsubscribable | (() => void) | void, as a kind of child "subscription"
+         * to this current Subscription, and this way, these "child" subscriptions will also be
+         * unsubscribed when the main Subscription executes .unsubscribe(), or if its a function,
+         * it will be executed. In the end is kind of a side effects logic to clear out other elements
+         * that had a dependency on the current Subscription and don't make sense to be kept in
+         * memory after the main Subscription is closed.
+         * 
+         * In the code bellow, for example, we set up a function to clear the setInterval function,
+         * that started executing after the subscription above happened, to be run when the
+         * firstObsSubscription Subscription is closed (this.firstObsSubscription.unsubscribe()),
+         * otherwise, we'd unsubscribe but as setInterval is async and independent from the
+         * Subscription (and we would have cleared it anywhere else), it'd keep running indefinitely
+         * and there'd be a memory leak.
+         */
+        this.firstObsSubscription.add(() => {
+            console.log("don't worry, setInterval cleared! no more leaks here")
+            clearInterval(intervalId);
+        })
     }
 
-    
     ngOnDestroy() {
         // It's super important not to forget to unsubscribe from subscription
         // created earlier on throughout the component's lifecycle
