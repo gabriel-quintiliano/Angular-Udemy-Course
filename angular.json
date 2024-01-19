@@ -1303,6 +1303,99 @@
                     }
                 }
             }
+        },
+        "handling-forms": {
+            "projectType": "application",
+            "schematics": { },
+            "root": "projects/handling-forms",
+            "sourceRoot": "projects/handling-forms/src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/handling-forms",
+                        "index": "projects/handling-forms/src/index.html",
+                        "main": "projects/handling-forms/src/main.ts",
+                        "polyfills": [
+                            "zone.js"
+                        ],
+                        "tsConfig": "projects/handling-forms/tsconfig.app.json",
+                        "assets": [
+                            "projects/handling-forms/src/favicon.ico",
+                            "projects/handling-forms/src/assets"
+                        ],
+                        "styles": [
+                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                            "projects/handling-forms/src/styles.css"
+                        ],
+                        "scripts": [ ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "500kb",
+                                    "maximumError": "1mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "2kb",
+                                    "maximumError": "4kb"
+                                }
+                            ],
+                            "outputHashing": "all"
+                        },
+                        "development": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "handling-forms:build:production"
+                        },
+                        "development": {
+                            "browserTarget": "handling-forms:build:development"
+                        }
+                    },
+                    "defaultConfiguration": "development"
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "handling-forms:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "polyfills": [
+                            "zone.js",
+                            "zone.js/testing"
+                        ],
+                        "tsConfig": "projects/handling-forms/tsconfig.spec.json",
+                        "assets": [
+                            "projects/handling-forms/src/favicon.ico",
+                            "projects/handling-forms/src/assets"
+                        ],
+                        "styles": [
+                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                            "projects/handling-forms/src/styles.css"
+                        ],
+                        "scripts": [ ]
+                    }
+                }
+            }
         }
     }
 }
