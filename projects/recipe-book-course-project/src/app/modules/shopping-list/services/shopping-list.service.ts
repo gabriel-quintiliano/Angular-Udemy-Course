@@ -1,11 +1,12 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Ingredient } from '../models/ingredient.model';
+import { Subject } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ShoppingListService {
-	ingredientsChanged = new EventEmitter<Ingredient[]>();
+	ingredientsChanged = new Subject<Ingredient[]>();
 	private ingredients: Ingredient[] = [
 		new Ingredient('batata', 1, 'un'),
 	];
@@ -32,7 +33,7 @@ export class ShoppingListService {
 	addIngredient(ingredient: Ingredient) {
         this._addIngredient(ingredient);
 
-		this.ingredientsChanged.emit(this.ingredients);
+		this.ingredientsChanged.next(this.ingredients);
 	}
     
     addIngredients(ingredients: Ingredient[]) {
@@ -40,7 +41,7 @@ export class ShoppingListService {
             this._addIngredient(ingredient);
         }
         
-        this.ingredientsChanged.emit(this.ingredients);
+        this.ingredientsChanged.next(this.ingredients);
     }
 
 	removeIngredient(ingredient: Ingredient) {
@@ -49,7 +50,7 @@ export class ShoppingListService {
 		// if ingredient is not among ingredients, the return index above will be -1
 		if (ingredientIndex > -1) {
 			this.ingredients.splice(ingredientIndex, 1);
-			this.ingredientsChanged.emit(this.ingredients);
+			this.ingredientsChanged.next(this.ingredients);
 		}
 	}
 
@@ -59,7 +60,7 @@ export class ShoppingListService {
 		// if ingredient is not among ingredients, the return index above will be -1
 		if (ingredientIndex > -1) {
 			this.ingredients[ingredientIndex][key] = newValue;
-			this.ingredientsChanged.emit(this.ingredients);
+			this.ingredientsChanged.next(this.ingredients);
 		}
 	}
 }
