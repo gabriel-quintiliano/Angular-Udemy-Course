@@ -12,7 +12,8 @@
 <!-- Assign a value to ngModel directive to have that as the default value for that form control.
      Use [ngModel]="sthInTsFile" to use something from the component's class as default value.
      The `value` attribute of <input> (or `selected` for <option> in case of <select>) won't work
-     if the ngModel directive is being used -->
+     if the ngModel directive is being used. Regarding <input type="radio"> read the comment
+     almost at the end -->
 
 <div class="container">
     <div class="row">
@@ -88,8 +89,25 @@
                         [ngModel]="answer" (ngModelChange)="answer = $event"></textarea> -->
                 </div>
                 <p>Your reply: {{ answer }}</p>
+                <div *ngFor="let gender of genders">
+                    <!-- radio inputs works similarly to <select> and <option> as a combination of both into
+                         a single input. The `value` attr is mandatory (as there won't be no value entered by
+                         the user), this will be taken as the value to the `gender` form control, in this case.
+
+                         If you want to set a value to be selected by default, just set it to ngModel directive,
+                         as done below (yes, all the inputs created by this for of loop will have the same
+                         `ngModel="male"` set, but those whose `value` attr != "male" will just not be selected).
+                         
+                         About this layout below, with <label> acting as a container element for the <input>
+                         is correct and acceptable, and makes possible to skip the usage of the `for` attr,
+                         while still correctly relating the label with the correct input -->
+                    <label>
+                        <input type="radio" name="gender" ngModel="male" [value]="gender" required>
+                        {{ gender }}
+                    </label>
+                </div>
                 <button
-                    class="btn btn-primary"
+                    class="btn btn-primary mt-3"
                     type="submit"
                     [disabled]="!f.valid">Submit</button>
             </form>
