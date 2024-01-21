@@ -55,6 +55,33 @@
                     </select>
                     <div class="form-text invalid-message" *ngIf="secret.invalid && secret.touched">Please select a secret!</div>
                 </div>
+                <div class="form-group mb-2">
+                    <textarea
+                        class="form-control"
+                        name="questionAnswer"
+                        rows="3"
+                        [(ngModel)]="answer"></textarea>
+
+                    <!-- I don't how it's actually implemented to have this behavior, but, apparently,
+                         the [(ngModel)] works as a shortcut for the property binding acchieved using
+                         [ngModel]="answer" and event binding acchieved using (ngModelChange)="answer = $event".
+
+                         This way, if the `tsProp` value changes in the TS comp. class, the [ngModel]
+                         updates the value in the html template, and if the value is directly changed
+                         in the html template, the `ngModelChange` event is fired (from within the
+                         ngModel directive, it's an EventEmitter set up with @output('ngModelChange')
+                         there) and the command "answer = $event" is run, thus, updating the `answer`
+                         prop value in the TS comp. class - more in: https://angular.io/api/forms/NgModel
+                        
+                         Uncomment the element bellow and see (kind of) how it works -->
+
+                    <!-- <textarea
+                        class="form-control"
+                        name="questionAnswer2"
+                        rows="3"
+                        [ngModel]="answer" (ngModelChange)="answer = $event"></textarea> -->
+                </div>
+                <p>Your reply: {{ answer }}</p>
                 <button
                     class="btn btn-primary"
                     type="submit"
