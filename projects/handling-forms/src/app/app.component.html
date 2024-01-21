@@ -1,3 +1,14 @@
+<!-- Note in the template bellow that as we assign "ngForm" to a template reference variable, we
+     get access to the ngForm directive and thus values, validations, among other things of the
+     form (something that Angular docs relates to as `Form's Object Model` sometimes), if we assign
+     "ngModel" to a template reference variable, we get access directly to that form control this
+     ngModel directive is responsable for -->
+
+<!-- Assign a value to ngModel directive to have that as the default value for that form control.
+     Use [ngModel]="sthInTsFile" to use something from the component's class as default value.
+     The `value` attribute of <input> (or `selected` for <option> in case of <select>) won't work
+     if the ngModel directive is being used -->
+
 <div class="container">
     <div class="row">
         <div class="col">
@@ -10,8 +21,10 @@
                             id="username"
                             class="form-control"
                             name="username"
-                            ngModel
-                            required>
+                            ngModel="gabriel-q"
+                            required
+                            #username="ngModel">
+                        <div class="form-text invalid-message" *ngIf="username.invalid && username.touched">Please provide a username</div>
                     </div>
                     <button class="btn btn-secondary mb-3" type="button">Suggest an Username</button>
                     <div class="form-group mb-3">
@@ -23,15 +36,24 @@
                             name="email"
                             ngModel
                             required
-                            email>
+                            email
+                            #email="ngModel">
+                        <div class="form-text invalid-message" *ngIf="email.invalid && email.touched">Please provide a valid email!</div>
                     </div>
                 </div>
                 <div class="form-group mb-3">
                     <label for="secret">Secret Questions</label>
-                    <select id="secret" class="form-control" name="secret" ngModel required>
+                    <select
+                        id="secret"
+                        class="form-control"
+                        name="secret"
+                        [ngModel]="defaultSecret"
+                        required
+                        #secret="ngModel">
                         <option value="pet">Your first Pet?</option>
                         <option value="teacher">Your first teacher?</option>
                     </select>
+                    <div class="form-text invalid-message" *ngIf="secret.invalid && secret.touched">Please select a secret!</div>
                 </div>
                 <button
                     class="btn btn-primary"
