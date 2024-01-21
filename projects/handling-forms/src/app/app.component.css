@@ -2,10 +2,11 @@
     margin-top: 30px;
 }
 
-/* Add a red border in invalid fields from the form which have already been touched,
- * :not(form) is just to make sure this style doesn't affect the <form> tag as it
- * is also invalid if any of its fields is invalid */
-.ng-invalid:not(form).ng-touched {
+/* Add a red border in invalid inputs and selects from the form which have already
+ * been touched, :not(form) is just to make sure this style doesn't affect the <form>
+ * tag as it is also invalid if any of its fields is invalid */
+select.ng-invalid.ng-touched,
+input.ng-invalid.ng-touched {
     border: 1px solid red;
 }
 
