@@ -1396,6 +1396,99 @@
                     }
                 }
             }
+        },
+        "task-6-practicing-template-driven-forms": {
+            "projectType": "application",
+            "schematics": { },
+            "root": "projects/task-6-practicing-template-driven-forms",
+            "sourceRoot": "projects/task-6-practicing-template-driven-forms/src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/task-6-practicing-template-driven-forms",
+                        "index": "projects/task-6-practicing-template-driven-forms/src/index.html",
+                        "main": "projects/task-6-practicing-template-driven-forms/src/main.ts",
+                        "polyfills": [
+                            "zone.js"
+                        ],
+                        "tsConfig": "projects/task-6-practicing-template-driven-forms/tsconfig.app.json",
+                        "assets": [
+                            "projects/task-6-practicing-template-driven-forms/src/favicon.ico",
+                            "projects/task-6-practicing-template-driven-forms/src/assets"
+                        ],
+                        "styles": [
+                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                            "projects/task-6-practicing-template-driven-forms/src/styles.css"
+                        ],
+                        "scripts": [ ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "500kb",
+                                    "maximumError": "1mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "2kb",
+                                    "maximumError": "4kb"
+                                }
+                            ],
+                            "outputHashing": "all"
+                        },
+                        "development": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "task-6-practicing-template-driven-forms:build:production"
+                        },
+                        "development": {
+                            "browserTarget": "task-6-practicing-template-driven-forms:build:development"
+                        }
+                    },
+                    "defaultConfiguration": "development"
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "task-6-practicing-template-driven-forms:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "polyfills": [
+                            "zone.js",
+                            "zone.js/testing"
+                        ],
+                        "tsConfig": "projects/task-6-practicing-template-driven-forms/tsconfig.spec.json",
+                        "assets": [
+                            "projects/task-6-practicing-template-driven-forms/src/favicon.ico",
+                            "projects/task-6-practicing-template-driven-forms/src/assets"
+                        ],
+                        "styles": [
+                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                            "projects/task-6-practicing-template-driven-forms/src/styles.css"
+                        ],
+                        "scripts": [ ]
+                    }
+                }
+            }
         }
     }
 }
