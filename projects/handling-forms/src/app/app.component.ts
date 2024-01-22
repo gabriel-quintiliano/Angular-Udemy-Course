@@ -60,12 +60,20 @@ export class AppComponent {
 
     onSubmit() {
         this.submitted = true;
-
+        
         // just an example of how to easily access and use the values from TD form
         this.user.username = this.signupForm.value.userData.username;
         this.user.email = this.signupForm.value.userData.email;
         this.user.secretQuestion = this.signupForm.value.secret;
         this.user.answer = this.signupForm.value.questionAnswer;
         this.user.gender = this.signupForm.value.gender;
+
+        /* The .reset() method resets all form control values to '' or an initial value
+         * if this is passed as an argument (in the same format as in .patchValue() used
+         * above). Meanwhile, the .resetForm() method does the same but also resets the
+         * `submitted` property of the form to `false` if it'd previously submitted, I
+         * don't know for sure, but may reset other properties too. */
+        this.signupForm.reset({userData: {username: 'gabi'}})
+        // this.signupForm.resetForm({userData: {username: 'gabi'}})
     }
 }
