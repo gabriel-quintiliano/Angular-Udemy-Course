@@ -49,7 +49,7 @@
                     <div class="form-text invalid-message" *ngIf="userData.invalid && userData.touched">Please provide valid user information for the fields above</div>
                 </div>
                 <div class="form-group mb-3">
-                    <label for="secret">Secret Questions</label>
+                    <label for="secret">Secret Question</label>
                     <select
                         id="secret"
                         class="form-control"
@@ -111,6 +111,17 @@
                     type="submit"
                     [disabled]="!f.valid">Submit</button>
             </form>
+        </div>
+    </div>
+    <hr>
+    <div class="row" *ngIf="submitted">
+        <div class="col">
+            <h3>Your data:</h3>
+            <p>Username: {{ user.username }}</p>
+            <p>Email: {{ user.email }}</p>
+            <p>Secret Question: {{ user.secretQuestion }}</p>
+            <p>Answer: {{ user.answer }}</p>
+            <p>Gender: {{ user.gender }}</p>
         </div>
     </div>
 </div>

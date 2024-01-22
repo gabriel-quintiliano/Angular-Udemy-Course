@@ -12,6 +12,14 @@ export class AppComponent {
     defaultSecret = 'pet';
     answer = '';
     genders = ['male', 'female', 'other'];
+    user = {
+        username: '', 
+        email: '',
+        secretQuestion: '',
+        answer: '',
+        gender: ''
+    };
+    submitted = false;
 
     suggestUserName() {
         const suggestedName = 'Superuser';
@@ -51,6 +59,13 @@ export class AppComponent {
     }
 
     onSubmit() {
-        console.log(this.signupForm)
+        this.submitted = true;
+
+        // just an example of how to easily access and use the values from TD form
+        this.user.username = this.signupForm.value.userData.username;
+        this.user.email = this.signupForm.value.userData.email;
+        this.user.secretQuestion = this.signupForm.value.secret;
+        this.user.answer = this.signupForm.value.questionAnswer;
+        this.user.gender = this.signupForm.value.gender;
     }
 }
