@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-root',
@@ -33,7 +33,8 @@ export class AppComponent implements OnInit {
                 'username': new FormControl(null, Validators.required), // don't call the method, just pass the reference
                 'email': new FormControl(null, [Validators.required, Validators.email]), // use an array to pass multiple validators
             }),
-            'gender': new FormControl('male')
+            'gender': new FormControl('male'),
+            'hobbies': new FormArray([]) // self explanatory, an array of FormControls, seem more dynamic for "random" controls
         })
 
         /* Note: In the end FormGroup is used to "wrap" a collection of FormControl
@@ -42,6 +43,21 @@ export class AppComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.signupForm)
+        console.log(this.signupForm);
+    }
+
+    onAddHobbies() {
+        const control = new FormControl(null, Validators.required);
+
+        /* The casting `as FormArray` is needed bellow because as of the type annotation for
+         * the .get() method, the returned value will be `null` or `AbstractControl<any, any>`.
+         * That is because this is the parent class of `FormGroup`, `FormArray`, `FormControl`,
+         * which will be the actual value returned. So you need to assert the returned value
+         * to one of these more specific types accordingly */
+        (this.signupForm.get('hobbies') as FormArray).push(control);
+    }
+
+    getHobbiesControls() {
+        return (this.signupForm.get('hobbies') as FormArray).controls;
     }
 }

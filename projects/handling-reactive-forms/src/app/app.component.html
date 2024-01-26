@@ -54,6 +54,27 @@
                             [value]="gender"> {{ gender }}
                     </label>
                 </div>
+                <!-- the formArrayName directive will in this case sync the `hobbies` FormArray 
+                     which is declared within the signupForm FormGroup -->
+                <div formArrayName="hobbies" class="mt-2">
+                    <h5>Your hobbies</h5>
+                    <button class="btn add-hobby-btn" type="button" (click)="onAddHobbies()">Add hobby</button>
+                    <div class="form-group">
+                        <ng-template ngFor let-hobbie [ngForOf]="getHobbiesControls()" let-i="index">
+                            <input
+                                type="text"
+                                [formControlName]="i"
+                                class="form-control mt-1">
+                            <!-- in the usage of the .get() method with an array as argument, the ideal format would
+                                 be to assert with `as const` but as the template doesn't recognizes this annotation
+                                 as valid and I'd have to do it in the .ts file and "export" it in a new property to
+                                 be used here, I chose to just not do it and I'll work just the same in this case -->
+                            <span
+                                *ngIf="!signupForm.get(['hobbies', i])?.valid && signupForm.get(['hobbies', i])?.touched"
+                                class="form-text">Please enter a valid hobby!</span>
+                        </ng-template>
+                    </div>
+                </div>
                 <span
                     *ngIf="!signupForm.valid && signupForm.touched"
                     class="form-text d-block">Please enter a valid data!</span>
