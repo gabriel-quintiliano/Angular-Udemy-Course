@@ -4,39 +4,46 @@
             <!-- the [formGroup] directive takes the FormGroup object instance created in the
                  component's class as value and syncs this <form> with that -->
             <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-                <div class="form-group  mb-2">
-                    <label for="username">Username</label>
-                    <!-- the formControlName directive takes the name (as a plain string) of
+                <!-- if there is an nested FormGroup in the main FormGroup you've got to express
+                     this here in the template too, otherwise you won't be able to sync the controls
+                     within this nested FormGroup as Angular, via formControlName directive, would
+                     be looking for those in the "top level" of the main FormGroup and after not
+                     finding these there, an runtime error would happen -->
+                <div formGroupName="userData">
+                    <div class="form-group mb-2">
+                        <label for=" username">Username</label>
+                        <!-- the formControlName directive takes the name (as a plain string) of
                          FormControl object instance present within the FormGroup synced to <form>,
                          if for example 'username' was a standalone FormControl, you might want to
                          use the [formControl] directive and pass to that directly the instance of
                          that FormControl instead of just its name, just like it was done with the
                          FormGroup object above -->
-                    <input
-                        formControlName="username"
-                        type="text"
-                        id="username"
-                        class="form-control">
-                    <!-- as shown bellow, in reactive forms I'll get to access each control through the .get()
+                        <input
+                            formControlName="username"
+                            type="text"
+                            id="username"
+                            class="form-control">
+                        <!-- as shown bellow, in reactive forms I'll get to access each control through the .get()
                          method which should receive the control path. Yes, you can access the same controls via
                          <FormGroup>.controls['controlName'], which is actually faster (performace wise), but in
                          more complex form structures (e.g. nested form groups/arrays) tends to be a lot more
                          and yield a less readable code (e.g. <FormGroup>.controls['a1'].controls['b2'].controls['c3']
-                         vs <FormGroup>.get('a1.b2.c3') or <FormGroup>.get(['a1', 'b2', 'c3'])) -->
-                    <span
-                        *ngIf="!signupForm.get('username')?.valid && signupForm.get('username')?.touched"
-                        class="form-text">Please enter a valid username!</span>
-                </div>
-                <div class="form-group mb-2">
-                    <label for="email">email</label>
-                    <input
-                        formControlName="email"
-                        type="text"
-                        id="email"
-                        class="form-control">
-                    <span
-                        *ngIf="!signupForm.get('email')?.valid && signupForm.get('email')?.touched"
-                        class="form-text">Please enter a valid email!</span>
+                         vs <FormGroup>.get('a1.b2.c3') or <FormGroup>.get(['a1', 'b2', 'c3'] as const)) -->
+                        <span
+                            *ngIf="!signupForm.get('userData.username')?.valid && signupForm.get('userData.username')?.touched"
+                            class="form-text">Please enter a valid username!</span>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="email">email</label>
+                        <input
+                            formControlName="email"
+                            type="text"
+                            id="email"
+                            class="form-control">
+                        <span
+                            *ngIf="!signupForm.get('userData.email')?.valid && signupForm.get('userData.email')?.touched"
+                            class="form-text">Please enter a valid email!</span>
+                    </div>
                 </div>
                 <div class="radio" *ngFor="let gender of genders">
                     <label>

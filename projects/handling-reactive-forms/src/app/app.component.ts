@@ -29,10 +29,16 @@ export class AppComponent implements OnInit {
          * for some really cool and useful tips on reactive forms
          */
         this.signupForm = new FormGroup({
-            'username': new FormControl(null, Validators.required), // don't call the method, just pass the reference
-            'email': new FormControl(null, [Validators.required, Validators.email]), // use an array to pass multiple validators
+            'userData': new FormGroup({
+                'username': new FormControl(null, Validators.required), // don't call the method, just pass the reference
+                'email': new FormControl(null, [Validators.required, Validators.email]), // use an array to pass multiple validators
+            }),
             'gender': new FormControl('male')
         })
+
+        /* Note: In the end FormGroup is used to "wrap" a collection of FormControl
+         * instances and keep its states along side an overall state for the FormGroup
+         * itself (or something like that) */
     }
 
     onSubmit() {
