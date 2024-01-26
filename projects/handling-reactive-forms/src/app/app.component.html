@@ -1,10 +1,19 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-            <form>
+            <!-- the [formGroup] directive takes the FormGroup object instance created in the
+                 component's class as value and syncs this <form> with that -->
+            <form [formGroup]="signupForm">
                 <div class="form-group">
                     <label for="username">Username</label>
+                    <!-- the formControlName directive takes the name (as a plain string) of
+                         FormControl object instance present within the FormGroup synced to <form>,
+                         if for example 'username' was a standalone FormControl, you might want to
+                         use the [formControl] directive and pass to that directly the instance of
+                         that FormControl instead of just its name, just like it was done with the
+                         FormGroup object above -->
                     <input
+                        formControlName="username"
                         type="text"
                         id="username"
                         class="form-control mb-2">
@@ -12,6 +21,7 @@
                 <div class="form-group">
                     <label for="email">email</label>
                     <input
+                        formControlName="email"
                         type="text"
                         id="email"
                         class="form-control mb-2">
@@ -19,6 +29,7 @@
                 <div class="radio" *ngFor="let gender of genders">
                     <label>
                         <input
+                            formControlName="gender"
                             type="radio"
                             name="gender"
                             [value]="gender"> {{ gender }}
