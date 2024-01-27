@@ -30,8 +30,11 @@
                          and yield a less readable code (e.g. <FormGroup>.controls['a1'].controls['b2'].controls['c3']
                          vs <FormGroup>.get('a1.b2.c3') or <FormGroup>.get(['a1', 'b2', 'c3'] as const)) -->
                         <span
-                            *ngIf="!signupForm.get('userData.username')?.valid && signupForm.get('userData.username')?.touched"
+                            *ngIf="signupForm.get('userData.username')?.errors?.['required'] && signupForm.get('userData.username')?.touched"
                             class="form-text">Please enter a valid username!</span>
+                        <span
+                            *ngIf="signupForm.get('userData.username')?.errors?.['forbiddenName'] && signupForm.get('userData.username')?.touched"
+                            class="form-text">This username is forbidden!</span>
                     </div>
                     <div class="form-group mb-2">
                         <label for="email">email</label>
