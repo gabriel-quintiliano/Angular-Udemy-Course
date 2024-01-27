@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-root',
@@ -9,6 +9,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 export class AppComponent implements OnInit {
     genders = ['male', 'female'];
+    forbiddenNames = ['anna', 'john'];
     signupForm!: FormGroup;
 
     ngOnInit() {
@@ -30,7 +31,7 @@ export class AppComponent implements OnInit {
          */
         this.signupForm = new FormGroup({
             'userData': new FormGroup({
-                'username': new FormControl(null, Validators.required), // don't call the method, just pass the reference
+                'username': new FormControl(null, [Validators.required, this.forbiddenNamesValidator]), // don't call the method, just pass the reference
                 'email': new FormControl(null, [Validators.required, Validators.email]), // use an array to pass multiple validators
             }),
             'gender': new FormControl('male'),
@@ -40,6 +41,33 @@ export class AppComponent implements OnInit {
         /* Note: In the end FormGroup is used to "wrap" a collection of FormControl
          * instances and keep its states along side an overall state for the FormGroup
          * itself (or something like that) */
+    }
+
+    /* Use the `ValidatorFn` as type to guide the creation of your custom validator function, as
+     * this is the function signature type that a FormControl, FormArray or FormGroup expects. Each
+     * of these objects calls the validator passing itself as argument to the `control` parameter 
+     * 
+     * The return value of the validator function will be assigned to the `errors` property of the
+     * caller object, thus if validation fails, an "error code" should be returned (`ValidationErrors`)
+     * or `null` if the validation succeeds (and therefore there is no error)
+     * 
+     * Ex: if you use the validator bellow in a FormControl and validation fails, you could access the
+     * the error code as in:
+     * <FormControl>.errors?.['forbiddenNames'] and have `true` returned.
+     * (`?` assertion is needed as the `errors` property can be either `ValidationErrors` or `null`,
+     * and thus if it's null or undefined (in case there are errors but not the error your looking
+     * for), nothing breaks as JS (after compiling) won't go any futher as it doesn't exist)
+     * 
+     * If the validation succeeds, <FormControl>.errors === null */
+    forbiddenNamesValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+        if (this.forbiddenNames.indexOf(control.value) !== -1) {
+            return {forbiddenName: true}
+            /* In earlier versions, it seems to me that it was a standard for the "error code" to
+             * follow the typing { [key: string]: boolean }, but in Angular version 16.2.8, this
+             * is { [key: string]: any } aliased as `ValidationErrors`, so the value within that
+             * object key can be anything you want */
+        }
+        return null
     }
 
     onSubmit() {
