@@ -32,7 +32,13 @@ export class AppComponent implements OnInit {
          */
         this.signupForm = new FormGroup({
             'userData': new FormGroup({
-                'username': new FormControl(null, [Validators.required, this.forbiddenNamesValidator]), // don't call the method, just pass the reference
+                /* the `nonNullable: true` option will make sure that when the form is
+                 * reset, the `username` input value goes back to this initial value set here
+                 * ('Gabriel Q.' in this case) and if I'm not mistaken this will also set
+                 * this control's default value to this same initial value (that the property
+                 * the .reset() method looks at to reset the control's value to, which is by
+                 * default `null`) */
+                'username': new FormControl('Gabriel Q.', {nonNullable: true, validators: [Validators.required, this.forbiddenNamesValidator]}), // don't call the method, just pass the reference
                 'email': new FormControl(null, [Validators.required, Validators.email], this.forbiddenEmailsValidator), // use an array to pass multiple validators
             }),
             'gender': new FormControl('male'),
@@ -123,6 +129,12 @@ export class AppComponent implements OnInit {
 
     onSubmit() {
         console.log(this.signupForm);
+        /* The FormGroup .reset() method resets each control to its default value (null) or its initial
+         * value (if the control was setup with the {nonnullable: true} option, such as i did with the
+         * `name` control) or the new initial value provided in the object passed as argument to the method */
+        this.signupForm.reset({
+            'gender': 'female'
+        })
     }
 
     onAddHobbies() {
