@@ -46,13 +46,33 @@ export class AppComponent implements OnInit {
         // Observable that emits data whenever a form input value changes (sends new value)
         this.signupForm.valueChanges.subscribe((value) => {
             console.log("value changed to: ", value)
-        })
+        });
         
         /* Observable that emits data whenever a form status changes (sends new status).
          * More specifically, I think that is whenever any validator function runs an thus
          * the form status might change */
         this.signupForm.statusChanges.subscribe((status) => {
             console.log("status changed to: ", status)
+        });
+
+        /* Just like, template-driven forms, in reactive forms the .setValue() method works
+         * the same, you must provide and object (in this case) that is structurally the same
+         * as the FormGroup's, if any key is missing or mispositioned, an error will appear */
+        this.signupForm.setValue({
+            'userData': {
+                'username': 'Gabriel',
+                'email': 'test@test.com'
+            },
+            'gender': 'male',
+            'hobbies': []
+        });
+
+        /* The .patchValue() method is similar to .setValue() but you're abble to the value of
+         * whatever control(s) you want without having to mimic the whole form structure */
+        this.signupForm.patchValue({
+            'userData': {
+                'username': 'Gabriel Quintiliano'
+            }
         })
     }
 
