@@ -42,6 +42,18 @@ export class AppComponent implements OnInit {
         /* Note: In the end FormGroup is used to "wrap" a collection of FormControl
          * instances and keep its states along side an overall state for the FormGroup
          * itself (or something like that) */
+
+        // Observable that emits data whenever a form input value changes (sends new value)
+        this.signupForm.valueChanges.subscribe((value) => {
+            console.log("value changed to: ", value)
+        })
+        
+        /* Observable that emits data whenever a form status changes (sends new status).
+         * More specifically, I think that is whenever any validator function runs an thus
+         * the form status might change */
+        this.signupForm.statusChanges.subscribe((status) => {
+            console.log("status changed to: ", status)
+        })
     }
 
     /* Use the `ValidatorFn` as type to guide the creation of your custom validator function, as
