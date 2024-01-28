@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-root',
@@ -32,7 +33,7 @@ export class AppComponent implements OnInit {
         this.signupForm = new FormGroup({
             'userData': new FormGroup({
                 'username': new FormControl(null, [Validators.required, this.forbiddenNamesValidator]), // don't call the method, just pass the reference
-                'email': new FormControl(null, [Validators.required, Validators.email]), // use an array to pass multiple validators
+                'email': new FormControl(null, [Validators.required, Validators.email], this.forbiddenEmailsValidator), // use an array to pass multiple validators
             }),
             'gender': new FormControl('male'),
             'hobbies': new FormArray([]) // self explanatory, an array of FormControls, seem more dynamic for "random" controls
@@ -68,6 +69,24 @@ export class AppComponent implements OnInit {
              * object key can be anything you want */
         }
         return null
+    }
+
+    /* This is just like the validator above, but executes an asynchronous validation such as
+     * going to a server (via a http request) to check if a value is valid or not.
+     * Async validator functions return a promise or observable that provides `null` or 
+     * `ValidationErrors` */
+    forbiddenEmailsValidator: AsyncValidatorFn = (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
+        const promise = new Promise<ValidationErrors | null>((resolve, reject) => {
+            setTimeout(() => {
+                if (control.value === "teste@teste.com") {
+                    resolve({forbiddenEmail: true})
+                } else {
+                    resolve(null)
+                }
+            }, 3000)
+        });
+
+        return promise;
     }
 
     onSubmit() {

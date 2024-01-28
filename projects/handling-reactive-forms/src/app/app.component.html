@@ -1,9 +1,11 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+
             <!-- the [formGroup] directive takes the FormGroup object instance created in the
                  component's class as value and syncs this <form> with that -->
             <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+
                 <!-- if there is an nested FormGroup in the main FormGroup you've got to express
                      this here in the template too, otherwise you won't be able to sync the controls
                      within this nested FormGroup as Angular, via formControlName directive, would
@@ -12,6 +14,7 @@
                 <div formGroupName="userData">
                     <div class="form-group mb-2">
                         <label for=" username">Username</label>
+
                         <!-- the formControlName directive takes the name (as a plain string) of
                          FormControl object instance present within the FormGroup synced to <form>,
                          if for example 'username' was a standalone FormControl, you might want to
@@ -23,6 +26,7 @@
                             type="text"
                             id="username"
                             class="form-control">
+
                         <!-- as shown bellow, in reactive forms I'll get to access each control through the .get()
                          method which should receive the control path. Yes, you can access the same controls via
                          <FormGroup>.controls['controlName'], which is actually faster (performace wise), but in
@@ -44,8 +48,23 @@
                             id="email"
                             class="form-control">
                         <span
-                            *ngIf="!signupForm.get('userData.email')?.valid && signupForm.get('userData.email')?.touched"
+                            *ngIf="signupForm.get('userData.email')?.invalid && signupForm.get('userData.email')?.touched"
                             class="form-text">Please enter a valid email!</span>
+
+                        <!-- When you use async validators, while the is no value resolved, the control (in this case 'email')
+                             will neither be "valid" or "invalid", just "pending", thus, among other properties of the control:
+                             .status === "PENDING"
+                             .pending === true
+                             .valid === false
+                             .invalid === false
+                             Regarding the input element (control) it will have the `ng-pending` class added (`ng-valid` or
+                             `ng-invalid` won't be present) so you can style it accordingly.
+                            
+                             The same will happen with the FormGroup/FormArray which this control is within and the whole form
+                             (the main FormGroup that wraps everything) -->
+                        <span
+                            *ngIf="signupForm.get('userData.email')?.pending && signupForm.get('userData.email')?.touched"
+                            class="form-text">Checking email...</span>
                     </div>
                 </div>
                 <div class="radio" *ngFor="let gender of genders">
@@ -57,6 +76,7 @@
                             [value]="gender"> {{ gender }}
                     </label>
                 </div>
+
                 <!-- the formArrayName directive will in this case sync the `hobbies` FormArray 
                      which is declared within the signupForm FormGroup -->
                 <div formArrayName="hobbies" class="mt-2">
@@ -68,6 +88,7 @@
                                 type="text"
                                 [formControlName]="i"
                                 class="form-control mt-1">
+
                             <!-- in the usage of the .get() method with an array as argument, the ideal format would
                                  be to assert with `as const` but as the template doesn't recognizes this annotation
                                  as valid and I'd have to do it in the .ts file and "export" it in a new property to
