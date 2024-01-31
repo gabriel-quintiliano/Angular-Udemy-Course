@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { CustomValidators } from './custom.validators';
 
 @Component({
@@ -8,25 +8,33 @@ import { CustomValidators } from './custom.validators';
     styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit {
-    projectForm!: FormGroup;
+export class AppComponent {
 
-    ngOnInit() {
-        this.projectForm = new FormGroup({
-            'projectName': new FormControl(null, [Validators.required, CustomValidators.forbiddenProjectName]),
-            'email': new FormControl(null, [Validators.required, Validators.email], CustomValidators.upperCaseEmail),
-            'status': new FormControl('stable', {nonNullable: true})
-        })
-    }
+    projectForm = this.nnfb.group({
+        'projectName': ['', [Validators.required, CustomValidators.forbiddenProjectName]],
+        'email': ['', [Validators.required, Validators.email], CustomValidators.forbiddenProjectName],
+        'status': 'stable'
+    })
+
+    // Equivalent code to create the same non-nullable form as above manually without the form builder:
+    // projectForm = new FormGroup({
+    //     'projectName': new FormControl('', {nonNullable: true, validators: [Validators.required, CustomValidators.forbiddenProjectName]}),
+    //     'email': new FormControl('', {nonNullable: true, validators: [Validators.required, Validators.email], asyncValidators: CustomValidators.upperCaseEmail}),
+    //     'status': new FormControl('stable', {nonNullable: true})
+    // });
+
+    constructor(private nnfb: NonNullableFormBuilder) { }
 
     /* Creating this getters really makes it easier to deal with these controls in the template and
-     * also more make it all more readable there */
+     * also more makes it all more readable there */
     get projectName() {
-        return this.projectForm.get('projectName') as FormControl;
+        // ! in the end is the non-null assertion
+        return this.projectForm.get('projectName')!;
     }
 
     get email() {
-        return this.projectForm.get('email') as FormControl;
+        // ! in the end is the non-null assertion
+        return this.projectForm.get('email')!;
     }
 
     onSubmit() {
