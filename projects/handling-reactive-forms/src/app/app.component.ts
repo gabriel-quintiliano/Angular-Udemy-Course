@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, AsyncValidatorFn, FormArray, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -11,7 +11,12 @@ import { Observable } from 'rxjs';
 export class AppComponent implements OnInit {
     genders = ['male', 'female'];
     forbiddenNames = ['anna', 'john'];
-    signupForm!: FormGroup;
+    // See note on the end of this file to get more info about typed reactive forms
+    signupForm!: FormGroup<signupFormSchema>;
+
+    constructor(private fb: FormBuilder) {}
+
+
 
     ngOnInit() {
 
@@ -39,10 +44,10 @@ export class AppComponent implements OnInit {
                  * the .reset() method looks at to reset the control's value to, which is by
                  * default `null`) */
                 'username': new FormControl('Gabriel Q.', {nonNullable: true, validators: [Validators.required, this.forbiddenNamesValidator]}), // don't call the method, just pass the reference
-                'email': new FormControl(null, [Validators.required, Validators.email], this.forbiddenEmailsValidator), // use an array to pass multiple validators
+                'email': new FormControl('', [Validators.required, Validators.email], this.forbiddenEmailsValidator), // use an array to pass multiple validators
             }),
             'gender': new FormControl('male'),
-            'hobbies': new FormArray([]) // self explanatory, an array of FormControls, seem more dynamic for "random" controls
+            'hobbies': new FormArray<FormControl<string | null>>([]) // self explanatory, an array of FormControls, seem more dynamic for "random" controls
         })
 
         /* Note: In the end FormGroup is used to "wrap" a collection of FormControl
@@ -77,7 +82,7 @@ export class AppComponent implements OnInit {
          * whatever control(s) you want without having to mimic the whole form structure */
         this.signupForm.patchValue({
             'userData': {
-                'username': 'Gabriel Quintiliano'
+                'username': 'Gabriel Quintiliano',
             }
         })
     }
@@ -152,3 +157,33 @@ export class AppComponent implements OnInit {
         return (this.signupForm.get('hobbies') as FormArray).controls;
     }
 }
+
+type signupFormSchema = {
+    'userData': FormGroup<{
+        'username': FormControl<string>,
+        'email': FormControl<string | null>
+    }>,
+    'gender': FormControl<string | null>,
+    'hobbies': FormArray<FormControl<string | null>>
+}
+
+/* NOTE: The initial approach I'd used above was as taught in the udemy course, it turns out that
+ * by the time the course was recorded, typed forms didn't still exist, but now (after finishing)
+ * the `reactive forms module` I learned that typed forms were introduced in Angular 14.
+ * 
+ * I thought of refactoring the whole logic above to leverage these typed forms. The easiest way
+ * to achieve that would just be to initialize the form at once instead of creating the `singnupForm`
+ * property and just initialize that in `ngOnInit()` method, because this way the typescript would
+ * infer the whole form schema/structure and I'd be done.
+ * 
+ * But, because of the many comments I made, I ended up deciding to leave it all as it is and taking
+ * a second approach that has the same effect (although more laborious), which is to create a form
+ * schema and pass it as typing to FormGroup (I created the `signupFormSchema`)
+ * 
+ * Depending on how  you describe the controls, the form types may change a bit, mainly regarding if
+ * a control is optional or mandatory and if its value might be `null` at some point of time.
+ * 
+ * Still another approach is to initialize the form using the FormBuilder or NonNullableFormBuilder 
+ * services, through which you can skip writing a lot of boilerplate code. The NonNullableFormBuilder
+ * is just like the FormBuilder but makes all form controls non-nullable by default, thus you get
+ * away of writing `{nonNullable: true}` all the time. */
