@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, AsyncValidatorFn, Form, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CustomValidators } from './custom.validators';
 
 @Component({
     selector: 'app-root',
@@ -12,8 +13,8 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.projectForm = new FormGroup({
-            'projectName': new FormControl(null, [Validators.required, this.forbiddenProjectNamesValidator]),
-            'email': new FormControl(null, [Validators.required, Validators.email], this.upperCaseEmailValidator),
+            'projectName': new FormControl(null, [Validators.required, CustomValidators.forbiddenProjectName]),
+            'email': new FormControl(null, [Validators.required, Validators.email], CustomValidators.upperCaseEmail),
             'status': new FormControl('stable', {nonNullable: true})
         })
     }
@@ -31,27 +32,5 @@ export class AppComponent implements OnInit {
     onSubmit() {
         console.log(this.projectForm)
         this.projectForm.reset()
-    }
-
-    /* NOTE: ValidatorFn = (control: AbstractControl<any, any>) => ValidationErrors | null */
-    forbiddenProjectNamesValidator: ValidatorFn = (control) => {
-        if (control.value?.toLowerCase() === 'test') {
-            return {forbiddenProjectName: {value: control.value}}
-        }
-        return null
-    }
-
-    /* NOTE: AsyncValidatorFn = (control: AbstractControl<any, any>) => Promise<ValidationErrors | null> | Observable<ValidationErrors | null>*/
-    upperCaseEmailValidator: AsyncValidatorFn = (control) => {
-        const value = control.value
-
-        const promise = new Promise< ValidationErrors| null>((resolve, reject) => {
-            // ? is necessary because in this case control.value can be `null`
-            if (value !== value?.toLowerCase()) {
-                resolve({upperCaseEmail: true})
-            }
-            resolve(null);
-        })
-        return promise;
     }
 }
