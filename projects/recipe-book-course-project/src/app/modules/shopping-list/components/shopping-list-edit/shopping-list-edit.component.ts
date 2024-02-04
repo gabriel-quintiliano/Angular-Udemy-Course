@@ -36,6 +36,9 @@ export class ShoppingListEditComponent {
 	constructor(private slService: ShoppingListService) { }
 
 	onIngredientAdded() {
+        if (!this.ingredientForm.valid) {
+            return
+        }
 
 		const ingName = this.ingredientForm.get('name')!.value;
 		const ingAmount = this.ingredientForm.get('amount')!.value;
