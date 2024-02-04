@@ -4,6 +4,7 @@ import { CommonCustomUtilitiesModule } from "../common-custom-utilities/common-c
 
 import { ShoppingListComponent } from "./components/shopping-list/shopping-list.component";
 import { ShoppingListEditComponent } from "./components/shopping-list-edit/shopping-list-edit.component";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
 	declarations: [
@@ -12,7 +13,8 @@ import { ShoppingListEditComponent } from "./components/shopping-list-edit/shopp
 	],
 	imports: [
 		CommonModule,
-		CommonCustomUtilitiesModule
+		CommonCustomUtilitiesModule,
+        ReactiveFormsModule
 	],
 	exports: [
 		ShoppingListComponent,
