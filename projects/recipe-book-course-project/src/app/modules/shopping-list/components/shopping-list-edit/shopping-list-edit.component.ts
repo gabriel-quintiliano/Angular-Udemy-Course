@@ -2,6 +2,7 @@ import { Component, Renderer2 } from "@angular/core";
 import { Ingredient, UnitOfMeasureUnion, unitsOfMeasure } from "../../models/ingredient.model";
 import { ShoppingListService } from "../../services/shopping-list.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { CustomValidators } from "projects/recipe-book-course-project/src/app/validators/custom.validators";
 
 @Component({
 	selector: 'app-shopping-list-edit',
@@ -14,14 +15,18 @@ export class ShoppingListEditComponent {
 
     ingredientForm = new FormGroup({
         name: new FormControl('', {nonNullable: true, validators: Validators.required}),
-        amount: new FormControl(1, {nonNullable: true, validators: Validators.required}),
+        amount: new FormControl(1, {nonNullable: true, validators: [
+            Validators.required,
+            Validators.min(1),
+            CustomValidators.number
+        ]}),
         unitOfMeasure: new FormControl<UnitOfMeasureUnion>('un', {nonNullable: true, validators: Validators.required})
     })
 
     // The same FormGroup above could be created using the NonNullableFormBuilder as:
     // ingredientForm2 = this.nnfb.group({
     //     name: ['', Validators.required],
-    //     amount: [1, Validators.required],
+    //     amount: [1, [Validators.required, Validators.min(1), CustomValidators.number]],
     //     unitOfMeasure: this.nnfb.control<UnitOfMeasureUnion>('un', Validators.required)
     // })
     //
