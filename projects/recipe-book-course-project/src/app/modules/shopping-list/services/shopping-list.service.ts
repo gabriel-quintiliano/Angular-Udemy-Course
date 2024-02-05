@@ -12,6 +12,10 @@ export class ShoppingListService {
 		new Ingredient('batata', 1, 'un'),
 	];
 
+    getIngredient(index: number): Ingredient | undefined {
+        return this.ingredients[index];
+    }
+
 	getIngredients() {
 		// returns a shallow copy of ingredients, thus it's a new Array object, but
 		// it's elements are the same from ingredients (same reference).
