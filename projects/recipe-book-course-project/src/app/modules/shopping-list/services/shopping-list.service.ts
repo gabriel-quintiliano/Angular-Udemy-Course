@@ -59,13 +59,22 @@ export class ShoppingListService {
 		}
 	}
 
-	editIngredient<K extends keyof Ingredient>(ingredient: Ingredient, key: K, newValue: Ingredient[K]) {
-		const ingredientIndex = this.ingredients.indexOf(ingredient);
+    // editIngredient method this method has 2 overloads:
+	editIngredient<K extends keyof Ingredient>(ingredientIndex: number, newValue: Ingredient): void
+	editIngredient<K extends keyof Ingredient>(ingredientIndex: number, newValue: Ingredient[K], key: K): void
+    
+	editIngredient<K extends keyof Ingredient>(ingredientIndex: number, newValue: Ingredient[K] | Ingredient, key?: K) {
+		// checks if the ingredient exists
+        if (!this.ingredients[ingredientIndex]) throw new Error('Edit mode: No valid ingredient found')
 
-		// if ingredient is not among ingredients, the return index above will be -1
-		if (ingredientIndex > -1) {
-			this.ingredients[ingredientIndex][key] = newValue;
-			this.ingredientsChanged.next(this.ingredients);
-		}
+        // checks if newValue is a whole Ingredient object, i.e. we're updating the whole ingredient
+		if (newValue instanceof Object) {
+            this.ingredients.splice(ingredientIndex, 1, newValue)
+        // if `newValue` isn't an object (and `key` isn't `undefined`), this means were updating a single ingredient property
+		} else if (key) {
+            this.ingredients[ingredientIndex][key] = newValue;
+        }
+        
+        this.ingredientsChanged.next(this.ingredients);
 	}
 }
