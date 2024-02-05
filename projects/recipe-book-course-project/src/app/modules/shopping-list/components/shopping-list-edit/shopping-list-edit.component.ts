@@ -55,6 +55,16 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
         })
     }
 
+    onSubmit() {
+        if (this.editMode) {
+            this.onIngredientUpdated()
+        } else {
+            this.onIngredientAdded()
+        }
+
+        this.ingredientForm.reset()
+    }
+
 	onIngredientAdded() {
         if (!this.ingredientForm.valid) {
             return
