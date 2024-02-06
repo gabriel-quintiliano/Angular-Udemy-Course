@@ -49,14 +49,11 @@ export class ShoppingListService {
         this.ingredientsChanged.next(this.ingredients);
     }
 
-	removeIngredient(ingredient: Ingredient) {
-		const ingredientIndex = this.ingredients.indexOf(ingredient)
+	removeIngredient(ingredientIndex: number) {
+        if (!this.ingredients[ingredientIndex]) throw new Error('Edit mode: No valid ingredient found')
 
-		// if ingredient is not among ingredients, the return index above will be -1
-		if (ingredientIndex > -1) {
-			this.ingredients.splice(ingredientIndex, 1);
-			this.ingredientsChanged.next(this.ingredients);
-		}
+		this.ingredients.splice(ingredientIndex, 1);
+		this.ingredientsChanged.next(this.ingredients);
 	}
 
     // editIngredient method this method has 2 overloads:
