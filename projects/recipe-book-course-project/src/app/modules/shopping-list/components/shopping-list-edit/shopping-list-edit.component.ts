@@ -56,8 +56,13 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
     }
 
     onSubmit() {
+        if (!this.ingredientForm.valid) {
+            return
+        }
+
         if (this.editMode) {
             this.onIngredientUpdated()
+            this.editMode = false;
         } else {
             this.onIngredientAdded()
         }
@@ -66,10 +71,6 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
     }
 
 	onIngredientAdded() {
-        if (!this.ingredientForm.valid) {
-            return
-        }
-
 		const ingName = this.ingredientForm.get('name')!.value;
 		const ingAmount = this.ingredientForm.get('amount')!.value;
 		const ingUnitOfMeasure = this.ingredientForm.get('unitOfMeasure')!.value;
@@ -78,16 +79,11 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
 	}
 
     onIngredientUpdated() {
-        if (!this.ingredientForm.valid) {
-            return
-        }
-
 		const name = this.ingredientForm.get('name')!.value;
 		const amount = this.ingredientForm.get('amount')!.value;
 		const unitOfMeasure = this.ingredientForm.get('unitOfMeasure')!.value;
 
 		this.slService.editIngredient(this.editedIgredientIndex, {name, amount, unitOfMeasure});
-        this.editMode = false;
 	}
 
     ngOnDestroy() {
