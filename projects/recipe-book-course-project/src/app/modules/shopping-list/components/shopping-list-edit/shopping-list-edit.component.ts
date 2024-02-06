@@ -91,6 +91,15 @@ export class ShoppingListEditComponent implements OnInit, OnDestroy {
         this.editMode = false;
     }
 
+    onDelete() {
+        /* If we're not in editMode and press this button, we might accidentally delete
+         * an unintended ingredient which was selected earlier */
+        if (!this.editMode) return
+
+        this.slService.removeIngredient(this.editedIgredientIndex);
+        this.onClear()
+    }
+
     ngOnDestroy() {
         this.subscription.unsubscribe()
     }
