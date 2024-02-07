@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { unitsOfMeasure } from '../../../shopping-list/models/ingredient.model';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -7,6 +8,7 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./recipe-edit.component.css']
 })
 export class RecipeEditComponent implements OnInit {
+    protected unitsOfMeasure = unitsOfMeasure // add it here just so that we can access it in the template
     recipeId?: number;
     editMode = false;
 
