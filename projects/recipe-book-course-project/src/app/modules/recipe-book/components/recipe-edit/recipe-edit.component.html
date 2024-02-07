@@ -1,1 +1,5 @@
-<p>recipe-edit works!</p>
+<select formControlName="">
+    <ng-template let-unit ngForOf="unitsOfMeasure | ObjectKeysPipe">
+	    <option [value]="unit">{{ unit }}</option>
+    </ng-template>
+</select>
