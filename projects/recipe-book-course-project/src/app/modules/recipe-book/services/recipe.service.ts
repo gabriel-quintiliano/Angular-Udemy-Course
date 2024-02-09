@@ -8,12 +8,11 @@ import { Subject } from 'rxjs';
 	providedIn: 'root'
 })
 export class RecipeService {
-
+    
     constructor(private shoppingListService: ShoppingListService) {}
 
 	private recipes: Recipe[] = [
 		new Recipe(
-            0,
 			'Batatas Hasselback',
 			'Batatas frtas e recheadas deliciosas',
 			'https://www.cookipedia.co.uk/wiki/images/8/8f/Hasselback_potatoes_recipe.jpg',
@@ -23,7 +22,6 @@ export class RecipeService {
 			]
 		),
 		new Recipe(
-            1,
 			'Receita avc',
 			'Batatas frtas e recheadas deliciosas',
 			'https://www.cookipedia.co.uk/wiki/images/8/8f/Hasselback_potatoes_recipe.jpg',
@@ -33,7 +31,6 @@ export class RecipeService {
 			]
 		),
 		new Recipe(
-            2,
 			'Abcate gratinado',
 			'Batatas frtas e recheadas deliciosas',
 			'https://www.cookipedia.co.uk/wiki/images/8/8f/Hasselback_potatoes_recipe.jpg',
@@ -43,7 +40,6 @@ export class RecipeService {
 			]
 		),
 		new Recipe(
-            3,
 			'Banana com xia',
 			'Batatas frtas e recheadas deliciosas',
 			'https://www.cookipedia.co.uk/wiki/images/8/8f/Hasselback_potatoes_recipe.jpg',
