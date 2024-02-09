@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Ingredient, UnitOfMeasureUnion, unitsOfMeasure } from '../../../shopping-list/models/ingredient.model';
-import { FormArray, FormControl, FormGroup, NonNullableFormBuilder } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { RecipeService } from '../../services/recipe.service';
 
 @Component({
@@ -14,9 +14,9 @@ export class RecipeEditComponent implements OnInit {
     recipeId?: number;
     editMode = false;
     recipeForm = this.nnfb.group({
-        'name': '',
-        'imagePath': '',
-        'description': '',
+        'name': ['', Validators.required],
+        'imagePath': ['', Validators.required],
+        'description': ['', Validators.required],
         'ingredients': this.nnfb.array<ingredientSchema>([])
     })
     get recipeIngredients() {
