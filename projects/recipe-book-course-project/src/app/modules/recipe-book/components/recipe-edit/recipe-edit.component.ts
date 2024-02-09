@@ -4,6 +4,7 @@ import { Ingredient, unitsOfMeasure } from '../../../shopping-list/models/ingred
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { RecipeService } from '../../services/recipe.service';
 import { CustomValidators } from 'projects/recipe-book-course-project/src/app/validators/custom.validators';
+import { Recipe } from '../../models/recipe.model';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -49,7 +50,6 @@ export class RecipeEditComponent implements OnInit {
     // this method will update the recipeForm fields according to whether `editMode` = true
     // or false and the current recipe (`recipeId`) being edited
     updateRecipeFormState() {
-        
         // if we're not in edit mode, this means we're adding a new recipe, and thus, the
         // previous form values must be discarded
         if (!this.editMode) {
@@ -98,6 +98,24 @@ export class RecipeEditComponent implements OnInit {
             amount: [ingredient.amount, [Validators.required, Validators.min(0.001), CustomValidators.number]],
             unitOfMeasure: [ingredient.unitOfMeasure, Validators.required]
         })
+    }
+
+    onSubmit() {
+        if (!this.recipeForm.valid) return
+
+        const newRecipe = new Recipe(
+            this.recipeForm.get("name")?.value!,
+            this.recipeForm.get("description")?.value!,
+            this.recipeForm.get("imagePath")?.value!,
+            this.recipeForm.get('ingredients')?.value!
+        );
+
+        if (this.editMode) {
+            // if we're in edit mode, it's certain `recipeId` will have a value
+            this.recipeService.updateRecipe(this.recipeId!, newRecipe);
+        } else {        
+            this.recipeService.addRecipe(newRecipe);
+        }
     }
 }
 
