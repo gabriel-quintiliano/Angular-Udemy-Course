@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Ingredient, UnitOfMeasureUnion, unitsOfMeasure } from '../../../shopping-list/models/ingredient.model';
-import { FormControl, FormGroup, NonNullableFormBuilder } from '@angular/forms';
+import { Ingredient, unitsOfMeasure } from '../../../shopping-list/models/ingredient.model';
+import { FormArray, FormControl, FormGroup, NonNullableFormBuilder } from '@angular/forms';
 import { RecipeService } from '../../services/recipe.service';
 
 @Component({
@@ -19,6 +19,9 @@ export class RecipeEditComponent implements OnInit {
         'description': '',
         'ingredients': this.nnfb.array<ingredientsArraySchema>([])
     })
+    get recipeIngredients() {
+        return this.recipeForm.get('ingredients') as FormArray<ingredientsArraySchema>
+    }
 
     constructor(private route: ActivatedRoute,
                 private recipeService: RecipeService,
