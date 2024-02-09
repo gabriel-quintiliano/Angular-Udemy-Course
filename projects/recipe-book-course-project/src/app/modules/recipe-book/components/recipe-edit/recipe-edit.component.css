@@ -1,0 +1,14 @@
+/* Target input type number and set appearance to none */
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+    /* Firefox */
+    /* Internet Explorer */
+}
+
+/* Hide the arrows for webkit browsers (like Chrome and Safari) + Opera */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
