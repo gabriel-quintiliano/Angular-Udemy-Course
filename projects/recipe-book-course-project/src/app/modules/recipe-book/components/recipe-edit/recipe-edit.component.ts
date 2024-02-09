@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { unitsOfMeasure } from '../../../shopping-list/models/ingredient.model';
-import { NonNullableFormBuilder } from '@angular/forms';
+import { Ingredient, UnitOfMeasureUnion, unitsOfMeasure } from '../../../shopping-list/models/ingredient.model';
+import { FormControl, FormGroup, NonNullableFormBuilder } from '@angular/forms';
 import { RecipeService } from '../../services/recipe.service';
 
 @Component({
@@ -16,7 +16,8 @@ export class RecipeEditComponent implements OnInit {
     recipeForm = this.nnfb.group({
         'name': '',
         'imagePath': '',
-        'description': ''
+        'description': '',
+        'ingredients': this.nnfb.array<ingredientsArraySchema>([])
     })
 
     constructor(private route: ActivatedRoute,
@@ -44,25 +45,48 @@ export class RecipeEditComponent implements OnInit {
     // this method will update the recipeForm fields according to whether `editMode` = true
     // or false and the current recipe (`recipeId`) being edited
     updateRecipeFormState() {
-        let _name = '';
-        let _imagePath = '';
-        let _description = '';
         
-        if (this.editMode) {
-            // The non-null assertion bellow in `this.recipeId!` is because if we're in edit mode
-            // it's certain that we have a recipeId set and there is no way it's `undefined`
-            // (see the logic present in `ngOnInit` method)
-            const recipe = this.recipeService.getRecipe(this.recipeId!);
-
-            _name = recipe.name;
-            _imagePath = recipe.imagePath;
-            _description = recipe.description;
+        // if we're not in edit mode, this means we're adding a new recipe, and thus, the
+        // previous form values must be discarded
+        if (!this.editMode) {
+            this.recipeForm.reset()
+            return
         }
         
-        this.recipeForm.setValue({
-            name: _name,
-            imagePath: _imagePath,
-            description: _description
+        // The non-null assertion bellow in `this.recipeId!` is because if we're in edit mode
+        // it's certain that we have a recipeId set and there is no way it's `undefined`
+        // (see the logic present in `ngOnInit` method)
+        const recipe = this.recipeService.getRecipe(this.recipeId!);
+        
+        this.recipeForm.patchValue({
+            name: recipe.name,
+            imagePath: recipe.imagePath,
+            description: recipe.description
         })
+
+        // loops through the recipe ingredients and pushes their info into `ingredients`
+        // FormArray within recipeForm
+        for (let ingredient of recipe.ingredients) {
+            this.recipeForm.controls.ingredients.push(
+                this.nnfb.group({
+                    name: ingredient.name,
+                    amount: ingredient.amount,
+                    unitOfMeasure: ingredient.unitOfMeasure
+                })
+            )
+        }
     }
 }
+
+// Schema to be used in the FormArray with recipeForm:
+type ingredientsArraySchema = FormGroup<{
+    [key in keyof Ingredient]: FormControl<Ingredient[key]>
+}>
+
+// this code snippet above is equivalent to writing the bellow but safer as this
+// way if we change anything in `Ingredients` type, it's gonna be reflected here as well.
+// FormGroup<{
+//     name: FormControl<string>;
+//     amount: FormControl<number>;
+//     unitOfMeasure: FormControl<"tbsp" | "tsp" | "c" | "tc" | "g" | "kg" | "ml" | "l" | "un" | "dz">;
+// }>
