@@ -43,28 +43,34 @@
             </div>
             <div class="row mb-2">
                 <div class="col">
-                    <label>Ingredients</label>
-                    <div class="row">
-                        <div class="col-7 pe-0">
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="col-4 pe-0">
-                            <div class="row">
-                                <div class="col-5 pe-0">
-                                    <input type="number" class="form-control">
-                                </div>
-                                <div class="col-7 pe-0">
-                                    <select class="form-select">
-                                        <ng-template ngFor let-unit [ngForOf]="unitsOfMeasure | objectKeys" let-i="index">
-                                            <option [value]="unit">{{ unit }}</option>
-                                        </ng-template>
-                                    </select>
+                    <div class="form-group" formArrayName="ingredients">
+                        <label>Ingredients</label>
+                        <ng-template ngFor let-ingredient [ngForOf]="recipeIngredients.controls" let-i="index">
+                            <div class="form-group" [formGroupName]="i">
+                                <div class="row mb-1">
+                                    <div class="col-7 col-lg-8 pe-0">
+                                        <input type="text" class="form-control" formControlName="name">
+                                    </div>
+                                    <div class="col-4 col-lg-3 pe-0">
+                                        <div class="row">
+                                            <div class="col-5 pe-0">
+                                                <input type="number" class="form-control" formControlName="amount">
+                                            </div>
+                                            <div class="col-7 pe-0">
+                                                <select class="form-select" formControlName="unitOfMeasure">
+                                                    <ng-template ngFor let-unit [ngForOf]="unitsOfMeasure | objectKeys" let-i="index">
+                                                        <option [value]="unit">{{ unit }}</option>
+                                                    </ng-template>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-1">
+                                        <button type="button" class="btn btn-danger">X</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-1">
-                            <button type="button" class="btn btn-danger">X</button>
-                        </div>
+                        </ng-template>
                     </div>
                 </div>
             </div>
