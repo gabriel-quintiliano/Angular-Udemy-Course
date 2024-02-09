@@ -17,10 +17,10 @@ export class RecipeEditComponent implements OnInit {
         'name': '',
         'imagePath': '',
         'description': '',
-        'ingredients': this.nnfb.array<ingredientsArraySchema>([])
+        'ingredients': this.nnfb.array<ingredientSchema>([])
     })
     get recipeIngredients() {
-        return this.recipeForm.get('ingredients') as FormArray<ingredientsArraySchema>
+        return this.recipeForm.get('ingredients') as FormArray<ingredientSchema>
     }
 
     constructor(private route: ActivatedRoute,
@@ -92,7 +92,7 @@ export class RecipeEditComponent implements OnInit {
 }
 
 // Schema to be used in the FormArray with recipeForm:
-type ingredientsArraySchema = FormGroup<{
+type ingredientSchema = FormGroup<{
     [key in keyof Ingredient]: FormControl<Ingredient[key]>
 }>
 
