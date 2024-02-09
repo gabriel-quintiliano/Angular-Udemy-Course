@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Ingredient, UnitOfMeasureUnion, unitsOfMeasure } from '../../../shopping-list/models/ingredient.model';
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { RecipeService } from '../../services/recipe.service';
+import { CustomValidators } from 'projects/recipe-book-course-project/src/app/validators/custom.validators';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -88,6 +89,16 @@ export class RecipeEditComponent implements OnInit {
                 unitOfMeasure: 'g' as UnitOfMeasureUnion
             })
         )
+    }
+
+    // builder for creating a FormGroup whose controls have all necessary validators, to be pushed into
+    // `ingredients` FormArray from recipeIngredient
+    private ingredientFormGroupWithValidatorsBuilder(ingredient: Ingredient): ingredientSchema {
+        return this.nnfb.group({
+            name: [ingredient.name, Validators.required],
+            amount: [ingredient.amount, [Validators.required, Validators.min(0.001), CustomValidators.number]],
+            unitOfMeasure: [ingredient.unitOfMeasure, Validators.required]
+        })
     }
 }
 
