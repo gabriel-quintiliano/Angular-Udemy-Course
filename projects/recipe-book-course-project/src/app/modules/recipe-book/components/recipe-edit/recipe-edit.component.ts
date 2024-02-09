@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Ingredient, UnitOfMeasureUnion, unitsOfMeasure } from '../../../shopping-list/models/ingredient.model';
+import { Ingredient, unitsOfMeasure } from '../../../shopping-list/models/ingredient.model';
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { RecipeService } from '../../services/recipe.service';
 import { CustomValidators } from 'projects/recipe-book-course-project/src/app/validators/custom.validators';
@@ -71,24 +71,21 @@ export class RecipeEditComponent implements OnInit {
         // loops through the recipe ingredients and pushes their info into `ingredients`
         // FormArray within recipeForm
         for (let ingredient of recipe.ingredients) {
-            this.recipeForm.controls.ingredients.push(
-                this.nnfb.group({
-                    name: ingredient.name,
-                    amount: ingredient.amount,
-                    unitOfMeasure: ingredient.unitOfMeasure
-                })
-            )
+            this.onAddIngredient(new Ingredient(ingredient.name, ingredient.amount, ingredient.unitOfMeasure))
         }
     }
 
-    onAddIngredient() {
-        this.recipeIngredients.push(
-            this.nnfb.group({
-                name: '',
-                amount: 0,
-                unitOfMeasure: 'g' as UnitOfMeasureUnion
-            })
-        )
+    onAddIngredient(ingredient?: Ingredient) {
+        // if an Ingredient object is provided, we will push this ingredient to `ingredients` FormArray:
+        if (ingredient) {
+            this.recipeIngredients.push(this.ingredientFormGroupWithValidatorsBuilder(ingredient))
+            return
+        }
+
+        // else, ingredient is `undefined`, we'll push an "empty" generic ingredient to `ingredients` FormArray:
+        this.recipeIngredients.push(this.ingredientFormGroupWithValidatorsBuilder(
+            new Ingredient('', 0, 'g')
+        ))
     }
 
     // builder for creating a FormGroup whose controls have all necessary validators, to be pushed into
