@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Ingredient, unitsOfMeasure } from '../../../shopping-list/models/ingredient.model';
+import { Ingredient, UnitOfMeasureUnion, unitsOfMeasure } from '../../../shopping-list/models/ingredient.model';
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder } from '@angular/forms';
 import { RecipeService } from '../../services/recipe.service';
 
@@ -78,6 +78,16 @@ export class RecipeEditComponent implements OnInit {
                 })
             )
         }
+    }
+
+    onAddIngredient() {
+        this.recipeIngredients.push(
+            this.nnfb.group({
+                name: '',
+                amount: 0,
+                unitOfMeasure: 'g' as UnitOfMeasureUnion
+            })
+        )
     }
 }
 
