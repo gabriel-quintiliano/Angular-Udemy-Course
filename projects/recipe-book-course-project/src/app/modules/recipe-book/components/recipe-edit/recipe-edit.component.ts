@@ -54,6 +54,8 @@ export class RecipeEditComponent implements OnInit {
         // previous form values must be discarded
         if (!this.editMode) {
             this.recipeForm.reset()
+            // Add a single empty ingredient control as this is a new recipe that will be filled up
+            this.onAddIngredient()
             return
         }
         
