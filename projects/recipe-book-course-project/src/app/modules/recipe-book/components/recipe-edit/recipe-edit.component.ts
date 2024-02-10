@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Ingredient, unitsOfMeasure } from '../../../shopping-list/models/ingredient.model';
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { RecipeService } from '../../services/recipe.service';
@@ -26,6 +26,7 @@ export class RecipeEditComponent implements OnInit {
     }
 
     constructor(private route: ActivatedRoute,
+                private router: Router,
                 private recipeService: RecipeService,
                 private nnfb: NonNullableFormBuilder) {}
 
@@ -120,6 +121,11 @@ export class RecipeEditComponent implements OnInit {
         } else {        
             this.recipeService.addRecipe(newRecipe);
         }
+    }
+
+    onCancel() {
+        // on cancel of editing a recipe, goes back to recipe details (and discard changes)
+        this.router.navigate(['..'], {relativeTo: this.route})
     }
 }
 
