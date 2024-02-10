@@ -10,8 +10,7 @@ const routes: Routes = [
     { path: '', redirectTo: '/recipes', pathMatch: 'full' },
     { path: 'recipes', component: RecipesComponent, children: [
         { path: '', component: PlaceholderComponent, 
-          data: { message: "Click on a recipe to have its details displayed here" },
-          pathMatch: 'full'
+          data: { message: "Click on a recipe to have its details displayed here" }
         },
         { path: 'new', component: RecipeEditComponent },
         // static routes must always come before dynamic routes so that only when there
