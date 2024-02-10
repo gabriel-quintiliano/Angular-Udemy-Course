@@ -100,6 +100,10 @@ export class RecipeEditComponent implements OnInit {
         })
     }
 
+    onDeleteIngredient(ingredientIndex: number) {
+        this.recipeForm.controls.ingredients.removeAt(ingredientIndex);
+    }
+
     onSubmit() {
         if (!this.recipeForm.valid) return
 
