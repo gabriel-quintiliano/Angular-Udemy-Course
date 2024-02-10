@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
 import { Ingredient, unitsOfMeasure } from '../../../shopping-list/models/ingredient.model';
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { RecipeService } from '../../services/recipe.service';
@@ -121,11 +121,24 @@ export class RecipeEditComponent implements OnInit {
         } else {        
             this.recipeService.addRecipe(newRecipe);
         }
+
+        this._goBackToRecipeDetails()
     }
 
     onCancel() {
         // on cancel of editing a recipe, goes back to recipe details (and discard changes)
-        this.router.navigate(['..'], {relativeTo: this.route})
+        this._goBackToRecipeDetails();
+    }
+    
+    // meant to be called when 'recipes/:id/edit' route is activated,
+    // goes back to 'recipes/:id'
+    private _goBackToRecipeDetails() {
+
+        if (this.route.routeConfig?.path === ':recipe-id/edit') {
+            this.router.navigate(['..'], {relativeTo: this.route})
+        }
+        // The verification done above in this case has the same effect as `if (editMode)`
+        // but I wanted to remember a bit of the usage of ActivatedRoute
     }
 }
 
