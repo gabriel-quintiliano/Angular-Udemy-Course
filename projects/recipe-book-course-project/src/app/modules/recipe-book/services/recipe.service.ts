@@ -10,6 +10,9 @@ import { Subject } from 'rxjs';
 export class RecipeService {
     // Subject that will emit an event each time the recipes array changes
     recipesChanged = new Subject<Recipe[]>()
+    get recipesRegistered() {
+        return this.recipes.length;
+    }
 
     constructor(private shoppingListService: ShoppingListService) {}
 
@@ -53,7 +56,7 @@ export class RecipeService {
 		return this.recipes.slice();
 	}
     
-    getRecipe(id: number): Recipe {
+    getRecipe(id: number): Recipe | undefined {
 		return this.recipes[id];
 	}
 

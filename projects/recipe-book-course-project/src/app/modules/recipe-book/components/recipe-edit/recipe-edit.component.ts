@@ -63,7 +63,7 @@ export class RecipeEditComponent implements OnInit {
         // The non-null assertion bellow in `this.recipeId!` is because if we're in edit mode
         // it's certain that we have a recipeId set and there is no way it's `undefined`
         // (see the logic present in `ngOnInit` method)
-        const recipe = this.recipeService.getRecipe(this.recipeId!);
+        const recipe = this.recipeService.getRecipe(this.recipeId!)!;
         
         this.recipeForm.patchValue({
             name: recipe.name,

@@ -21,7 +21,7 @@ export class RecipeDetailComponent {
         // will be properly fixed
         this.route.params.subscribe( (params: Params) => {
             this.recipeId = Number(params['recipe-id']);
-            this.recipe = this.recipeService.getRecipe(this.recipeId);
+            this.recipe = this.recipeService.getRecipe(this.recipeId)!;
         })
     }
 
