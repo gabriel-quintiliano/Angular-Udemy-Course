@@ -6,11 +6,11 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="list-group">
-            <ng-template ngFor let-recipe [ngForOf]="recipes">
+            <ng-template ngFor let-recipe [ngForOf]="recipes" let-i="index">
                 <!-- before this aproach below emiting just the recipe, I was catching the recipeItemComponent created
                 through a local (template) reference #recipeItemSelected and emitting recipeItemSelected.recipe,
                 but, as this is also works, is simpler and more efficient (I think), I've refactored it this way -->
-                <app-recipe-item [recipeInfo]="recipe"></app-recipe-item>
+                <app-recipe-item [recipeInfo]="recipe" [recipeId]="i"></app-recipe-item>
             </ng-template>
         </div>
     </div>

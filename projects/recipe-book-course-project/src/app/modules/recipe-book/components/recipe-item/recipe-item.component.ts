@@ -8,5 +8,5 @@ import { Recipe } from '../../models/recipe.model';
 })
 export class RecipeItemComponent {
 	@Input({ alias: 'recipeInfo', required: true }) recipe!: Recipe;
-
+	@Input({ alias: 'recipeId', required: true }) recipeId!: Number;
 }
