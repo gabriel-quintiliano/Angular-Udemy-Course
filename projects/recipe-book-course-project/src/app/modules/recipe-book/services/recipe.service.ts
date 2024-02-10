@@ -24,30 +24,24 @@ export class RecipeService {
 			]
 		),
 		new Recipe(
-			'Receita avc',
-			'Batatas frtas e recheadas deliciosas',
-			'https://www.cookipedia.co.uk/wiki/images/8/8f/Hasselback_potatoes_recipe.jpg',
+			'Filé de tilápia com iguarias',
+			'Filé de tilápia suculento com temperos diversos',
+			'https://restaurantden.wpenginepowered.com/wp-content/uploads/2017/09/free-stock-food-photography-websites.jpg',
 			[
-				new Ingredient('batata', 2, 'un'),
+				new Ingredient('filé de tilápia', 2, 'un'),
+				new Ingredient('açafrão', 100, 'g'),
+				new Ingredient('sal', 3, 'tsp'),
 				new Ingredient('cheese', 200, 'g'),
 			]
 		),
 		new Recipe(
-			'Abcate gratinado',
-			'Batatas frtas e recheadas deliciosas',
-			'https://www.cookipedia.co.uk/wiki/images/8/8f/Hasselback_potatoes_recipe.jpg',
+			'Panquecas com Amora',
+			'Panquecas doces deliciosas com amoras frescas',
+			'https://restaurantden.wpenginepowered.com/wp-content/uploads/2017/09/pixabay.jpg',
 			[
-				new Ingredient('batata', 2, 'un'),
-				new Ingredient('cheese', 200, 'g'),
-			]
-		),
-		new Recipe(
-			'Banana com xia',
-			'Batatas frtas e recheadas deliciosas',
-			'https://www.cookipedia.co.uk/wiki/images/8/8f/Hasselback_potatoes_recipe.jpg',
-			[
-				new Ingredient('batata', 2, 'un'),
-				new Ingredient('cheese', 200, 'g'),
+				new Ingredient('farinha de trigo', 200, 'g'),
+				new Ingredient('amoras', 100, 'g'),
+				new Ingredient('ovos', 2, 'un'),
 			]
 		)
 	]
