@@ -8,7 +8,9 @@
                     [ngClass]="getStatusClasses(server)">
                     <div class="row">
                         <div class="col-9 col-sm-10 col-lg-11">
-                            <strong>{{ server.name }}</strong> | {{ server.instanceType }} | {{ server.started }}
+                            <strong>{{ server.name }}</strong> |
+                            {{ server.instanceType | uppercase }} |
+                            {{ server.started | date }}
                         </div>
                         <div class="col-3 col-sm-2 col-lg-1 text-center">
                             <span
