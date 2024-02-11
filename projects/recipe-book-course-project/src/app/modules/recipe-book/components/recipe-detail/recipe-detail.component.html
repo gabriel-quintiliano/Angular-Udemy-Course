@@ -22,7 +22,7 @@
                         <!-- the same thing could be achieved, maybe in a even more secure way, as described bellow -->
                         <!-- <li><a class="dropdown-item c-pointer" [routerLink]="['/recipes', recipeId, 'edit']">Edit Recipe</a></li> -->
                         <!-- <li><a class="dropdown-item c-pointer" [routerLink]="['/', 'recipes', recipeId, 'edit']">Edit Recipe</a></li> -->
-                        <li><a class="dropdown-item c-pointer">Delete Recipe</a></li>
+                        <li><a class="dropdown-item c-pointer" (click)="onDeleteRecipe()">Delete Recipe</a></li>
                     </ul>
                 </div>
             </div>
