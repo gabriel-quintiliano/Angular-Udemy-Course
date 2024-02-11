@@ -5,10 +5,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ShotenPipe implements PipeTransform {
     // shortens the value to only the first 10 characters
-    transform(value: string): string {
-        if (value.length > 10) {
-            return value.substring(0, 10) + '...';
+    transform(value: string, limit?: number): string {
+        
+        if (limit && value.length > limit) {
+            return value.substring(0, limit) + '...';
         }
+
         return value
     }
 }
