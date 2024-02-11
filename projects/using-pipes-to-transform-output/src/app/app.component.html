@@ -1,9 +1,13 @@
 <div class="container">
     <div class="row">
         <div class="col">
+            <div class="form-group">
+                <label for="query">Search a server by status:</label>
+                <input id="query" type="text" class="form-control" [(ngModel)]="filteredStatus">
+            </div>
+            <br>
             <ul class="list-group">
-                <li
-                    class="list-group-item"
+                <li class="list-group-item"
                     *ngFor="let server of servers"
                     [ngClass]="getStatusClasses(server)">
                     <div class="row">
