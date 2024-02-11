@@ -10,13 +10,18 @@
                         <div class="col-9 col-sm-10 col-lg-11">
                             <strong>{{ server.name }}</strong> |
                             {{ server.instanceType | uppercase }} |
-                            {{ server.started | date:'fullDate' }}
+                            {{ server.started | date:'fullDate' | uppercase }}
                         </div>
-                        <!-- If a pipe supports parameters, you can pass values to those using
-                             a `:` and then a value of the expected type. In the case of the date
-                             pipe, it optionally expects a format parameters as a string. You
-                             can provide data to multiple parameters chaining `:`. ex:
-                             `myPipe:'par1':23:{parameter: 4}` -->
+                        <!-- If a pipe supports parameters, you can pass values to those using a `:` and
+                             then a value of the expected type. In the case of the date pipe, it optionally
+                             expects a format parameters as a string. You can provide data to multiple parameters
+                             chaining `:`. ex: `myPipe:'par1':23:{parameter: 4}` -->
+                        <!-- You can also chain pipes, just describe them one after another but keep in mind
+                             that the order is important as pipes are executed left to right and the return value
+                             of the previous pipe will feed the next pipe. For example, if above we'd used the
+                             `uppercase` pipe before the date pipe, it wouldn't have worked because the `uppercase`
+                             expects a string but `server.started` is of Date type which, in this case, only
+                             the date pipe can handle and transform into a string -->
                         <div class="col-3 col-sm-2 col-lg-1 text-center">
                             <span
                                 class="badge"
