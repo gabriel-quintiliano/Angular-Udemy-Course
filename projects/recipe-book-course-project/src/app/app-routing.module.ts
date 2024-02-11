@@ -5,6 +5,7 @@ import { ShoppingListComponent } from './modules/shopping-list/components/shoppi
 import { RecipeDetailComponent } from './modules/recipe-book/components/recipe-detail/recipe-detail.component';
 import { PlaceholderComponent } from './modules/common-custom-utilities/placeholder/placeholder.component';
 import { RecipeEditComponent } from './modules/recipe-book/components/recipe-edit/recipe-edit.component';
+import { IsValidRecipeIdGuard } from './guards/isValidRecipeId.guard';
 
 const routes: Routes = [
     { path: '', redirectTo: '/recipes', pathMatch: 'full' },
@@ -17,8 +18,12 @@ const routes: Routes = [
         // is no static route match, Angular will start looking for dynamic route matches,
         // otherwise the static route path will be mistaken as a path param as there will
         // always be a match (in this case, `new` could be taken as the `:recipe-id` param).
-        { path: ':recipe-id', component: RecipeDetailComponent },
-        { path: ':recipe-id/edit', component: RecipeEditComponent }
+        { path: ':recipe-id',
+          canActivate: [IsValidRecipeIdGuard],
+          children: [
+            { path: '', component: RecipeDetailComponent },
+            { path: 'edit', component: RecipeEditComponent }
+        ] },
     ] },
     { path: 'shoppingList', component: ShoppingListComponent }
 ];
