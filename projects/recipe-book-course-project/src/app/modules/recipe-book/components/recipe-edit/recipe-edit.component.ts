@@ -118,27 +118,21 @@ export class RecipeEditComponent implements OnInit {
         if (this.editMode) {
             // if we're in edit mode, it's certain `recipeId` will have a value
             this.recipeService.updateRecipe(this.recipeId!, newRecipe);
+            this.router.navigate(['../'], {relativeTo: this.route})
         } else {        
             this.recipeService.addRecipe(newRecipe);
+
+            // The newly created recipe goes to the end of recipes array from RecipeService
+            const newRecipeId = this.recipeService.recipesRegistered - 1
+            this.router.navigate(['../', newRecipeId], {relativeTo: this.route})
         }
 
-        this._goBackToRecipeDetails()
     }
 
     onCancel() {
-        // on cancel of editing a recipe, goes back to recipe details (and discard changes)
-        this._goBackToRecipeDetails();
-    }
-    
-    // meant to be called when 'recipes/:id/edit' route is activated,
-    // goes back to 'recipes/:id'
-    private _goBackToRecipeDetails() {
-
-        if (this.route.routeConfig?.path === ':recipe-id/edit') {
-            this.router.navigate(['..'], {relativeTo: this.route})
-        }
-        // The verification done above in this case has the same effect as `if (editMode)`
-        // but I wanted to remember a bit of the usage of ActivatedRoute
+        // on cancel of editing a recipe goes back to recipe details (and discard changes)
+        // on cancel of a new recipe goes back to recipe selection
+        this.router.navigate(['../'], {relativeTo: this.route})
     }
 }
 
