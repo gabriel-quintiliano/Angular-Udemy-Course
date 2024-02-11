@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <ul class="list-group">
+                <li
+                    class="list-group-item"
+                    *ngFor="let server of servers"
+                    [ngClass]="getStatusClasses(server)">
+                    <div class="row">
+                        <div class="col-9 col-sm-10 col-lg-11">
+                            <strong>{{ server.name }}</strong> | {{ server.instanceType }} | {{ server.started }}
+                        </div>
+                        <div class="col-3 col-sm-2 col-lg-1 text-center">
+                            <span
+                                class="badge"
+                                [ngClass]="{
+                                    'bg-success': server.status === 'stable',
+                                    'bg-danger': server.status === 'critical',
+                                    'bg-primary': server.status === 'offline',
+                                }">
+                                {{ server.status }}
+                            </span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
