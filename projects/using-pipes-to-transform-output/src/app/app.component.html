@@ -1,6 +1,18 @@
 <div class="container">
     <div class="row">
         <div class="col">
+            <!-- As appStatus property is a promise, the first usage just takes the promise object
+                 as value and tries instantly to convert it to a string, which results in:
+                 [object Promise] displayed in the template -->
+            <h2>App Status: {{ appStatus }}</h2>
+            <p class="mb-3 form-text">[String iterpelation without AsyncPipe]</p>
+
+            <!-- On this second case, as we're using the AsyncPipe, initially as the Promise,
+                 Observable or Subscribable hasn't yet resolved/provided a value, it just displays
+                 '' in the template, and then the value, when the pipe gets it -->
+            <h2>App Status: {{ appStatus | async }}</h2>
+            <p class="mb-3 form-text">[String iterpelation with AsyncPipe]</p>
+
             <button class="btn btn-success mb-3" type="button" (click)="onAddServer()">Add new server</button>
             <div class="form-group">
                 <label for="query">Search a server by status:</label>
