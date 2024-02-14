@@ -1768,6 +1768,99 @@
                     }
                 }
             }
+        },
+        "making-http-requests": {
+            "projectType": "application",
+            "schematics": { },
+            "root": "projects/making-http-requests",
+            "sourceRoot": "projects/making-http-requests/src",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/making-http-requests",
+                        "index": "projects/making-http-requests/src/index.html",
+                        "main": "projects/making-http-requests/src/main.ts",
+                        "polyfills": [
+                            "zone.js"
+                        ],
+                        "tsConfig": "projects/making-http-requests/tsconfig.app.json",
+                        "assets": [
+                            "projects/making-http-requests/src/favicon.ico",
+                            "projects/making-http-requests/src/assets"
+                        ],
+                        "styles": [
+                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                            "projects/making-http-requests/src/styles.css"
+                        ],
+                        "scripts": [ ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "500kb",
+                                    "maximumError": "1mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "2kb",
+                                    "maximumError": "4kb"
+                                }
+                            ],
+                            "outputHashing": "all"
+                        },
+                        "development": {
+                            "buildOptimizer": false,
+                            "optimization": false,
+                            "vendorChunk": true,
+                            "extractLicenses": false,
+                            "sourceMap": true,
+                            "namedChunks": true
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "making-http-requests:build:production"
+                        },
+                        "development": {
+                            "browserTarget": "making-http-requests:build:development"
+                        }
+                    },
+                    "defaultConfiguration": "development"
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "making-http-requests:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "polyfills": [
+                            "zone.js",
+                            "zone.js/testing"
+                        ],
+                        "tsConfig": "projects/making-http-requests/tsconfig.spec.json",
+                        "assets": [
+                            "projects/making-http-requests/src/favicon.ico",
+                            "projects/making-http-requests/src/assets"
+                        ],
+                        "styles": [
+                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                            "projects/making-http-requests/src/styles.css"
+                        ],
+                        "scripts": [ ]
+                    }
+                }
+            }
         }
     }
 }
