@@ -10,6 +10,7 @@ import { map } from 'rxjs';
 })
 export class AppComponent implements OnInit {
     loadedPosts: Post[] = [];
+    isFetching = false;
 
     constructor(private http: HttpClient) {}
 
@@ -56,6 +57,8 @@ export class AppComponent implements OnInit {
     }
 
     private fetchPosts() {
+        this.isFetching = true;
+
         // Send Http GET request - Gets back all the posts from within the setup Firebase Realtime DB `posts` folder
 
         /* What's hapening bellow?
@@ -79,6 +82,7 @@ export class AppComponent implements OnInit {
         }))
         .subscribe(posts => {
             this.loadedPosts= posts;
+            this.isFetching = false;
         })
     }
 }
