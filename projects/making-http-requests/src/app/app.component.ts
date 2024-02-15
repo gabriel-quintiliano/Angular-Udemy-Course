@@ -34,7 +34,8 @@ export class AppComponent implements OnInit {
         * bellow for example, but you can also define those provinding a object value to `options`
         * argument for the HttpClient method you're calling */
     
-        this.http.post("https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json", postData)
+        // the http.post<T> generic type `T` is the expected return type which will be wrapped in an Observable;
+        this.http.post<{ name: string }>("https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json", postData)
         .subscribe((responseData) => {
             // responseData = { name: "idFromThisPostDataInDb" }
             console.log(responseData)
@@ -65,7 +66,8 @@ export class AppComponent implements OnInit {
          * to an Array of Post type elements.
          * In the end, `Post[]` is the type of the element being passed to the observer subscribed to the Observable */
 
-        this.http.get("https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json")
+        // the http.get<T> generic type `T` is the expected return type which will be wrapped in an Observable;
+        this.http.get<{ [key: string]: PostData }>("https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json")
         .pipe(map((responseData) => {
             const postArray: Post[] = [];
 
