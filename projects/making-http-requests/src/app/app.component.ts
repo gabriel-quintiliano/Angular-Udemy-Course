@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Post, PostData } from './models/post.model';
 
 @Component({
     selector: 'app-root',
@@ -7,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    loadedPosts = [];
+    loadedPosts: Post[] = [];
 
     constructor(private http: HttpClient) {}
 
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit {
         this.fetchPosts();
     }
 
-    onCreatePost(postData: { title: string; content: string }) {
+    onCreatePost(postData: PostData) {
         /* Send Http POST request - To better understand http request within Angular framework using
         * HttpClient injectable class, know that the request itself will only be sent after you
         * subscribe to the observable returned by, in this case, the .post() method, to handle the
