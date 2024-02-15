@@ -78,7 +78,7 @@ export class AppComponent implements OnInit {
             return postArray;
         }))
         .subscribe(posts => {
-            console.log('formatted in subscribe --> ', posts)
+            this.loadedPosts= posts;
         })
     }
 }
