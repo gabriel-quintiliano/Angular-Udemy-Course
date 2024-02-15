@@ -11,7 +11,9 @@ export class AppComponent implements OnInit {
 
     constructor(private http: HttpClient) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.fetchPosts();
+    }
 
     onCreatePost(postData: { title: string; content: string }) {
         /* Send Http POST request - To better understand http request within Angular framework using
@@ -42,10 +44,19 @@ export class AppComponent implements OnInit {
     }
   
     onFetchPosts() {
-        // Send Http request
+        // Calls private method `fetchPosts` to send a Http GET request
+        this.fetchPosts();
     }
   
     onClearPosts() {
         // Send Http request
+    }
+
+    private fetchPosts() {
+        // Send Http GET request - Gets back all the posts from within the setup Firebase Realtime DB `posts` folder
+        this.http.get("https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json")
+        .subscribe(posts => {
+            console.log(posts);
+        })
     }
 }
