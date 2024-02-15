@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Post, PostData } from './models/post.model';
+import { map } from 'rxjs';
 
 @Component({
     selector: 'app-root',
@@ -55,9 +56,27 @@ export class AppComponent implements OnInit {
 
     private fetchPosts() {
         // Send Http GET request - Gets back all the posts from within the setup Firebase Realtime DB `posts` folder
+
+        /* What's hapening bellow?
+         *
+         * The http.get() method returns an Observable which we modify using 'pipe' method and the `map` operator
+         * to map the raw data from the Observable (an object of format: { [key: string]: { title: string, content: string } }
+         * something like: { "-NqepnQ8AAYHMwurkUDJ": { title: "postTitle", content: "post content" }, {...}, {...} })
+         * to an Array of Post type elements.
+         * In the end, `Post[]` is the type of the element being passed to the observer subscribed to the Observable */
+
         this.http.get("https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json")
+        .pipe(map((responseData) => {
+            const postArray: Post[] = [];
+
+            for (let [id, postData] of Object.entries(responseData)) {
+                postArray.push({id, ...postData})
+            }
+
+            return postArray;
+        }))
         .subscribe(posts => {
-            console.log(posts);
+            console.log('formatted in subscribe --> ', posts)
         })
     }
 }
