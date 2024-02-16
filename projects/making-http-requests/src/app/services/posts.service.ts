@@ -65,18 +65,25 @@ export class PostsService {
     }
 
     deletePost(id: string) {
+        // To delete a post individually, send a DELETE request to the specific url that targets it
+        // (by its `id`). And in this case, add `.json` in this case as that's how Firebase Realtime Db works
         this.http.delete(`https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts/${id}.json`)
         .subscribe()
     }
 
     deleteAllPosts() {
-        this.fetchPosts().subscribe(posts => {
-            if (!posts) return
+        // Ealier I had this approach, deleting one post at a time according to its id as follows:
+        // this.fetchPosts().subscribe(posts => {
+        //     if (!posts) return
+        // 
+        //     for (let post of posts) {
+        //         this.deletePost(post.id);
+        //     }
+        // })
 
-            for (let post of posts) {
-                this.deletePost(post.id);
-            }
-        })
+        // But then the instructor came up with the solution bellow, which deletes the whole `posts` folder
+        // in the Firebase Realtime Db and is much more efficient.
+        this.http.delete("https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json").subscribe()
     }
 }
 
