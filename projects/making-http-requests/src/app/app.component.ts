@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Post, PostData } from './models/post.model';
 import { PostsService } from './services/posts.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-root',
@@ -10,6 +11,7 @@ import { PostsService } from './services/posts.service';
 export class AppComponent implements OnInit {
     loadedPosts: Post[] = [];
     isFetching = false;
+    @ViewChild('postForm') postForm!: NgForm;
 
     constructor(private postsService: PostsService) {}
 
@@ -29,10 +31,11 @@ export class AppComponent implements OnInit {
          * Maybe a more responsable (though a bit less efficient) way to do the same would be to
          * use the post's id returned by the Observable returned by <HttpClient>.get() method within
          * <PostsService>.createAndStorePost() to fetch this single post with this id */
-        
+
         this.postsService.createAndStorePost(postData)
         .subscribe(responseData => {
             this.loadedPosts.push({id: responseData.name, ...postData});
+            this.postForm.reset()
         });
     }
   
