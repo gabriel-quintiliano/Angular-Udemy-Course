@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, map } from 'rxjs';
+import { Observable, Subject, catchError, map } from 'rxjs';
 import { Post, PostData } from '../models/post.model';
 
 @Injectable({
@@ -58,18 +58,27 @@ export class PostsService {
 
         // the http.get<T> generic type `T` is the expected return type which will be wrapped in an Observable;
         return this.http.get<{ [key: string]: PostData } | undefined >("https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json")
-        .pipe(map((responseData) => {
-            // if there is no post in db to be fetched just return (undefined)
-            if (!responseData) return
+        .pipe(
+            map((responseData) => {
+                // if there is no post in db to be fetched just return (undefined)
+                if (!responseData) return
 
-            const postArray: Post[] = [];
+                const postArray: Post[] = [];
 
-            for (let [id, postData] of Object.entries(responseData)) {
-                postArray.push({id, ...postData})
-            }
-            
-            return postArray;
-        }))
+                for (let [id, postData] of Object.entries(responseData)) {
+                    postArray.push({id, ...postData})
+                }
+
+                return postArray;
+            }),
+            catchError(err => {
+                /* Send to analytics server or something else. The `catchError` operator only listens to the
+                 * "error" channel and can be used to partially deal with the error, for example send it to
+                 * some analytics server or such. After that, we can forward the error (as done bellow or
+                 * return anything else)*/
+                throw err;
+            })
+        )
     }
 
     deletePost(id: string) {
