@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, catchError, map } from 'rxjs';
 import { Post, PostData } from '../models/post.model';
@@ -19,7 +19,7 @@ export class PostsService {
 
     constructor(private http: HttpClient) { }
 
-    createAndStorePost(postData: PostData): Observable<{ name: string }> {
+    createAndStorePost(postData: PostData): Observable<HttpResponse<{ name: string }>> {
         /* Returns an Observable that will send Http POST request when subscribed to.
          * To better understand http request within Angular framework using
          * HttpClient injectable class, know that the request itself will only be sent after you
@@ -37,8 +37,26 @@ export class PostsService {
          * bellow for example, but you can also define those provinding a object value to `options`
          * argument for the HttpClient method you're calling */
     
-        // the http.post<T> generic type `T` is the expected return type which will be wrapped in an Observable;
-        return this.http.post<{ name: string }>("https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json", postData)
+        // the http.post<T> generic type `T` is the expected return type of the body of the http response;
+        return this.http.post<{ name: string }>(
+            "https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json",
+            postData,
+            { observe: 'response'}
+            /* You can use the "observe" key of the `options` param object to tell Angular, in which
+             * of the http response you're interested in, and that's which will be wrapped in the
+             * Observable returned by the HttpClient method. The default value for `observe` is "body"
+             * i.e. Angular will extract only the body of the http response to deliver it to you.
+             * In the case above, `{ observe: "response" }` we're telling Angular we want to have the
+             * full http response, this way Angular will deliver to us this full response already
+             * converted to a `HttpResponse` object.
+             * 
+             * The possible values for `observe` are:
+             * "body" (default - delivers only the body of the response)
+             * "response" (delivers the full http response)
+             * "event" (delivers an Observable for all types of http events:
+             *          HttpSentEvent | HttpHeaderResponse | HttpResponse<T> |
+             *          HttpProgressEvent | HttpUserEvent<T>) */
+        )
     
         /* The `.../posts.json` above is specifically for Firebase Realtime Database, which in this
          * case with save `postData` in the "posts" folder - I don't really know why `.json` is needed

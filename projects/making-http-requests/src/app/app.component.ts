@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Post, PostData } from './models/post.model';
 import { PostsService } from './services/posts.service';
 import { NgForm } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -40,8 +40,8 @@ export class AppComponent implements OnInit, OnDestroy {
          * <PostsService>.createAndStorePost() to fetch this single post with this id */
 
         this.postsService.createAndStorePost(postData)
-        .subscribe(responseData => {
-            this.loadedPosts.push({id: responseData.name, ...postData});
+        .subscribe((responseData: HttpResponse<{ name: string }>) => {
+            this.loadedPosts.push({id: responseData.body!.name, ...postData});
             this.postForm.reset()
         });
     }
