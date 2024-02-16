@@ -10,7 +10,7 @@ export class PostsService {
 
     constructor(private http: HttpClient) { }
 
-    createAndStorePost(postData: PostData): void {
+    createAndStorePost(postData: PostData): Observable<{ name: string }> {
         /* Returns an Observable that will send Http POST request when subscribed to.
          * To better understand http request within Angular framework using
          * HttpClient injectable class, know that the request itself will only be sent after you
@@ -29,8 +29,7 @@ export class PostsService {
          * argument for the HttpClient method you're calling */
     
         // the http.post<T> generic type `T` is the expected return type which will be wrapped in an Observable;
-        this.http.post<{ name: string }>("https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json", postData)
-        .subscribe();
+        return this.http.post<{ name: string }>("https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json", postData)
     
         /* The `.../posts.json` above is specifically for Firebase Realtime Database, which in this
          * case with save `postData` in the "posts" folder - I don't really know why `.json` is needed
