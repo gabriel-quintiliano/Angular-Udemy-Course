@@ -1,12 +1,21 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 import { Post, PostData } from '../models/post.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class PostsService {
+    /* A way to handle errors from http requests which are sent directly from the service,
+     * hence the component won't have access to the Observable returned by the corresponding
+     * HttpClient method (i.e. `deletePost` and `deleteAllPosts` methods), you can create a
+     * Subject that emits the error message or the HttpErrorResponse object itself so the
+     * component can subscribe and react to it. In this case though, I think it's a best 
+     * practice to make sure you're providing this service in the component, otherwise you
+     * might be reacting to an error that happened because of the request of another component
+     * depending on your app's bussiness logic */
+    error = new Subject<string>();
 
     constructor(private http: HttpClient) { }
 
@@ -67,7 +76,11 @@ export class PostsService {
         // To delete a post individually, send a DELETE request to the specific url that targets it
         // (by its `id`). And in this case, add `.json` in this case as that's how Firebase Realtime Db works
         this.http.delete(`https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts/${id}.json`)
-        .subscribe()
+        .subscribe({
+            error: (err: HttpErrorResponse) => {
+                this.error.next(err.message);
+            },
+        })
     }
 
     deleteAllPosts() {
@@ -82,7 +95,12 @@ export class PostsService {
 
         // But then the instructor came up with the solution bellow, which deletes the whole `posts` folder
         // in the Firebase Realtime Db and is much more efficient.
-        this.http.delete("https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json").subscribe()
+        this.http.delete("https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json")
+        .subscribe({
+            error: (err: HttpErrorResponse) => {
+                this.error.next(err.message);
+            },
+        })
     }
 }
 
