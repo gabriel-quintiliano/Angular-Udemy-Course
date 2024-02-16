@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, catchError, map } from 'rxjs';
 import { Post, PostData } from '../models/post.model';
@@ -57,7 +57,18 @@ export class PostsService {
          * to an Array of Post type elements. */
 
         // the http.get<T> generic type `T` is the expected return type which will be wrapped in an Observable;
-        return this.http.get<{ [key: string]: PostData } | undefined >("https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json")
+        return this.http.get<{ [key: string]: PostData } | undefined >(
+            "https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json",
+            {
+                headers: { "My-Custom-Header": "hello", "My-Custom-Header-2": "hello 2" },
+                params: { print: "pretty", "param-second": 2 }
+                // - headers: you can also pass or create a new `HttpHeaders` object.
+                // - params: for query params you can also pass or create a new `HttpParams`
+                // object. Yes, it's the same as describing the same query params in the url,
+                // but here it's a bit more convenient as you don't need to work with template
+                // strings when dealing with dynamic query params.
+            }
+        )
         .pipe(
             map((responseData) => {
                 // if there is no post in db to be fetched just return (undefined)
