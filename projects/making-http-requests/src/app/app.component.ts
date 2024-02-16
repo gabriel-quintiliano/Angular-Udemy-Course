@@ -1,24 +1,29 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Post, PostData } from './models/post.model';
 import { PostsService } from './services/posts.service';
 import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
     loadedPosts: Post[] = [];
     isFetching = false;
     error?: string;
     @ViewChild('postForm') postForm!: NgForm;
+    private errorSub!: Subscription;
 
     constructor(private postsService: PostsService) {}
 
     ngOnInit() {
         this._fetchPosts();
+        this.errorSub = this.postsService.error.subscribe(errorMessage => {
+            this.error = errorMessage;
+        })
     }
 
     onCreatePost(postData: PostData) {
@@ -73,5 +78,9 @@ export class AppComponent implements OnInit {
                 this.isFetching = false;
             }
         });
+    }
+
+    ngOnDestroy() {
+        this.errorSub.unsubscribe();
     }
 }
