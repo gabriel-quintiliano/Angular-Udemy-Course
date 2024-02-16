@@ -37,7 +37,7 @@ export class PostsService {
          * but it's also Firebase specific and it won't workout without it. */
     }
 
-    fetchPosts(): Observable<Post[]> {
+    fetchPosts(): Observable<Post[] | undefined> {
         // Returns an Observable that when subscribed to will send a http GET request whose expected response value
         // in body is `Post[]`
 
@@ -49,8 +49,11 @@ export class PostsService {
          * to an Array of Post type elements. */
 
         // the http.get<T> generic type `T` is the expected return type which will be wrapped in an Observable;
-        return this.http.get<{ [key: string]: PostData }>("https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json")
+        return this.http.get<{ [key: string]: PostData } | undefined >("https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json")
         .pipe(map((responseData) => {
+            // if there is no post in db to be fetched just return (undefined)
+            if (!responseData) return
+
             const postArray: Post[] = [];
 
             for (let [id, postData] of Object.entries(responseData)) {
@@ -59,6 +62,21 @@ export class PostsService {
             
             return postArray;
         }))
+    }
+
+    deletePost(id: string) {
+        this.http.delete(`https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts/${id}.json`)
+        .subscribe()
+    }
+
+    deleteAllPosts() {
+        this.fetchPosts().subscribe(posts => {
+            if (!posts) return
+
+            for (let post of posts) {
+                this.deletePost(post.id);
+            }
+        })
     }
 }
 
