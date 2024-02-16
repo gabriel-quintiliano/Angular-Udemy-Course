@@ -46,9 +46,13 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12 col-md-6 col-md-offset-3">
-            <p *ngIf="isFetching">Loading posts...</p>
-            <p *ngIf="!loadedPosts.length && !isFetching">No posts available!</p>
+        <div class="col">
+            <p *ngIf="isFetching && !error">Loading posts...</p>
+            <div class="alert alert-danger" *ngIf="error">
+                <h4>An error occurred!</h4>
+                <p>{{ error }}</p>
+            </div>
+            <p *ngIf="!loadedPosts.length && !isFetching && !error">No posts available!</p>
             <ul *ngIf="loadedPosts.length && !isFetching" class="list-group">
                 <ng-template ngFor let-post [ngForOf]="loadedPosts">
                     <div class="card mb-2">

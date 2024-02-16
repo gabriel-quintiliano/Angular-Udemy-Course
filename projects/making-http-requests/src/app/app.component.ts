@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Post, PostData } from './models/post.model';
 import { PostsService } from './services/posts.service';
 import { NgForm } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-root',
@@ -11,6 +12,7 @@ import { NgForm } from '@angular/forms';
 export class AppComponent implements OnInit {
     loadedPosts: Post[] = [];
     isFetching = false;
+    error?: string;
     @ViewChild('postForm') postForm!: NgForm;
 
     constructor(private postsService: PostsService) {}
@@ -52,13 +54,24 @@ export class AppComponent implements OnInit {
 
     private _fetchPosts() {
         this.isFetching = true;
+        this.error = undefined;
 
         this.postsService.fetchPosts()
-        .subscribe(posts => {
-            if (posts) {
-                this.loadedPosts = posts;
+        .subscribe({
+            next: posts => {
+                if (posts) {
+                    this.loadedPosts = posts;
+                }
+            },
+            error: (err: HttpErrorResponse) => {
+                console.log(err);
+                this.error = err.message;
+            },
+            complete: () => {
+                // As the Observable completes after the request, regardless if it's successfull
+                // or not, we set `isFetching` back t false here, as the request is over.
+                this.isFetching = false;
             }
-            this.isFetching = false;
-        })
+        });
     }
 }
