@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpEventType, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, catchError, map } from 'rxjs';
+import { Observable, Subject, catchError, map, tap } from 'rxjs';
 import { Post, PostData } from '../models/post.model';
 
 @Injectable({
@@ -79,7 +79,7 @@ export class PostsService {
             "https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json",
             {
                 headers: { "My-Custom-Header": "hello", "My-Custom-Header-2": "hello 2" },
-                params: { print: "pretty", "param-second": 2 }
+                params: { print: "pretty", "param-second": 2 },
                 // - headers: you can also pass or create a new `HttpHeaders` object.
                 // - params: for query params you can also pass or create a new `HttpParams`
                 // object. Yes, it's the same as describing the same query params in the url,
@@ -122,18 +122,34 @@ export class PostsService {
     }
 
     deleteAllPosts() {
-        // Ealier I had this approach, deleting one post at a time according to its id as follows:
-        // this.fetchPosts().subscribe(posts => {
-        //     if (!posts) return
-        // 
-        //     for (let post of posts) {
-        //         this.deletePost(post.id);
-        //     }
-        // })
+        // Sends a DELETE request which will delete the whole `posts` folder at once
+        // from Firebase Realtime Db.
+        this.http.delete(
+            "https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json",
+            {observe: "events"}
+            /* {observe: "events"} option is the most complete out of all possible `observe` values
+             * because it will not only deliver to you the full http response, but also all the deliver
+             * all the http events related to your request. In this case, first of all there is the
+             * `sent` event and then the `response` event, in other scenarios, for example the uploading
+             * of a file, there would also be the 'upload progress' event. */
+        )
+        .pipe(tap((event: HttpEvent<Object>) => {
+            /* this `tap` operator is for when you want to just interact with the data delivered by the
+             * Observable, but not to change anything directly so the subscriber receives it unmodified */
 
-        // But then the instructor came up with the solution bellow, which deletes the whole `posts` folder
-        // in the Firebase Realtime Db and is much more efficient.
-        this.http.delete("https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json")
+            /* The http events are decribed by the `HttpEvent<T>` union type, which is comprised of:
+             * HttpSentEvent | HttpHeaderResponse | HttpResponse<T> | HttpProgressEvent | HttpUserEvent<T>
+             *
+             * And you can use the `HttpEventType` enum to filter/interact with specific http events
+             * according to its `type` property, as shown bellow: */
+            switch(event.type) {
+                case HttpEventType.Sent:
+                    console.log("Your DELETE request has just been sent!");
+                    break;
+                case HttpEventType.Response:
+                    console.log("The reponse for your DELETE request is: ", event);
+            };
+        }))
         .subscribe({
             error: (err: HttpErrorResponse) => {
                 this.error.next(err.message);
