@@ -41,7 +41,10 @@ export class PostsService {
         return this.http.post<{ name: string }>(
             "https://angular-http-module-56e7f-default-rtdb.firebaseio.com/posts.json",
             postData,
-            { observe: 'response'}
+            { 
+                observe: 'response',
+                responseType: 'json'
+            }
             /* You can use the "observe" key of the `options` param object to tell Angular, in which
              * of the http response you're interested in, and that's which will be wrapped in the
              * Observable returned by the HttpClient method. The default value for `observe` is "body"
@@ -55,7 +58,19 @@ export class PostsService {
              * "response" (delivers the full http response)
              * "event" (delivers an Observable for all types of http events:
              *          HttpSentEvent | HttpHeaderResponse | HttpResponse<T> |
-             *          HttpProgressEvent | HttpUserEvent<T>) */
+             *          HttpProgressEvent | HttpUserEvent<T>) 
+             * 
+             * 
+             * You can use the "responseType" key of the `options` param object to tell Angular, which
+             * is the type expected for the body of the response, this will alter how Angular parses it
+             * 'json' as we're using above is the default value used when this option is omitted, this
+             * when Angular will parse the response body into an object (that's what you get in the end).
+             * 
+             * The possible values for `observe` are: 
+             * "json" (default value - As the expected body is a json, Angular will convert it to a javascritp object) 
+             * "arraybuffer" (As the expected body is a array buffer, Angular will convert it to an ArrayBuffer object)
+             * "blob" (As the expected body is a blob, Angular will convert it to a Blob object)
+             * "text" (As the expected body is a text, Angular will convert it to a string primitive) */
         )
     
         /* The `.../posts.json` above is specifically for Firebase Realtime Database, which in this
