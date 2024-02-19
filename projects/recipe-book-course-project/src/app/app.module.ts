@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RecipeBookModule } from './modules/recipe-book/recipe-book.module';
 import { ShoppingListModule } from './modules/shopping-list/shopping-list.module';
 import { CommonCustomUtilitiesModule } from './modules/common-custom-utilities/common-custom-utilities.module';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -20,7 +21,8 @@ import { AppRoutingModule } from './app-routing.module';
         AppRoutingModule,
 		RecipeBookModule,
 		ShoppingListModule,
-		CommonCustomUtilitiesModule
+		CommonCustomUtilitiesModule,
+        HttpClientModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
