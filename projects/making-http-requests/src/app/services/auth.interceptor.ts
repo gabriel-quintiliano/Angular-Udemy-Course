@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpEventType } from '@angular/common/http';
-import { Observable, map, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -8,8 +8,15 @@ export class AuthInterceptor implements HttpInterceptor {
     constructor() {}
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-        console.log('method = ', request.method);
-        return next.handle(request);
+
+        /* The request (HttpRequest object) is immutable, thus if you need to change it,
+         * use the `clone` method, which accepts as argument an object with value updates
+         * you want the modified request to have.
+         * 
+         * About <HttpRequest>.headers.append --> this is for when you want to have a new
+         * HttpHeaders object returned with all already set headers and new ones appended */
+        const modifiedRequest = request.clone({headers: request.headers.append('Authentication', 'Bearer <yourAuthenticationTokenGoesHere>')})
+        return next.handle(modifiedRequest);
     }
 }
 
