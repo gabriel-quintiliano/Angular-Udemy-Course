@@ -13,10 +13,18 @@ export const IsValidRecipeIdGuard: CanActivateFn = (route: ActivatedRouteSnapsho
         return createUrlTreeFromSnapshot(route.root, ['recipes']);
     }
 
-    if (recipeId > recipeService.recipesRegistered - 1) {
+    if (!recipeService.recipesRegistered) {
+
+        // if there are no recipes registered (thus, recipeService.recipesRegistered === 0)
+        // redirect to './recipes' route.
+        return createUrlTreeFromSnapshot(route.root, ['recipes']);
+
+    } else if (recipeId > recipeService.recipesRegistered - 1) {
+
         // if the user tries to access a recipe-id beyond the number of registered recipes
         // they will be redirected to the details of the last registerde recipe
         return createUrlTreeFromSnapshot(route.root, ['recipes', recipeService.recipesRegistered - 1]);
+        
     }
 
     // if its a valid recipe-id the route will just be loaded
