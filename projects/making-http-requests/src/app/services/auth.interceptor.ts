@@ -8,6 +8,9 @@ export class AuthInterceptor implements HttpInterceptor {
     constructor() {}
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+        /* this comment is for you to see that the registering order of interceptors matter,
+         * that the order these will intercept the request */
+        console.log('(AuthInterceptor --> registerd first)');
 
         /* The request (HttpRequest object) is immutable, thus if you need to change it,
          * use the `clone` method, which accepts as argument an object with value updates
@@ -18,17 +21,8 @@ export class AuthInterceptor implements HttpInterceptor {
         const modifiedRequest = request.clone({headers: request.headers.append('Authentication', 'Bearer <yourAuthenticationTokenGoesHere>')})
 
         /* You can interact with the request's corresponding HttpEvents (ex: sent, response, ...)
-         * via pipeable operators from rxjs */
-        return next.handle(modifiedRequest).pipe(
-            tap(event => {
-                if (event.type === HttpEventType.Sent) {
-                    console.log(`[AuthInterceptor] ${modifiedRequest.method} request sent!`);
-                } else if (event.type === HttpEventType.Response) {
-                    console.log('[AuthInterceptor] Response just arrived!');
-                    console.log('[AuthInterceptor] Response body is: ', event.body);
-                }
-            })
-        );
+         * via pipeable operators from rxjs (see an example in the LoggingInterceptor) */
+        return next.handle(modifiedRequest);
     }
 }
 
