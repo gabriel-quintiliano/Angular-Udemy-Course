@@ -13,41 +13,45 @@ export class RecipeService {
     get recipesRegistered() {
         return this.recipes.length;
     }
+    recipes: Recipe[] = [];
 
     constructor(private shoppingListService: ShoppingListService) {}
 
-	private recipes: Recipe[] = [
-		new Recipe(
-			'Batatas Hasselback',
-			'Batatas frtas e recheadas deliciosas',
-			'https://www.cookipedia.co.uk/wiki/images/8/8f/Hasselback_potatoes_recipe.jpg',
-			[
-				new Ingredient('batata', 2, 'un'),
-				new Ingredient('cheese', 200, 'g'),
-			]
-		),
-		new Recipe(
-			'Filé de tilápia com iguarias',
-			'Filé de tilápia suculento com temperos diversos',
-			'https://restaurantden.wpenginepowered.com/wp-content/uploads/2017/09/free-stock-food-photography-websites.jpg',
-			[
-				new Ingredient('filé de tilápia', 2, 'un'),
-				new Ingredient('açafrão', 100, 'g'),
-				new Ingredient('sal', 3, 'tsp'),
-				new Ingredient('cheese', 200, 'g'),
-			]
-		),
-		new Recipe(
-			'Panquecas com Amora',
-			'Panquecas doces deliciosas com amoras frescas',
-			'https://restaurantden.wpenginepowered.com/wp-content/uploads/2017/09/pixabay.jpg',
-			[
-				new Ingredient('farinha de trigo', 200, 'g'),
-				new Ingredient('amoras', 100, 'g'),
-				new Ingredient('ovos', 2, 'un'),
-			]
-		)
-	];
+    // As we started dealing with http request, now we'll get recipes data from the
+    // Firebase Realtime Database.
+
+	// private recipes: Recipe[] = [
+	// 	new Recipe(
+	// 		'Batatas Hasselback',
+	// 		'Batatas frtas e recheadas deliciosas',
+	// 		'https://www.cookipedia.co.uk/wiki/images/8/8f/Hasselback_potatoes_recipe.jpg',
+	// 		[
+	// 			new Ingredient('batata', 2, 'un'),
+	// 			new Ingredient('cheese', 200, 'g'),
+	// 		]
+	// 	),
+	// 	new Recipe(
+	// 		'Filé de tilápia com iguarias',
+	// 		'Filé de tilápia suculento com temperos diversos',
+	// 		'https://restaurantden.wpenginepowered.com/wp-content/uploads/2017/09/free-stock-food-photography-websites.jpg',
+	// 		[
+	// 			new Ingredient('filé de tilápia', 2, 'un'),
+	// 			new Ingredient('açafrão', 100, 'g'),
+	// 			new Ingredient('sal', 3, 'tsp'),
+	// 			new Ingredient('cheese', 200, 'g'),
+	// 		]
+	// 	),
+	// 	new Recipe(
+	// 		'Panquecas com Amora',
+	// 		'Panquecas doces deliciosas com amoras frescas',
+	// 		'https://restaurantden.wpenginepowered.com/wp-content/uploads/2017/09/pixabay.jpg',
+	// 		[
+	// 			new Ingredient('farinha de trigo', 200, 'g'),
+	// 			new Ingredient('amoras', 100, 'g'),
+	// 			new Ingredient('ovos', 2, 'un'),
+	// 		]
+	// 	)
+	// ];
 
     setRecipes(recipes: Recipe[]) {
         this.recipes = recipes;
