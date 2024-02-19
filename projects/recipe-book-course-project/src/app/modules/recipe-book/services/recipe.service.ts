@@ -47,7 +47,12 @@ export class RecipeService {
 				new Ingredient('ovos', 2, 'un'),
 			]
 		)
-	]
+	];
+
+    setRecipes(recipes: Recipe[]) {
+        this.recipes = recipes;
+        this.recipesChanged.next(this.recipes.slice());
+    }
 
 	getRecipes() {
 		// the slice method will return a shallow copy of the recipes array, therefor it'll be a new array
