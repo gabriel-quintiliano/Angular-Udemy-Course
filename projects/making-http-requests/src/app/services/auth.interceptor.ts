@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpEventType } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -16,7 +16,19 @@ export class AuthInterceptor implements HttpInterceptor {
          * About <HttpRequest>.headers.append --> this is for when you want to have a new
          * HttpHeaders object returned with all already set headers and new ones appended */
         const modifiedRequest = request.clone({headers: request.headers.append('Authentication', 'Bearer <yourAuthenticationTokenGoesHere>')})
-        return next.handle(modifiedRequest);
+
+        /* You can interact with the request's corresponding HttpEvents (ex: sent, response, ...)
+         * via pipeable operators from rxjs */
+        return next.handle(modifiedRequest).pipe(
+            tap(event => {
+                if (event.type === HttpEventType.Sent) {
+                    console.log(`[AuthInterceptor] ${modifiedRequest.method} request sent!`);
+                } else if (event.type === HttpEventType.Response) {
+                    console.log('[AuthInterceptor] Response just arrived!');
+                    console.log('[AuthInterceptor] Response body is: ', event.body);
+                }
+            })
+        );
     }
 }
 
