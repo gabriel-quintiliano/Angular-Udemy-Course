@@ -23,4 +23,17 @@ export class DataStorageService {
          * format of the request's payload, it just saves it. */
         this.http.put('https://recipe-book-course-proje-e55ad-default-rtdb.firebaseio.com/recipes.json', recipes).subscribe();
     }
+
+    fetchRecipes() {
+        this.http.get<Recipe[] | null>('https://recipe-book-course-proje-e55ad-default-rtdb.firebaseio.com/recipes.json')
+        .subscribe(recipes => {
+            /* if there are no recipes stored in the end point, instead of [], the return
+             * value in the http reponse body will be `null`, so remember to check for that. */
+            if (recipes) { // or check `if (recipes !== null)`
+                this.recipeService.setRecipes(recipes);
+            } else {
+                this.recipeService.setRecipes([]);
+            }
+        });
+    }
 }
