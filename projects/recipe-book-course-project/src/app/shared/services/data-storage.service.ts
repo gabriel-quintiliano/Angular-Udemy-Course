@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RecipeService } from '../../modules/recipe-book/services/recipe.service';
 import { Recipe } from '../../modules/recipe-book/models/recipe.model';
+import { map } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -26,14 +27,35 @@ export class DataStorageService {
 
     fetchRecipes() {
         this.http.get<Recipe[] | null>('https://recipe-book-course-proje-e55ad-default-rtdb.firebaseio.com/recipes.json')
-        .subscribe(recipes => {
-            /* if there are no recipes stored in the end point, instead of [], the return
-             * value in the http reponse body will be `null`, so remember to check for that. */
-            if (recipes) { // or check `if (recipes !== null)`
-                this.recipeService.setRecipes(recipes);
-            } else {
-                this.recipeService.setRecipes([]);
+        .pipe(map(recipes => {
+            
+            /* if there are no recipes stored in the database, the reponse body will be `null`
+             * instead of just `[]` so you better check that. */
+            if (recipes) {
+                /* Now that we know there are actual recipes in the db, we get to check if those
+                 * do respect the expected data format (the `Recipes` type in this case), because
+                 * as the Firebase Realtime DB works, data like empty Arrays or Objects are just
+                 * discarded, thus for example if we'd earlier sent to to DB a recipe with no
+                 * ingredients added yet, which is a valid Recipes object, something like:
+                 * {name: ..., desription: ..., imagepath: ..., ingredients: []} this object
+                 * will be save as: {name: ..., desription: ..., imagepath: ...}, the ingredients
+                 * key is completely discarded */
+
+                return recipes.map(recipe => {
+                    /* We copy all properties of the recipe and overide the ingredients key value.
+                     * if the recipe has no ingredients key, `recipe.ingredients` === undefined,
+                     * thus as its falsy, [] will be set as value, otherwise the original value
+                     * for `recipe.ingredients` will be kept */
+                    return {...recipe, ingredients: recipe.ingredients ? recipe.ingredients : []}
+                })
             }
+
+            /* if there are no recipes in DB will just return [] as the original reponse body
+             * value was `null` */
+            return [];
+        }))
+        .subscribe(recipes => {
+            this.recipeService.setRecipes(recipes);
         });
     }
 }
