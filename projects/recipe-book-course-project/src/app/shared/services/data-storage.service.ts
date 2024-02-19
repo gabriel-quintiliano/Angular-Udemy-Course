@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RecipeService } from '../../modules/recipe-book/services/recipe.service';
+import { Recipe } from '../../modules/recipe-book/models/recipe.model';
 
 @Injectable({
     providedIn: 'root'
@@ -20,9 +21,6 @@ export class DataStorageService {
          * PUT requests are generally used to update data that already in the server, thus
          * Firebase understands that you know what you're doing and doesn't mess with the
          * format of the request's payload, it just saves it. */
-        this.http.put('https://recipe-book-course-proje-e55ad-default-rtdb.firebaseio.com/recipes.json', recipes)
-        .subscribe(response => {
-            console.log('this is the response of the put request', response);
-        });
+        this.http.put('https://recipe-book-course-proje-e55ad-default-rtdb.firebaseio.com/recipes.json', recipes).subscribe();
     }
 }
