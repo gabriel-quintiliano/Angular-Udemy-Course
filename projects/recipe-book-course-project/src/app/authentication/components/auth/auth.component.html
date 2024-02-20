@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
     <div class="col-md-9 col-lg-7 col-xl-6 col-xxl-5">
-        <h2 class="my-5 text-center">Sing up</h2>
+        <h2 class="my-5 text-center">{{ loginMode ? 'Login' : 'Sign up' }}</h2>
         <form>
             <div class="form-group mb-3">
                 <label for="email">E-mail</label>
@@ -11,8 +11,8 @@
                 <input class="form-control" type="password" id="password">
             </div>
             <div>
-                <button type="button" class="btn btn-primary me-3">Sign up</button>
-                <button type="button" class="btn btn-primary">Switch to login</button>
+                <button type="button" class="btn btn-primary me-3">{{ loginMode ? 'Login' : 'Sign up' }}</button>
+                <button type="button" class="btn btn-primary" (click)="onSwitchMode()">Switch to {{ loginMode ? 'sign up' : 'login' }}</button>
             </div>
         </form>
     </div>
