@@ -6,10 +6,11 @@ import { RecipeDetailComponent } from './modules/recipe-book/components/recipe-d
 import { PlaceholderComponent } from './modules/common-custom-utilities/placeholder/placeholder.component';
 import { RecipeEditComponent } from './modules/recipe-book/components/recipe-edit/recipe-edit.component';
 import { IsValidRecipeIdGuard } from './guards/isValidRecipeId.guard';
+import { loadRecipesResolver } from './resolvers/load-recipes.resolver';
 
 const routes: Routes = [
     { path: '', redirectTo: '/recipes', pathMatch: 'full' },
-    { path: 'recipes', component: RecipesComponent, children: [
+    { path: 'recipes', component: RecipesComponent, resolve: {_loadRecipesOnBoot: loadRecipesResolver}, children: [
         { path: '', component: PlaceholderComponent, 
           data: { message: "Click on a recipe to have its details displayed here" }
         },
