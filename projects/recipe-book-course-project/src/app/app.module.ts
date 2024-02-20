@@ -9,12 +9,14 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RecipesComponent } from './components/recipes/recipes.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthComponent } from './authentication/components/auth/auth.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		HeaderComponent,
 		RecipesComponent,
+  AuthComponent,
 	],
 	imports: [
 		BrowserModule,
