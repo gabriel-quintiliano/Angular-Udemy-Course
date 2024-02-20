@@ -7,6 +7,7 @@ import { PlaceholderComponent } from './modules/common-custom-utilities/placehol
 import { RecipeEditComponent } from './modules/recipe-book/components/recipe-edit/recipe-edit.component';
 import { IsValidRecipeIdGuard } from './guards/isValidRecipeId.guard';
 import { loadRecipesResolver } from './resolvers/load-recipes.resolver';
+import { AuthComponent } from './authentication/components/auth/auth.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/recipes', pathMatch: 'full' },
@@ -26,7 +27,8 @@ const routes: Routes = [
             { path: 'edit', component: RecipeEditComponent }
         ] },
     ] },
-    { path: 'shoppingList', component: ShoppingListComponent }
+    { path: 'shoppingList', component: ShoppingListComponent },
+    { path: 'auth', component: AuthComponent },
 ];
 
 @NgModule({
