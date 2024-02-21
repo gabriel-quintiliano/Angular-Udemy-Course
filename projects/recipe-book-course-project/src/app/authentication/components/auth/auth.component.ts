@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class AuthComponent {
     loginMode = true;
+    isLoading = false;
     userDataForm = this.nnfb.group({
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
@@ -27,7 +28,9 @@ export class AuthComponent {
 
         const email = this.userDataForm.get('email')!.value;
         const password = this.userDataForm.get('password')!.value;
-
+        
+        this.isLoading = true;
+        
         if (this.loginMode) {
             // A sign in method will be implemented later on
         } else {
@@ -36,9 +39,11 @@ export class AuthComponent {
             .subscribe({
                 next: res => {
                     console.log("response from signup: ", res)
+                    this.isLoading = false;
                 },
                 error: err => {
                     console.log(err)
+                    this.isLoading = false;
                 }
             });
         }

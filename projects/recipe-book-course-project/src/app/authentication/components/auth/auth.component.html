@@ -1,4 +1,6 @@
-<div class="row justify-content-center">
+<div
+    [ngClass]="{'blur_it': isLoading}"
+    class="row justify-content-center">
     <div class="col-md-9 col-lg-7 col-xl-6 col-xxl-5">
         <h2 class="my-5 text-center">{{ loginMode ? 'Login' : 'Sign up' }}</h2>
         <form [formGroup]="userDataForm" (ngSubmit)="onSubmit()">
@@ -22,3 +24,7 @@
         </form>
     </div>
 </div>
+
+<!-- This is initially a hidden component that will only show up when a request
+     has been sent to backend and we're still waiting for the response. -->
+<app-loading-spinner [ngClass]="[isLoading ? 'overlay' : 'hide']"></app-loading-spinner>
