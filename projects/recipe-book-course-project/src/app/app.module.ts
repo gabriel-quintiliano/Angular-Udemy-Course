@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { AuthComponent } from './authentication/components/auth/auth.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RecipesComponent } from './components/recipes/recipes.component';
+import { LoadingSpinnerComponent } from './authentication/components/loading-spinner/loading-spinner.component';
 
 @NgModule({
 	declarations: [
@@ -18,6 +19,7 @@ import { RecipesComponent } from './components/recipes/recipes.component';
 		HeaderComponent,
 		RecipesComponent,
   AuthComponent,
+  LoadingSpinnerComponent,
 	],
 	imports: [
 		BrowserModule,
