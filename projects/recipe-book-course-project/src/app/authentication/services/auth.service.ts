@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs';
+import { AuthenticationResponseBody } from '../models/authentication-response-body.model';
 import { CustomAuthErrorMessage } from '../models/custom-auth-error-message.model';
-import { SignUpResponseBody } from '../models/sign-up-response-body.model';
 
 @Injectable({
     providedIn: 'root'
@@ -12,9 +12,9 @@ export class AuthService {
     constructor(private http: HttpClient) { }
 
     signup(email: string, password: string) {
-        return this.http.post<SignUpResponseBody>(
+        return this.http.post<AuthenticationResponseBody>(
             'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCmPLklaTyYdUsO2I-NMhDT8f39OW_YbWk',
-            {email: email, password: password, 'returnSecureToken': true}
+            { email, password, 'returnSecureToken': true }
         ).pipe(catchError((errorRes: HttpErrorResponse) => {
             /* This pipe will run only for errors, and in the end will forward only a custom
              * error message for the subscriber to ocasionally handle */
@@ -25,7 +25,7 @@ export class AuthService {
             if (!errorRes.error || !errorRes.error.error) {
                 throw "An unknown error has occurred!";
             }
-            
+
             const curErrorMessage = errorRes.error.error.message;
             // Checks if the current error status has a custom message set up in CustomAuthErrorMessage
             if (CustomAuthErrorMessage[curErrorMessage as keyof typeof CustomAuthErrorMessage] != undefined) {
@@ -38,9 +38,30 @@ export class AuthService {
                 // switch statement if this application had 98 different errors and also have to remember
                 // to return each and every file (where there is similar error handling) to add a new case
                 // for any new error implemented in the future;
-
             } else {
                 // For errors that yet not described in CustomAuthErrorMessage object:
+                throw `Error: ${errorRes.error.error.message} [status code: ${curErrorMessage}]`;
+            }
+        }));
+    }
+
+    login(email: string, password: string) {
+        return this.http.post<AuthenticationResponseBody>(
+            'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCmPLklaTyYdUsO2I-NMhDT8f39OW_YbWk',
+            { email, password, 'returnSecureToken': true }
+        ).pipe(catchError((errorRes: HttpErrorResponse) => {
+            /* This pipe will run only for errors, and in the end will forward only a custom
+             * error message for the subscriber to ocasionally handle */
+
+            if (!errorRes.error || !errorRes.error.error) {
+                throw "An unknown error has occurred!";
+            }
+
+            const curErrorMessage = errorRes.error.error.message;
+
+            if (CustomAuthErrorMessage[curErrorMessage as keyof typeof CustomAuthErrorMessage] != undefined) {
+                throw CustomAuthErrorMessage[curErrorMessage as keyof typeof CustomAuthErrorMessage];
+            } else {
                 throw `Error: ${errorRes.error.error.message} [status code: ${curErrorMessage}]`;
             }
         }));
