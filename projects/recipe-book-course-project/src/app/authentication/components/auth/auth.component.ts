@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { AuthenticationResponseBody } from '../../models/authentication-response-body.model';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -32,23 +34,26 @@ export class AuthComponent {
         
         this.isLoading = true;
 
+        let authObservable: Observable<AuthenticationResponseBody>;
+
         if (this.loginMode) {
-            // A sign in method will be implemented later on
+            authObservable = this.authService.login(email, password)
         } else {
             // If the user is not in login mode, then they're signing up
-            this.authService.signup(email, password)
-            .subscribe({
-                next: res => {
-                    console.log("response from signup: ", res);
-                    this.error = null;
-                    this.isLoading = false;
-                },
-                error: (errorMessage: string) => {
-                    this.error = errorMessage
-                    this.isLoading = false;
-                }
-            });
+            authObservable = this.authService.signup(email, password)
         }
+
+        authObservable.subscribe({
+            next: res => {
+                console.log("response from signup/login: ", res);
+                this.error = null;
+                this.isLoading = false;
+            },
+            error: (errorMessage: string) => {
+                this.error = errorMessage
+                this.isLoading = false;
+            }
+        })
 
         this.userDataForm.reset();
     }
