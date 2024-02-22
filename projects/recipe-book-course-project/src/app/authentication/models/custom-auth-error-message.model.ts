@@ -1,6 +1,5 @@
 
-// export const CustomErrorMessage: {[key in keyof typeof FirebaseHttpErrorResponseCode]: string} = {
-export const CustomErrorMessage = {
+export const CustomAuthErrorMessage = {
     EMAIL_EXISTS: "This email is already signed up, try login in.",
     INVALID_ARGUMENT: "API key not valid. Please pass a valid API key.",
     USER_DISABLED: "This account has been disabled.",
