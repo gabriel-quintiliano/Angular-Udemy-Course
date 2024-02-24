@@ -19,7 +19,20 @@ export class DataStorageService {
     storeRecipes() {
         const recipes = this.recipeService.getRecipes();
         
-        this.http.put('https://recipe-book-course-proje-e55ad-default-rtdb.firebaseio.com/recipes.json', recipes)
+        this.authService.user
+        .pipe(
+            take(1),
+            exhaustMap(user => {
+                if (!user || !user.token) {
+                    return this.http.put('https://recipe-book-course-proje-e55ad-default-rtdb.firebaseio.com/recipes.json', recipes)
+                }
+                return this.http.put(
+                    'https://recipe-book-course-proje-e55ad-default-rtdb.firebaseio.com/recipes.json',
+                    recipes,
+                    { params: { auth: user.token } }
+                )
+            })
+        )
         .subscribe();
     }
 
