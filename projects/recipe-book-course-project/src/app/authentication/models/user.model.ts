@@ -13,7 +13,9 @@ export class User {
         tokenExpirationDate: Date | number
     ) {
         if (typeof tokenExpirationDate === 'number') {
-            this._tokenExpirationDate = new Date(0, 0, 0, 0, 0, tokenExpirationDate);
+            // Creation of date bellow: The amount of miliseconds from epoch until now +
+            // tokenExpirationDate (in minutes) * 1000 to turn it in milliseconds too
+            this._tokenExpirationDate = new Date(Date.now() + tokenExpirationDate * 1000);
         } else {
             // In this case `tokenExpirationDate` is a a `Date` object
             this._tokenExpirationDate = tokenExpirationDate;
