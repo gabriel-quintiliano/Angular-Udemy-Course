@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, catchError, tap } from 'rxjs';
 import { AuthenticationResponseBody } from '../models/authentication-response-body.model';
 import { CustomAuthErrorMessage } from '../models/custom-auth-error-message.model';
@@ -14,7 +15,10 @@ export class AuthService {
     // user = new BehaviorSubject<User | null>(null);
     user = new BehaviorSubject<User | null>(null);
 
-    constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient,
+        private router: Router,    
+    ) { }
 
     signup(email: string, password: string) {
         return this.http.post<AuthenticationResponseBody>(
@@ -34,6 +38,11 @@ export class AuthService {
             tap(this.handleAuthentication),
             catchError(this.handleError)
         );
+    }
+
+    logout() {
+        this.user.next(null);
+        this.router.navigate(['/auth']);
     }
 
     /* As this method will be called in a context other than this class's instance (the `tap()`
