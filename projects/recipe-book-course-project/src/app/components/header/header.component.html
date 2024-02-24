@@ -18,7 +18,7 @@
             </ul>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item" *ngIf="authenticated">
-                    <a class="btn tbn-danger c-pointer">Logout</a>
+                    <a class="btn tbn-danger c-pointer" (click)="onLogout()">Logout</a>
                 </li>
                 <li appDropdown class="nav-item dropdown" *ngIf="authenticated">
                     <a class="nav-link dropdown-toggle c-pointer" id="navbarDropdown" role="button" data-bs-toggle="dropdown">Manage</a>

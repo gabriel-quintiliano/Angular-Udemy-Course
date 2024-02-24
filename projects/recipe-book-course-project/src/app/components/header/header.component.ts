@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../authentication/services/auth.service';
 import { DataStorageService } from '../../shared/services/data-storage.service';
@@ -14,7 +15,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     constructor(
         private dataStorageService: DataStorageService,
-        private authService: AuthService
+        private authService: AuthService,
+        private router: Router
     ) {}
 
     ngOnInit() {
@@ -32,6 +34,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
             //     this.authenticated = false;
             // }
         })
+    }
+
+    onLogout() {
+        this.authService.logout();
+        /* here there is no need to manually set `authenticated` property
+         * to false because we already have set this properties value to be
+         * based on the state of the user emitted from <AuthService>.user Subject,
+         * thus, by only calling <AuthService>.logout() the user state within
+         * <AuthService> will change and `authenticated` will automatically be
+         * notified and have is value changed to `false`. */
     }
 
     onSaveData() {
