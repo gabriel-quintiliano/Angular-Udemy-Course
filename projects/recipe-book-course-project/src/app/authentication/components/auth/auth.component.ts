@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthenticationResponseBody } from '../../models/authentication-response-body.model';
 import { AuthService } from '../../services/auth.service';
@@ -19,7 +20,8 @@ export class AuthComponent {
     })
 
     constructor(private nnfb: NonNullableFormBuilder,
-                private authService: AuthService) { }
+                private authService: AuthService,
+                private router: Router) { }
 
     onSwitchMode() {
         // reverses the previously stored boolean value;
@@ -45,9 +47,10 @@ export class AuthComponent {
 
         authObservable.subscribe({
             next: res => {
-                console.log("response from signup/login: ", res);
                 this.error = null;
                 this.isLoading = false;
+                // Redirects the authenticated user to './recipes' route
+                this.router.navigate(['/recipes']);
             },
             error: (errorMessage: string) => {
                 this.error = errorMessage
