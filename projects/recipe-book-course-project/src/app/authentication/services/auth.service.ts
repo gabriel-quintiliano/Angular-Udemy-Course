@@ -40,7 +40,32 @@ export class AuthService {
         );
     }
 
+    autoLogin() {
+        const userDataStr = localStorage.getItem("userData");
+
+        if (!userDataStr) return
+        // if there is no userDate in local storage, just return
+
+        const userData: {
+            email: string,
+            id: string,
+            _token: string,
+            _tokenExpirationDate: string // when saved in local storage via JSON.stringfy(), Date objects
+        } = JSON.parse(userDataStr);     // are converted to string via <Date>.toISOString() (always UTC)
+
+        // checks if the token is within its expiration date, if not logs out right after
+        if (new Date(userData._tokenExpirationDate) < new Date()) {
+            this.logout();
+            return
+        }
+
+        // if token is still valid creates a user and nexts it using the `user` Subject so component know of it
+        const builtUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
+        this.user.next(builtUser);
+    }
+
     logout() {
+        localStorage.removeItem("userData");
         this.user.next(null);
         this.router.navigate(['/auth']);
     }
@@ -51,7 +76,14 @@ export class AuthService {
      * has no `this`, thus binds to the `this` of the outter context where it's created (and
      * use that for every execution, I think it can be considered a closure because of that, maybe...) */
     private handleAuthentication = (resBody: AuthenticationResponseBody) => {
-        this.user.next(new User(resBody.email, resBody.localId, resBody.idToken, Number(resBody.expiresIn)))
+        const userData = new User(resBody.email, resBody.localId, resBody.idToken, Number(resBody.expiresIn))
+        this.user.next(userData);
+
+        try {
+            localStorage.setItem("userData", JSON.stringify(userData));
+        } catch {
+            console.log("An unexprected error has happened when trying to locally store you login token, you'll keep logged in for now, but when this tab is closed you'll need to signin again.\n\nVerify in permission settings of the browser if this website is allowed to use 'local storage'.\nOr maybe, the 'local storage' is full and you must clean it.");
+        }
     }
 
     // The return type annotation is only necessary because the `catchError` operator expects
