@@ -11,6 +11,7 @@ import { User } from '../models/user.model';
 export class AuthService {
     // BehaviorSubjects always immediatly return the lasted value emitted when subscribed to.
     // in this case, `null` initially and later on the latest authenticated `User` object emitted.
+    // user = new BehaviorSubject<User | null>(null);
     user = new BehaviorSubject<User | null>(null);
 
     constructor(private http: HttpClient) { }
@@ -35,7 +36,12 @@ export class AuthService {
         );
     }
 
-    private handleAuthentication(resBody: AuthenticationResponseBody) {
+    /* As this method will be called in a context other than this class's instance (the `tap()`
+     * pipeable operator's in case), to make sure it has the correct `this` binded, you have to
+     * either bind it manually to this class's `this` context or use an arrow function, which
+     * has no `this`, thus binds to the `this` of the outter context where it's created (and
+     * use that for every execution, I think it can be considered a closure because of that, maybe...) */
+    private handleAuthentication = (resBody: AuthenticationResponseBody) => {
         this.user.next(new User(resBody.email, resBody.localId, resBody.idToken, Number(resBody.expiresIn)))
     }
 
@@ -49,6 +55,7 @@ export class AuthService {
         // property, this, if the captured error doesn't have this properties, a standard message
         // is thrown
         if (!errorRes.error || !errorRes.error.error) {
+            console.log(errorRes)
             throw "An unknown error has occurred!";
         }
 
