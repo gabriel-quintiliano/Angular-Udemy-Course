@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { exhaustMap, map, take } from 'rxjs';
+import { map } from 'rxjs';
 import { AuthService } from '../../authentication/services/auth.service';
 import { Recipe } from '../../modules/recipe-book/models/recipe.model';
 import { RecipeService } from '../../modules/recipe-book/services/recipe.service';
@@ -19,40 +19,13 @@ export class DataStorageService {
     storeRecipes() {
         const recipes = this.recipeService.getRecipes();
         
-        this.authService.user
-        .pipe(
-            take(1),
-            exhaustMap(user => {
-                if (!user || !user.token) {
-                    return this.http.put('https://recipe-book-course-proje-e55ad-default-rtdb.firebaseio.com/recipes.json', recipes)
-                }
-                return this.http.put(
-                    'https://recipe-book-course-proje-e55ad-default-rtdb.firebaseio.com/recipes.json',
-                    recipes,
-                    { params: { auth: user.token } }
-                )
-            })
-        )
+        this.http.put('https://recipe-book-course-proje-e55ad-default-rtdb.firebaseio.com/recipes.json', recipes)
         .subscribe();
     }
 
     fetchRecipes() {
-        this.authService.user
+        this.http.get<Recipe[] | null>('https://recipe-book-course-proje-e55ad-default-rtdb.firebaseio.com/recipes.json')
         .pipe(
-            // takes only the first value emited from `user` Subject and unsubscribes
-            take(1),
-            // subscribes to `user` Subject, maps its emitted value and returns a new Observable in place
-            // thats the Observable that will be subscribed to in the end.
-            exhaustMap(user => {
-                if (!user || !user.token) {
-                    return this.http.get<Recipe[] | null>('https://recipe-book-course-proje-e55ad-default-rtdb.firebaseio.com/recipes.json')
-                }
-                return this.http.get<Recipe[] | null>(
-                    'https://recipe-book-course-proje-e55ad-default-rtdb.firebaseio.com/recipes.json',
-                    { params: { auth: user.token } }
-                )
-            }),
-            // Maps the values emitted by the "replacement" Observable
             map(recipes => {
                 // see comment #2
                 if (recipes) {
@@ -66,7 +39,6 @@ export class DataStorageService {
                 return [];
             })
         )
-        // Subscribes to the "replacement" Observable
         .subscribe(recipes => {
             this.recipeService.setRecipes(recipes);
         });
@@ -107,8 +79,4 @@ export class DataStorageService {
  * 
  * 
  * #5 - If there are no recipes in DB will just return [] as the original reponse
- * body value was `null`.
- * 
- * 
- * #6 -
- * */
+ * body value was `null`. */
