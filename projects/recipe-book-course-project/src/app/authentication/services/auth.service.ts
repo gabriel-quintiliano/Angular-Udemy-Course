@@ -1,13 +1,17 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, tap } from 'rxjs';
 import { AuthenticationResponseBody } from '../models/authentication-response-body.model';
 import { CustomAuthErrorMessage } from '../models/custom-auth-error-message.model';
+import { User } from '../models/user.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
+    // BehaviorSubjects always immediatly return the lasted value emitted when subscribed to.
+    // in this case, `null` initially and later on the latest authenticated `User` object emitted.
+    user = new BehaviorSubject<User | null>(null);
 
     constructor(private http: HttpClient) { }
 
@@ -15,14 +19,24 @@ export class AuthService {
         return this.http.post<AuthenticationResponseBody>(
             'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCmPLklaTyYdUsO2I-NMhDT8f39OW_YbWk',
             { email, password, 'returnSecureToken': true }
-        ).pipe(catchError(this.handleError));
+        ).pipe(
+            tap(this.handleAuthentication),
+            catchError(this.handleError)
+        );
     }
 
     login(email: string, password: string) {
         return this.http.post<AuthenticationResponseBody>(
             'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCmPLklaTyYdUsO2I-NMhDT8f39OW_YbWk',
             { email, password, 'returnSecureToken': true }
-        ).pipe(catchError(this.handleError));
+        ).pipe(
+            tap(this.handleAuthentication),
+            catchError(this.handleError)
+        );
+    }
+
+    private handleAuthentication(resBody: AuthenticationResponseBody) {
+        this.user.next(new User(resBody.email, resBody.localId, resBody.idToken, Number(resBody.expiresIn)))
     }
 
     // The return type annotation is only necessary because the `catchError` operator expects
