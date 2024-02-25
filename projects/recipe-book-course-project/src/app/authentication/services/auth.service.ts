@@ -14,6 +14,7 @@ export class AuthService {
     // in this case, `null` initially and later on the latest authenticated `User` object emitted.
     // user = new BehaviorSubject<User | null>(null);
     user = new BehaviorSubject<User | null>(null);
+    private autoLogoutTimeoutId?: ReturnType<typeof setTimeout>;
 
     constructor(
         private http: HttpClient,
@@ -53,21 +54,37 @@ export class AuthService {
             _tokenExpirationDate: string // when saved in local storage via JSON.stringfy(), Date objects
         } = JSON.parse(userDataStr);     // are converted to string via <Date>.toISOString() (always UTC)
 
+        const tokenExpirationDate = new Date(userData._tokenExpirationDate);
+        // Gets difference of time in miliseconds between expiration date and current time
+        // then multiplies it by 1000 to get this difference in seconds. 
+        const timeUntilTokenExpiration = (tokenExpirationDate.getTime() - Date.now()) * 1000;
+
         // checks if the token is within its expiration date, if not logs out right after
-        if (new Date(userData._tokenExpirationDate) < new Date()) {
+        if (timeUntilTokenExpiration <= 0) {
             this.logout();
             return
         }
 
-        // if token is still valid creates a user and nexts it using the `user` Subject so component know of it
-        const builtUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
+        // As token is still valid creates a user and 'nexts' it using the `user` Subject so component know of it
+        const builtUser = new User(userData.email, userData.id, userData._token, tokenExpirationDate);
         this.user.next(builtUser);
+        this.autoLogout(timeUntilTokenExpiration);
     }
 
     logout() {
         localStorage.removeItem("userData");
         this.user.next(null);
         this.router.navigate(['/auth']);
+
+        // clearTimeout function doesn't care if `autoLogoutTimeoutId` is `undefined` or
+        // even a from an earlier execution of `setTimeout` that have already been cleared.
+        clearTimeout(this.autoLogoutTimeoutId);
+    }
+
+    autoLogout(timerInSeconds: number) {
+        this.autoLogoutTimeoutId = setTimeout(() => {
+            this.logout();
+        }, timerInSeconds * 1000);
     }
 
     /* As this method will be called in a context other than this class's instance (the `tap()`
@@ -76,8 +93,10 @@ export class AuthService {
      * has no `this`, thus binds to the `this` of the outter context where it's created (and
      * use that for every execution, I think it can be considered a closure because of that, maybe...) */
     private handleAuthentication = (resBody: AuthenticationResponseBody) => {
-        const userData = new User(resBody.email, resBody.localId, resBody.idToken, Number(resBody.expiresIn))
+        // Note: res.expiresIn is in seconds
+        const userData = new User(resBody.email, resBody.localId, resBody.idToken, Number(resBody.expiresIn));
         this.user.next(userData);
+        this.autoLogout(Number(resBody.expiresIn) * 1000);
 
         try {
             localStorage.setItem("userData", JSON.stringify(userData));
