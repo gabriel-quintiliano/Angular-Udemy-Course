@@ -56,8 +56,7 @@ export class AuthService {
 
         const tokenExpirationDate = new Date(userData._tokenExpirationDate);
         // Gets difference of time in miliseconds between expiration date and current time
-        // then multiplies it by 1000 to get this difference in seconds. 
-        const timeUntilTokenExpiration = (tokenExpirationDate.getTime() - Date.now()) * 1000;
+        const timeUntilTokenExpiration = tokenExpirationDate.getTime() - Date.now();
 
         // checks if the token is within its expiration date, if not logs out right after
         if (timeUntilTokenExpiration <= 0) {
@@ -81,10 +80,10 @@ export class AuthService {
         clearTimeout(this.autoLogoutTimeoutId);
     }
 
-    autoLogout(timerInSeconds: number) {
+    autoLogout(timerInMiliseconds: number) {
         this.autoLogoutTimeoutId = setTimeout(() => {
             this.logout();
-        }, timerInSeconds * 1000);
+        }, timerInMiliseconds);
     }
 
     /* As this method will be called in a context other than this class's instance (the `tap()`
