@@ -12,26 +12,31 @@ import { loadRecipesResolver } from './resolvers/load-recipes.resolver';
 
 const routes: Routes = [
     { path: '', redirectTo: '/recipes', pathMatch: 'full' },
-    { path: 'recipes',
-      canActivate: [authGuard],
-      component: RecipesComponent,
-      resolve: {_loadRecipesOnBoot: loadRecipesResolver},
-      children: [
-        { path: '', component: PlaceholderComponent, 
-          data: { message: "Click on a recipe to have its details displayed here" }
-        },
-        { path: 'new', component: RecipeEditComponent },
-        // static routes must always come before dynamic routes so that only when there
-        // is no static route match, Angular will start looking for dynamic route matches,
-        // otherwise the static route path will be mistaken as a path param as there will
-        // always be a match (in this case, `new` could be taken as the `:recipe-id` param).
-        { path: ':recipe-id',
-          canActivate: [IsValidRecipeIdGuard],
-          children: [
-            { path: '', component: RecipeDetailComponent },
-            { path: 'edit', component: RecipeEditComponent }
-        ] },
-    ] },
+    { 
+        path: 'recipes',
+        canActivate: [ authGuard ],
+        component: RecipesComponent,
+        resolve: { _loadRecipesOnBoot: loadRecipesResolver },
+        children: [
+            { 
+                path: '', component: PlaceholderComponent, 
+                data: { message: "Click on a recipe to have its details displayed here" }
+            },
+            { path: 'new', component: RecipeEditComponent },
+            // static routes must always come before dynamic routes so that only when there
+            // is no static route match, Angular will start looking for dynamic route matches,
+            // otherwise the static route path will be mistaken as a path param as there will
+            // always be a match (in this case, `new` could be taken as the `:recipe-id` param).
+            {   
+                path: ':recipe-id',
+                canActivate: [ IsValidRecipeIdGuard ],
+                children: [
+                    { path: '', component: RecipeDetailComponent },
+                    { path: 'edit', component: RecipeEditComponent }
+                ] 
+            },
+        ] 
+    },
     { path: 'shoppingList', component: ShoppingListComponent },
     { path: 'auth', component: AuthComponent },
 ];
