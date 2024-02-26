@@ -38,7 +38,7 @@ const routes: Routes = [
         ] 
     },
     { path: 'shoppingList', component: ShoppingListComponent },
-    { path: 'auth', component: AuthComponent },
+    { path: 'auth', component: AuthComponent, canActivate: [() => {console.log("GUARDA: canActivate de '/auth' rodou: ", Date.now())}] },
 ];
 
 @NgModule({
