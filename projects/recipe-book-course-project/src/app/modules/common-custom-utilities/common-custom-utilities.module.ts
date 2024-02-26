@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import { PlaceholderComponent } from './placeholder/placeholder.component'
+import { PlaceholderComponent } from './placeholder/placeholder.component';
 
 import { ObjectEntriesPipe } from './pipes/object-entries.pipe';
 import { ObjectKeysPipe } from './pipes/object-keys.pipe';
@@ -28,4 +28,8 @@ import { DropdownDirective } from './directives/dropdown.directive';
 		DropdownDirective,
 	]
 })
-export class CommonCustomUtilitiesModule { }
+export class CommonCustomUtilitiesModule {
+    constructor() {
+        console.log("MODULE: CommonCustomUtilitiesModule foi construído: ", Date.now())
+    }
+}

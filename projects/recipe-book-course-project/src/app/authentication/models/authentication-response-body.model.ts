@@ -1,3 +1,5 @@
+console.log("MODEL: authentication-response-body.model.ts roudou: ", Date.now())
+
 export type AuthenticationResponseBody = {
     "idToken": string,
     "email": string,

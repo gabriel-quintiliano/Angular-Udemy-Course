@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./loading-spinner.component.css']
 })
 export class LoadingSpinnerComponent {
+    constructor() {
+        console.log("COMPONENT: LoadingSpinnerComponentS foi construído: ", Date.now())
+    }
 
+    ngOnInit() {
+        console.log("ngOnInit: LoadingSpinnerComponentS rodou ngOnInit(): ", Date.now())
+    }
 }

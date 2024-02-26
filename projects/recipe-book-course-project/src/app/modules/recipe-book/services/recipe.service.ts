@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Recipe } from '../models/recipe.model';
+import { Subject } from 'rxjs';
 import { Ingredient } from '../../shopping-list/models/ingredient.model';
 import { ShoppingListService } from '../../shopping-list/services/shopping-list.service';
-import { Subject } from 'rxjs';
+import { Recipe } from '../models/recipe.model';
 
 @Injectable({
 	providedIn: 'root'
@@ -15,7 +15,10 @@ export class RecipeService {
     }
     recipes: Recipe[] = [];
 
-    constructor(private shoppingListService: ShoppingListService) {}
+    constructor(private shoppingListService: ShoppingListService) {
+        console.log("SERVICE: RecipeService foi construído: ", Date.now())
+        console.log("RecipeService usa o shoppingListService internamente")
+    }
 
     // As we started dealing with http request, now we'll get recipes data from the
     // Firebase Realtime Database.

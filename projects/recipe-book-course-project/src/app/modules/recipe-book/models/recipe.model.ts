@@ -1,3 +1,5 @@
+console.log("MODEL: recipe.model.ts roudou: ", Date.now())
+
 import { Ingredient } from "../../shopping-list/models/ingredient.model";
 
 export class Recipe {

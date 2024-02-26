@@ -1,3 +1,5 @@
+console.log("MODEL: user.model.ts roudou: ", Date.now())
+
 /* A user token and token expiration date should be private, so no other
  * part of the code can mess with that directly. Intead, it should be
  * accessable via a getter that will ensure it's still a valid token. */

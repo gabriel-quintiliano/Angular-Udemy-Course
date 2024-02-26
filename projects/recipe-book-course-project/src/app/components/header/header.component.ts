@@ -1,3 +1,5 @@
+console.log("FILE: header.component.ts roudou: ", Date.now())
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -17,9 +19,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
         private dataStorageService: DataStorageService,
         private authService: AuthService,
         private router: Router
-    ) {}
-
+    ) {
+        console.log("COMPONENT: HeaderComponent foi construído: ", Date.now())
+    }
+    
     ngOnInit() {
+        console.log("ngOnInit: HeaderComponent rodou ngOnInit(): ", Date.now())
         this.userSub = this.authService.user.subscribe((authUser) => {
             // The core idea is that if we have a authenticated user,
             // authUser = `User` object, otherwise authUser = `null`

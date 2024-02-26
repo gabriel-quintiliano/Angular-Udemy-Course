@@ -21,7 +21,14 @@ export class AuthComponent {
 
     constructor(private nnfb: NonNullableFormBuilder,
                 private authService: AuthService,
-                private router: Router) { }
+                private router: Router
+    ) {
+        console.log("COMPONENT: AuthComponent foi construído: ", Date.now())
+    }
+    
+    ngOnInit() {
+        console.log("ngOnInit: AuthComponent rodou ngOnInit(): ", Date.now())
+    }
 
     onSwitchMode() {
         // reverses the previously stored boolean value;

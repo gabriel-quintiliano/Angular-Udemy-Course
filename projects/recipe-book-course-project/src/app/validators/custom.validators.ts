@@ -2,6 +2,10 @@ import { ValidatorFn } from "@angular/forms";
 
 export class CustomValidators {
 
+    constructor() {
+        console.log("VALIDATOR: CustomValidators foi construído: ", Date.now())
+    }
+
     /* I think this is necessary because eventhough in `<input type="number">` Angular will
      * automatically convert the inputted value to a number, there case whose conversion will
      * result in `NaN` or for incorrectly inputted cientific notations (e.g. 4e or +4e2), the

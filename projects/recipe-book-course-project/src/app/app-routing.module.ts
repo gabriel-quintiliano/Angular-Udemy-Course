@@ -49,4 +49,8 @@ const routes: Routes = [
         RouterModule
     ]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+    constructor() {
+        console.log("MODULE: AppRoutingModule foi construído: ", Date.now())
+    }
+ }

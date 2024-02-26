@@ -1,3 +1,5 @@
+console.log("MODEL: ingredient.model.ts roudou: ", Date.now())
+
 export class Ingredient {
 	constructor(
 		public name: string,

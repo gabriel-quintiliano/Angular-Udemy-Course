@@ -1,3 +1,5 @@
+console.log("FILE: app.module.ts rodou: ", Date.now())
+
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -40,4 +42,8 @@ import { RecipesComponent } from './components/recipes/recipes.component';
     ],
 	bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+    constructor(){
+        console.log("MODULE: AppModule foi construído: ", Date.now())
+    }
+ }

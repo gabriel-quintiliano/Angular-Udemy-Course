@@ -4,4 +4,12 @@ import { Component } from '@angular/core';
 	templateUrl: './recipes.component.html',
 	styleUrls: ['./recipes.component.css']
 })
-export class RecipesComponent { }
+export class RecipesComponent {
+    constructor() {
+        console.log("RecipeComponent (AppModule) foi construído: ", Date.now())
+    }
+    
+    ngOnInit() {
+        console.log("RecipeComponent (AppModule) rodou ngOnInit(): ", Date.now())
+    }
+ }

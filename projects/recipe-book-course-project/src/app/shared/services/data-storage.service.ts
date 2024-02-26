@@ -14,7 +14,9 @@ export class DataStorageService {
         private http: HttpClient,
         private recipeService: RecipeService,
         private authService: AuthService,
-    ) { }
+    ) {
+        console.log("SERVICE: DataStorageService foi construído: ", Date.now())
+     }
 
     storeRecipes() {
         const recipes = this.recipeService.getRecipes();

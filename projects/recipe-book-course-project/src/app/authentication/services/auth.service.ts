@@ -19,7 +19,9 @@ export class AuthService {
     constructor(
         private http: HttpClient,
         private router: Router,    
-    ) { }
+    ) {
+        console.log("SERVICE: AuthService foi construído: ", Date.now())
+    }
 
     signup(email: string, password: string) {
         return this.http.post<AuthenticationResponseBody>(

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
-import { Ingredient, unitsOfMeasure } from '../../../shopping-list/models/ingredient.model';
 import { FormArray, FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { RecipeService } from '../../services/recipe.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CustomValidators } from 'projects/recipe-book-course-project/src/app/validators/custom.validators';
+import { Ingredient, unitsOfMeasure } from '../../../shopping-list/models/ingredient.model';
 import { Recipe } from '../../models/recipe.model';
+import { RecipeService } from '../../services/recipe.service';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -28,9 +28,12 @@ export class RecipeEditComponent implements OnInit {
     constructor(private route: ActivatedRoute,
                 private router: Router,
                 private recipeService: RecipeService,
-                private nnfb: NonNullableFormBuilder) {}
-
+                private nnfb: NonNullableFormBuilder) {
+                    console.log("COMPONENT: RecipeEditComponent foi construído: ", Date.now())
+                }
+                
     ngOnInit(): void {
+        console.log("ngOnInit: RecipeEditComponent rodou ngOnInit(): ", Date.now())
         this.route.params.subscribe((params: Params) => {
             // yes, there should be a futher verification here if when recipeId is
             // not undefined, it's really a number or NaN; or run a guard before

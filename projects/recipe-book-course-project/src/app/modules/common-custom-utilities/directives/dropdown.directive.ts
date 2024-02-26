@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer2, HostListener, HostBinding } from '@angular/core';
+import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
 
 @Directive({
 	selector: '[appDropdown]'
@@ -10,9 +10,12 @@ export class DropdownDirective {
 	// element to build this property out of, an error will be thrown in ngOnInit()
 	dropdownMenuContainer!: ElementRef;
 
-	constructor(private elem: ElementRef<HTMLElement>, private renderer: Renderer2) { }
-
+	constructor(private elem: ElementRef<HTMLElement>, private renderer: Renderer2) {
+        console.log("DropdownDirective foi construído: ", Date.now())
+    }
+    
 	ngOnInit() {
+        console.log("DropdownDirective rodou ngOnInit(): ", Date.now())
 		const elemChildren = Array.from(this.elem.nativeElement.children) as Array<HTMLElement>;
 		const dropdownMenuFromDom = elemChildren.find(el => el.classList.contains("dropdown-menu"));
 
