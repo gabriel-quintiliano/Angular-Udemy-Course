@@ -1,3 +1,4 @@
+console.log("FILE: auth.interceptor.ts rodou: ", Date.now())
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, exhaustMap, take } from 'rxjs';

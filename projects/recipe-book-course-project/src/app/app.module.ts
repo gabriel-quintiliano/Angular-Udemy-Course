@@ -26,12 +26,12 @@ import { RecipesComponent } from './components/recipes/recipes.component';
 	],
 	imports: [
 		BrowserModule,
-        AppRoutingModule,
 		RecipeBookModule,
 		ShoppingListModule,
 		CommonCustomUtilitiesModule,
         HttpClientModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        AppRoutingModule,
 	],
 	providers: [
         {

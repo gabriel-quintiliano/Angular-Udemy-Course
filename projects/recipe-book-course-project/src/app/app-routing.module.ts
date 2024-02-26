@@ -1,3 +1,4 @@
+console.log("FILE: app-routing.module.ts rodou: ", Date.now())
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './authentication/components/auth/auth.component';
