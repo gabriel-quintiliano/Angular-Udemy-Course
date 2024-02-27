@@ -39,7 +39,12 @@ const routes: Routes = [
         ] 
     },
     { path: 'shoppingList', component: ShoppingListComponent },
-    { path: 'auth', component: AuthComponent, canActivate: [() => {console.log("GUARDA: canActivate de '/auth' rodou: ", Date.now())}] },
+    { 
+        path: 'auth', component: AuthComponent, 
+        resolve: {_: () => {console.log("RESOLVER: função resolver '/auth' rodou: ", Date.now())}},
+        canMatch: [() => {console.log("GUARD - canMatch de '/auth' rodou: ", Date.now()); return true}],
+        canActivate: [() => {console.log("GUARDA - canActivate de '/auth' rodou: ", Date.now())}]
+    },
 ];
 
 @NgModule({

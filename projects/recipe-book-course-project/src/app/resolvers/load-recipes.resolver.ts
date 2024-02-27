@@ -13,6 +13,7 @@ import { DataStorageService } from '../shared/services/data-storage.service';
  * RecipesComponent... */
 
 export const loadRecipesResolver: ResolveFn<boolean> = (route, state) => {
+    console.log("RESOLVER: a função loadRecipesResolver rodou")
     const recipeService = inject(RecipeService);
     const dataStorageService = inject(DataStorageService);
     
