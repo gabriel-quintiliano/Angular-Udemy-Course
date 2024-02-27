@@ -1,7 +1,6 @@
 console.log("FILE: header.component.ts roudou: ", Date.now())
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../authentication/services/auth.service';
 import { DataStorageService } from '../../shared/services/data-storage.service';
@@ -18,7 +17,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     constructor(
         private dataStorageService: DataStorageService,
         private authService: AuthService,
-        private router: Router
     ) {
         console.log("COMPONENT: HeaderComponent foi construído: ", Date.now())
     }
@@ -39,6 +37,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
             //     this.authenticated = false;
             // }
         })
+    }
+
+    ngAfterViewInit(): void {
+        console.log("ngAfterViewInit: HeaderComponent rodou ngOnInit(): ", Date.now())
+    }
+
+    ngAfterViewChecked(): void {
+        console.log("ngAfterViewChecked: HeaderComponent rodou ngOnInit(): ", Date.now())
     }
 
     onLogout() {

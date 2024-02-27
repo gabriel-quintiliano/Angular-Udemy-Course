@@ -1,3 +1,4 @@
+console.log("FILE: placeholder.component.ts rodou: ", Date.now())
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 

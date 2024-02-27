@@ -1,7 +1,9 @@
-import { Component, Input } from '@angular/core';
-import { Recipe } from '../../models/recipe.model'
-import { RecipeService } from '../../services/recipe.service';
+console.log("FILE: recipe-detail.component.ts rodou: ", Date.now())
+
+import { Component } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Recipe } from '../../models/recipe.model';
+import { RecipeService } from '../../services/recipe.service';
 
 @Component({
 	selector: 'app-recipe-detail',
@@ -14,9 +16,13 @@ export class RecipeDetailComponent {
 
     constructor( private recipeService: RecipeService,
                  private route: ActivatedRoute,
-                 private router: Router ) {}
+                 private router: Router
+    ) {
+        console.log("COMPONENT: RecipeDetailComponent foi construído: ", Date.now())
+    }
 
     ngOnInit() {
+        console.log("ngOnInit: RecipeDetailComponent rodou ngonInit: ", Date.now())
         // Meanwhile it's this component is being loaded by a route with no guards,
         // thus the user could really pass an id that doesn't exist, but later it
         // will be properly fixed

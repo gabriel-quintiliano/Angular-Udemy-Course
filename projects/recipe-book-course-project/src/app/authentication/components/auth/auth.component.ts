@@ -32,6 +32,14 @@ export class AuthComponent {
         console.log("ngOnInit: AuthComponent rodou ngOnInit(): ", Date.now())
     }
 
+    ngAfterViewInit(): void {
+        console.log("ngAfterViewInit: AuthComponent rodou ngOnInit(): ", Date.now())
+    }
+
+    ngAfterViewChecked(): void {
+        console.log("ngAfterViewChecked: AuthComponent rodou ngOnInit(): ", Date.now())
+    }
+
     onSwitchMode() {
         // reverses the previously stored boolean value;
         this.loginMode = !this.loginMode;

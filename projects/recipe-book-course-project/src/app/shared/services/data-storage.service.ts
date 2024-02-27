@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { AuthService } from '../../authentication/services/auth.service';
 import { Recipe } from '../../modules/recipe-book/models/recipe.model';
 import { RecipeService } from '../../modules/recipe-book/services/recipe.service';
 
@@ -13,7 +12,6 @@ export class DataStorageService {
     constructor(
         private http: HttpClient,
         private recipeService: RecipeService,
-        private authService: AuthService,
     ) {
         console.log("SERVICE: DataStorageService foi construído: ", Date.now())
      }

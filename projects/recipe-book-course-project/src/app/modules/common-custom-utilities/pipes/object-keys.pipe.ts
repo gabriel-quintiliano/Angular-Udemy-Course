@@ -1,3 +1,5 @@
+console.log("FILE: object-keys.pipe.ts rodou: ", Date.now())
+
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
@@ -7,7 +9,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ObjectKeysPipe implements PipeTransform {
 
     constructor() {
-        console.log("ObjectKeysPipe foi construído: ", Date.now())
+        console.log("PIPE: ObjectKeysPipe foi construído: ", Date.now())
     }
 
 	transform(value: Object): string[] {

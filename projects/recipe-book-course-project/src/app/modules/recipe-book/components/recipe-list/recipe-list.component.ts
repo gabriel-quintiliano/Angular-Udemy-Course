@@ -1,3 +1,5 @@
+console.log("FILE: recipe-list.component.ts rodou: ", Date.now())
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Recipe } from '../../models/recipe.model';

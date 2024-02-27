@@ -11,11 +11,11 @@ export class DropdownDirective {
 	dropdownMenuContainer!: ElementRef;
 
 	constructor(private elem: ElementRef<HTMLElement>, private renderer: Renderer2) {
-        console.log("DropdownDirective foi construído: ", Date.now())
+        console.log("DIRETIVA: DropdownDirective foi construído: ", Date.now())
     }
     
 	ngOnInit() {
-        console.log("DropdownDirective rodou ngOnInit(): ", Date.now())
+        console.log("ngOnInit: DropdownDirective rodou ngOnInit(): ", Date.now())
 		const elemChildren = Array.from(this.elem.nativeElement.children) as Array<HTMLElement>;
 		const dropdownMenuFromDom = elemChildren.find(el => el.classList.contains("dropdown-menu"));
 

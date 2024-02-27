@@ -15,25 +15,27 @@ import { LoadingSpinnerComponent } from './authentication/components/loading-spi
 import { AuthInterceptor } from './authentication/interceptors/auth.interceptor';
 import { HeaderComponent } from './components/header/header.component';
 import { RecipesComponent } from './components/recipes/recipes.component';
+import { UnsuedService } from './services/unsued.service';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		HeaderComponent,
 		RecipesComponent,
-  AuthComponent,
-  LoadingSpinnerComponent,
+        AuthComponent,
+        LoadingSpinnerComponent,
 	],
 	imports: [
 		BrowserModule,
 		RecipeBookModule,
 		ShoppingListModule,
-		CommonCustomUtilitiesModule,
         HttpClientModule,
         ReactiveFormsModule,
         AppRoutingModule,
+		CommonCustomUtilitiesModule,
 	],
 	providers: [
+        UnsuedService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,

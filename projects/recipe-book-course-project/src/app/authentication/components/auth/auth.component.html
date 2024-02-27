@@ -1,3 +1,4 @@
+<script>console.log("TEMPLATE: AuthComponent inicio: ", Date.now())</script>
 <div
     [ngClass]="{'blur_it': isLoading}"
     class="row justify-content-center">
@@ -32,4 +33,5 @@
 
 <!-- This is initially a hidden component that will only show up when a request
      has been sent to backend and we're still waiting for the response. -->
+<script>console.log("TEMPLATE: AuthComponent antes de <app-loading-spinner>: ", Date.now())</script>
 <app-loading-spinner [ngClass]="[isLoading ? 'overlay' : 'hide']"></app-loading-spinner>
