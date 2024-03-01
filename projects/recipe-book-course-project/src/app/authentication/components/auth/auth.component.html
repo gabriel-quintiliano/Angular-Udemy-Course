@@ -2,11 +2,11 @@
     [ngClass]="{'blur_it': isLoading}"
     class="row justify-content-center">
     <div class="col-md-9 col-lg-7 col-xl-6 col-xxl-5">
-        <div
+        <!-- <div
             *ngIf="error"
             class="alert alert-danger">
             {{ error }}
-        </div>
+        </div> -->
         <h2 class="my-5 text-center">{{ loginMode ? 'Login' : 'Sign up' }}</h2>
         <form [formGroup]="userDataForm" (ngSubmit)="onSubmit()">
             <div class="form-group mb-3">
@@ -33,3 +33,8 @@
 <!-- This is initially a hidden component that will only show up when a request
      has been sent to backend and we're still waiting for the response. -->
 <app-loading-spinner [ngClass]="[isLoading ? 'overlay' : 'hide']"></app-loading-spinner>
+
+<!-- This component is here in the end to make sure it overlays the components
+     declared earlier without having to deal with `z-index` css property
+     (so far at least...) -->
+<app-alert [message]="error" *ngIf="error"></app-alert>
