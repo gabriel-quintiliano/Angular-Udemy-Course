@@ -13,6 +13,7 @@ import { LoadingSpinnerComponent } from './authentication/components/loading-spi
 import { AuthInterceptor } from './authentication/interceptors/auth.interceptor';
 import { HeaderComponent } from './components/header/header.component';
 import { RecipesComponent } from './components/recipes/recipes.component';
+import { AlertComponent } from './shared/components/alert/alert.component';
 
 @NgModule({
 	declarations: [
@@ -21,6 +22,7 @@ import { RecipesComponent } from './components/recipes/recipes.component';
 		RecipesComponent,
   AuthComponent,
   LoadingSpinnerComponent,
+  AlertComponent,
 	],
 	imports: [
 		BrowserModule,
