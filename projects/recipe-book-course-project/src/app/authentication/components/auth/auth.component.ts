@@ -60,4 +60,8 @@ export class AuthComponent {
 
         this.userDataForm.reset();
     }
+
+    onHandleError() {
+        this.error = null;
+    }
 }

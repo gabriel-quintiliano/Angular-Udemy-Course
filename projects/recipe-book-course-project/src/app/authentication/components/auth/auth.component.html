@@ -37,4 +37,4 @@
 <!-- This component is here in the end to make sure it overlays the components
      declared earlier without having to deal with `z-index` css property
      (so far at least...) -->
-<app-alert [message]="error" *ngIf="error"></app-alert>
+<app-alert [message]="error" *ngIf="error" (close)="onHandleError()"></app-alert>
