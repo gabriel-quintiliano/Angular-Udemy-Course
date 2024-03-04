@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, ViewContainerRef } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { AlertComponent } from '../../../shared/components/alert/alert.component';
 import { AuthenticationResponseBody } from '../../models/authentication-response-body.model';
 import { AuthService } from '../../services/auth.service';
 
@@ -10,7 +11,7 @@ import { AuthService } from '../../services/auth.service';
     templateUrl: './auth.component.html',
     styleUrls: ['./auth.component.css']
 })
-export class AuthComponent {
+export class AuthComponent implements OnDestroy {
     loginMode = true;
     isLoading = false;
     error: null | string = null;
@@ -18,10 +19,14 @@ export class AuthComponent {
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6)]],
     })
+    alertModalSub: Subscription | null = null;
 
-    constructor(private nnfb: NonNullableFormBuilder,
-                private authService: AuthService,
-                private router: Router) { }
+    constructor(
+        private nnfb: NonNullableFormBuilder,
+        private authService: AuthService,
+        private router: Router,
+        private vcRef: ViewContainerRef,
+    ) { }
 
     onSwitchMode() {
         // reverses the previously stored boolean value;
@@ -53,7 +58,8 @@ export class AuthComponent {
                 this.router.navigate(['/recipes']);
             },
             error: (errorMessage: string) => {
-                this.error = errorMessage
+                this.error = errorMessage;
+                this.showErrorAlert(errorMessage);
                 this.isLoading = false;
             }
         })
@@ -63,5 +69,29 @@ export class AuthComponent {
 
     onHandleError() {
         this.error = null;
+    }
+
+    private showErrorAlert(message: string) {
+        this.vcRef.clear(); // clear all views previously attatched to the view container.
+        // Creates and attaches to vc a AlertComponent, this method returns a ComponentRef
+        // of the component created
+        const alertCompRef = this.vcRef.createComponent(AlertComponent);
+        // From the ComponentRef returned above, gets the actual component instance created
+        // this is the one whose view will appear in the screen of the user.
+        const alertComp = alertCompRef.instance;
+
+        // Sets the message prop. of the AlertComponent create
+        alertComp.message = message;
+        // Sets the message prop. of the AlertComponent create
+        this.alertModalSub = alertComp.close.subscribe(() => {
+            // As soon as a value is emitted by the close EventEmitter, unsubs this observer
+            // and clear the view container (i.e. destroys the modal AlertComponent)
+            this.alertModalSub?.unsubscribe();
+            this.vcRef.clear();
+        })
+    }
+
+    ngOnDestroy() {
+        this.alertModalSub?.unsubscribe();
     }
 }

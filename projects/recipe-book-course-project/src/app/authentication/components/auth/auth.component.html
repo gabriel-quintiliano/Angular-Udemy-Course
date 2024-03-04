@@ -36,5 +36,7 @@
 
 <!-- This component is here in the end to make sure it overlays the components
      declared earlier without having to deal with `z-index` css property
-     (so far at least...) -->
-<app-alert [message]="error" *ngIf="error" (close)="onHandleError()"></app-alert>
+     (so far at least...) - the component bellow is commented out so that
+     the same dynamic behavior implemented bellow can be re-implemented in
+     an imperative way -->
+<!-- <app-alert [message]="error" *ngIf="error" (close)="onHandleError()"></app-alert> -->
