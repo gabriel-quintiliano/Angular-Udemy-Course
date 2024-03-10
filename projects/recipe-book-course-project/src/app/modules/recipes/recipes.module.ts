@@ -31,4 +31,4 @@ import { RecipesComponent } from './components/recipes/recipes.component';
 	]
 })
 
-export class RecipeBookModule { }
+export class RecipesModule { }

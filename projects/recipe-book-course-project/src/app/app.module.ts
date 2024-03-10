@@ -2,7 +2,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonCustomUtilitiesModule } from './modules/common-custom-utilities/common-custom-utilities.module';
-import { RecipeBookModule } from './modules/recipe-book/recipe-book.module';
+import { RecipesModule } from './modules/recipes/recipes.module';
 import { ShoppingListModule } from './modules/shopping-list/shopping-list.module';
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -25,7 +25,7 @@ import { AlertComponent } from './shared/components/alert/alert.component';
 	imports: [
 		BrowserModule,
     AppRoutingModule,
-		RecipeBookModule,
+		RecipesModule,
 		ShoppingListModule,
 		CommonCustomUtilitiesModule,
     HttpClientModule,
