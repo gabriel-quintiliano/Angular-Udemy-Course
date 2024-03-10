@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './authentication/components/auth/auth.component';
 import { authGuard } from './authentication/guards/auth.guard';
-import { RecipesComponent } from './components/recipes/recipes.component';
 import { IsValidRecipeIdGuard } from './guards/isValidRecipeId.guard';
 import { PlaceholderComponent } from './modules/common-custom-utilities/placeholder/placeholder.component';
 import { RecipeDetailComponent } from './modules/recipe-book/components/recipe-detail/recipe-detail.component';
 import { RecipeEditComponent } from './modules/recipe-book/components/recipe-edit/recipe-edit.component';
 import { ShoppingListComponent } from './modules/shopping-list/components/shopping-list/shopping-list.component';
 import { loadRecipesResolver } from './resolvers/load-recipes.resolver';
+import { RecipesComponent } from './modules/recipe-book/components/recipes/recipes.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/recipes', pathMatch: 'full' },

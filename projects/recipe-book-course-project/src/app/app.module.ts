@@ -12,33 +12,31 @@ import { AuthComponent } from './authentication/components/auth/auth.component';
 import { LoadingSpinnerComponent } from './authentication/components/loading-spinner/loading-spinner.component';
 import { AuthInterceptor } from './authentication/interceptors/auth.interceptor';
 import { HeaderComponent } from './components/header/header.component';
-import { RecipesComponent } from './components/recipes/recipes.component';
 import { AlertComponent } from './shared/components/alert/alert.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		HeaderComponent,
-		RecipesComponent,
-  AuthComponent,
-  LoadingSpinnerComponent,
-  AlertComponent,
+    AuthComponent,
+    LoadingSpinnerComponent,
+    AlertComponent,
 	],
 	imports: [
 		BrowserModule,
-        AppRoutingModule,
+    AppRoutingModule,
 		RecipeBookModule,
 		ShoppingListModule,
 		CommonCustomUtilitiesModule,
-        HttpClientModule,
-        ReactiveFormsModule
+    HttpClientModule,
+    ReactiveFormsModule
 	],
 	providers: [
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthInterceptor,
-            multi: true
-        }
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthInterceptor,
+        multi: true
+      }
     ],
 	bootstrap: [AppComponent]
 })
