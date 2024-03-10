@@ -1,5 +1,5 @@
 import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot, createUrlTreeFromSnapshot } from "@angular/router";
-import { RecipeService } from "../modules/recipes/services/recipe.service";
+import { RecipeService } from "../services/recipe.service";
 import { inject } from "@angular/core";
 
 export const IsValidRecipeIdGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
