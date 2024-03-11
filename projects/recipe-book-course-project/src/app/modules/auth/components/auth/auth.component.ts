@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { AuthenticationResponseBody } from '../../models/authentication-response-body.model';
 import { AuthService } from '../../services/auth.service';
-import { AlertComponent } from 'projects/recipe-book-course-project/src/app/shared/components/alert/alert.component';
+import { AlertComponent } from '../../../shared/components/alert/alert.component';
 
 @Component({
     selector: 'app-auth',

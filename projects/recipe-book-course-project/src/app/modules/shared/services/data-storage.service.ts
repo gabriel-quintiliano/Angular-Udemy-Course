@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { RecipeService } from '../../modules/recipes/services/recipe.service';
-import { Recipe } from '../../modules/recipes/models/recipe.model';
-import { AuthService } from '../../modules/auth/services/auth.service';
+import { RecipeService } from '../../../modules/recipes/services/recipe.service';
+import { Recipe } from '../../../modules/recipes/models/recipe.model';
+import { AuthService } from '../../../modules/auth/services/auth.service';
 
 @Injectable({
     providedIn: 'root'

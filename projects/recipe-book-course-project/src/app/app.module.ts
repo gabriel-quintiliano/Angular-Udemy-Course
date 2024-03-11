@@ -9,7 +9,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
-import { AlertComponent } from './shared/components/alert/alert.component';
 import { AuthModule } from './modules/auth/auth.module';
 import { AuthInterceptor } from './modules/auth/interceptors/auth.interceptor';
 
@@ -17,7 +16,6 @@ import { AuthInterceptor } from './modules/auth/interceptors/auth.interceptor';
 	declarations: [
 		AppComponent,
 		HeaderComponent,
-    AlertComponent,
 	],
 	imports: [
 		BrowserModule,

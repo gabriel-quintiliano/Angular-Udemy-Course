@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ResolveFn } from '@angular/router';
-import { DataStorageService } from '../../../shared/services/data-storage.service';
 import { RecipeService } from '../services/recipe.service';
+import { DataStorageService } from '../../shared/services/data-storage.service';
 
 /* I don't if this is a good use of a resolver as the data it resolves isn't
  * used anywhere and it mainly needs to run because of side efects, in case
