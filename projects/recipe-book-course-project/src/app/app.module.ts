@@ -22,8 +22,6 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
 		RecipesModule,
 		ShoppingListModule,
-		CommonCustomUtilitiesModule,
-    ReactiveFormsModule,
     HttpClientModule, // sets up some global services
     AuthModule,
     CoreModule
