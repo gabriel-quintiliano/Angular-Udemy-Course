@@ -8,18 +8,15 @@ import { ShoppingListModule } from './modules/shopping-list/shopping-list.module
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthComponent } from './authentication/components/auth/auth.component';
-import { LoadingSpinnerComponent } from './authentication/components/loading-spinner/loading-spinner.component';
-import { AuthInterceptor } from './authentication/interceptors/auth.interceptor';
 import { HeaderComponent } from './components/header/header.component';
 import { AlertComponent } from './shared/components/alert/alert.component';
+import { AuthModule } from './modules/auth/auth.module';
+import { AuthInterceptor } from './modules/auth/interceptors/auth.interceptor';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		HeaderComponent,
-    AuthComponent,
-    LoadingSpinnerComponent,
     AlertComponent,
 	],
 	imports: [
@@ -29,7 +26,8 @@ import { AlertComponent } from './shared/components/alert/alert.component';
 		ShoppingListModule,
 		CommonCustomUtilitiesModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AuthModule
 	],
 	providers: [
       {

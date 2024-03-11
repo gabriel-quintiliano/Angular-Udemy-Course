@@ -5,8 +5,8 @@ import { RecipeEditComponent } from "./components/recipe-edit/recipe-edit.compon
 import { RecipeDetailComponent } from "./components/recipe-detail/recipe-detail.component";
 import { IsValidRecipeIdGuard } from "./guards/isValidRecipeId.guard";
 import { loadRecipesResolver } from "./resolvers/load-recipes.resolver";
-import { authGuard } from "../../authentication/guards/auth.guard";
 import { RecipesComponent } from "./components/recipes/recipes.component";
+import { authGuard } from "../auth/guards/auth.guard";
 
 const routes: Routes = [
   { 
