@@ -4,7 +4,6 @@ import { ShoppingListComponent } from './modules/shopping-list/components/shoppi
 
 const routes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full' },
-  { path: 'shoppingList', component: ShoppingListComponent },
 ];
 
 @NgModule({
