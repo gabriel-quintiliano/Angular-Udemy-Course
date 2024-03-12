@@ -18,7 +18,7 @@ import { SharedModule } from "../shared/shared.module";
     SharedModule,
     // As this is a pretty small module, you might as well register its routes as follows:
     RouterModule.forChild([
-      { path: 'shoppingList', component: ShoppingListComponent }
+      { path: '', component: ShoppingListComponent }
     ])
 	]
 })

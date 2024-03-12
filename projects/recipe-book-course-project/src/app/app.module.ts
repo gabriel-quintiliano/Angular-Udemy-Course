@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ShoppingListModule } from './modules/shopping-list/shopping-list.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,8 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 	imports: [
 		BrowserModule,
     AppRoutingModule,
-		// RecipesModule, // this module is now lazy loaded
-		ShoppingListModule,
+		// RecipesModule, // this module is now lazy loaded by 'recipes' route
+		// ShoppingListModule, // this module is now lazy loaded by 'shoppingList' route
     HttpClientModule, // sets up some global services
     // AuthModule, // this module is now lazy loaded by 'auth' route
     CoreModule
