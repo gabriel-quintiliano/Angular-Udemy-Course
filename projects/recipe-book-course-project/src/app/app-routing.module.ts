@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full' },
@@ -13,7 +13,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  /* The `preloadingStrategy: PreloadAllModules` option to RouterModule.forRoot() is
+   * an optimization regading lazy-loaded modules as now, we'll keep the initial bundle
+   * of our app reduced in size, but as soon as this loads, all other lazy-loaded
+   * modules will be preloaded, thus when the user need to access that, there will be
+   * no delay regarding the lazy-loaded module */
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
