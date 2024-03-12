@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonCustomUtilitiesModule } from './modules/common-custom-utilities/common-custom-utilities.module';
-import { RecipesModule } from './modules/recipes/recipes.module';
 import { ShoppingListModule } from './modules/shopping-list/shopping-list.module';
 
-import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -20,7 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 	imports: [
 		BrowserModule,
     AppRoutingModule,
-		RecipesModule,
+		// RecipesModule, // this module is now lazy loaded
 		ShoppingListModule,
     HttpClientModule, // sets up some global services
     AuthModule,

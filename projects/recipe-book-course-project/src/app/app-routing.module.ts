@@ -1,9 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ShoppingListComponent } from './modules/shopping-list/components/shopping-list/shopping-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full' },
+  // { path: 'recipes', loadChildren: () => import('./modules/recipes/recipes.module').then(m => m.RecipesModule) }
+  // You can use async/await syntax to lazy load a module as well:
+  { path: 'recipes', loadChildren: async () => {
+    const m = await import('./modules/recipes/recipes.module')
+    return m.RecipesModule
+  }}
 ];
 
 @NgModule({
